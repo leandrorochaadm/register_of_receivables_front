@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class PeopleModel extends Equatable {
-  PeopleModel({
+  const PeopleModel({
     required this.id,
     required this.name,
     required this.nick,
@@ -76,18 +76,18 @@ class PeopleModel extends Equatable {
   }
 
   factory PeopleModel.fromJson(dynamic json) => PeopleModel(
-        id: json['id'],
-        name: json['name'],
-        nick: json['nick'],
-        cnpj: json['cnpj'],
-        ie: json['ie'],
-        isClient: json['is_client'],
-        isSeller: json['is_seller'],
-        phone1: json['phone1'],
-        phone2: json['phone2'],
-        phone3: json['phone3'],
-        address: json['address'],
-        obs: json['obs'],
+        id: json['id'] ?? 0,
+        name: json['name'] ?? '',
+        nick: json['nick'] ?? '',
+        cnpj: json['cnpj'] ?? '',
+        ie: json['ie'] ?? '',
+        isClient: json['is_client'] ?? 0,
+        isSeller: json['is_seller'] ?? 0,
+        phone1: json['phone1'] ?? '',
+        phone2: json['phone2'] ?? '',
+        phone3: json['phone3'] ?? '',
+        address: json['address'] ?? '',
+        obs: json['obs'] ?? '',
       );
 
   @override
