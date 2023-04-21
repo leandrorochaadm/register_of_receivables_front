@@ -13,8 +13,16 @@ class PeopleBloc extends Bloc<PeopleEvent, PeopleState> {
   }
 
   Future<void> _getAll(GetPeoplesEvent event, Emitter<PeopleState> emit) async {
-    final getPeople = GetPeople();
-    final list = await getPeople.call();
-    emit(PeopleState(allPeople: list));
+    try {
+      final list = await GetPeople().call();
+      if (list.isNotEmpty) {
+        emit(PeopleState(allPeople: list));
+      } else {
+        emit(PeopleState(messageError: 'Não há clientes cadastrados'));
+      }
+    } catch (e) {
+      emit(PeopleState(
+          messageError: 'Não foi possível conectar no banco de dados'));
+    }
   }
 }

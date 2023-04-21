@@ -11,10 +11,14 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  // PeopleBloc()..add(const GetPeoplesEvent(),
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PeopleBloc()..add(const GetPeoplesEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => PeopleBloc()..add(const GetPeoplesEvent())),
+      ],
       child: MaterialApp(
         title: 'Cadastro de Recebíveis',
         debugShowCheckedModeBanner: false,

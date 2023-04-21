@@ -15,17 +15,24 @@ class PeopleListPage extends StatelessWidget {
             title: const Text('Listagem de Clientes'),
             centerTitle: true,
           ),
-          body: ListView.builder(
-            itemCount: list.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final people = list[index];
-              return ListTile(
-                title: Text(people.name),
-                subtitle: Text(people.nick),
-              );
-            },
-          ),
+          body: list.isNotEmpty
+              ? ListView.builder(
+                  itemCount: list.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final people = list[index];
+                    return ListTile(
+                      title: Text(people.name),
+                      subtitle: Text(people.nick),
+                    );
+                  },
+                )
+              : Center(
+                  child: Text(
+                    state.messageError,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                ),
         );
       },
     );
