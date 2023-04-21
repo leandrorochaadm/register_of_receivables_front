@@ -69,7 +69,8 @@ class PeopleTableWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 12),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () =>
+                              Navigator.pushNamed(context, "/people_form"),
                           icon: const Icon(
                             Icons.edit,
                             color: Colors.grey,

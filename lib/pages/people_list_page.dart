@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:register_of_receivables_front/pages/bloc/people_bloc.dart';
 
+import 'bloc/people_bloc.dart';
 import 'widgets/widgets.dart';
 
 class PeopleListPage extends StatelessWidget {
