@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class BasePageWidget extends StatefulWidget {
   final List<Widget> children;
   final String title;
+  final FloatingActionButton? floatingActionButton;
+
   const BasePageWidget({
     Key? key,
     required this.title,
     required this.children,
+    this.floatingActionButton,
   }) : super(key: key);
 
   @override
@@ -18,6 +21,7 @@ class _BasePageWidgetState extends State<BasePageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[100],
+      floatingActionButton: widget.floatingActionButton,
       body: Container(
         margin: const EdgeInsets.all(24),
         child: Column(

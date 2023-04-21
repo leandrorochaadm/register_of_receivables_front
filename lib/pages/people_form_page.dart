@@ -4,6 +4,7 @@ import 'package:register_of_receivables_front/pages/widgets/base_page_widget.dar
 class PeopleFormPage extends StatefulWidget {
   PeopleFormPage({Key? key}) : super(key: key);
   List<bool> PeopleSelectedType = <bool>[true, false];
+  final formKey = GlobalKey<FormState>();
 
   @override
   State<PeopleFormPage> createState() => _PeopleFormPageState();
@@ -14,6 +15,17 @@ class _PeopleFormPageState extends State<PeopleFormPage> {
   Widget build(BuildContext context) {
     return BasePageWidget(
       title: "Cadastro de Clientes e Vendedores",
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.save),
+        tooltip: 'Salvar',
+        onPressed: () {
+          if (widget.formKey.currentState!.validate()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Processing Data')),
+            );
+          }
+        },
+      ),
       children: [
         Form(
           child: SizedBox(
