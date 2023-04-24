@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:register_of_receivables_front/pages/bloc/people_bloc.dart';
 import 'package:register_of_receivables_front/pages/people_form_page.dart';
 
+import 'core/core.dart';
 import 'pages/people_list_page.dart';
 
 void main() {
@@ -12,14 +11,9 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // PeopleBloc()..add(const GetPeoplesEvent(),
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) => PeopleBloc()..add(const GetPeoplesEvent())),
-      ],
+    return ApplicationBinding(
       child: MaterialApp(
         title: 'Cadastro de Recebíveis',
         debugShowCheckedModeBanner: false,
