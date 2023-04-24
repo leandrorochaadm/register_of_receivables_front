@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/people_bloc.dart';
-import 'widgets/widgets.dart';
+import '../bloc/people_bloc.dart';
+import '../widgets/widgets.dart';
 
 class PeopleListPage extends StatelessWidget {
   const PeopleListPage({Key? key}) : super(key: key);

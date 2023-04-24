@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:register_of_receivables_front/pages/widgets/base_page_widget.dart';
+
+import '../widgets/widgets.dart';
 
 class PeopleFormPage extends StatefulWidget {
   PeopleFormPage({Key? key}) : super(key: key);
@@ -19,11 +20,8 @@ class _PeopleFormPageState extends State<PeopleFormPage> {
         child: const Icon(Icons.save),
         tooltip: 'Salvar',
         onPressed: () {
-          if (widget.formKey.currentState!.validate()) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Processing Data')),
-            );
-          }
+          if (widget.formKey.currentState!.validate()) {}
+          Navigator.pop(context);
         },
       ),
       children: [
