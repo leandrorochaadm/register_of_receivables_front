@@ -18,10 +18,10 @@ class PeopleListController extends Cubit<PeopleListState> {
       emit(state.copyWith(
           status: PeopleListStateStatus.loaded, peoples: peoples));
     } catch (e, s) {
-      log('Erro ao buscar as pessoas', error: e, stackTrace: s);
+      log('Erro ao buscar os clientes e vendedores', error: e, stackTrace: s);
       emit(state.copyWith(
         status: PeopleListStateStatus.error,
-        errorMessage: 'Erro ao buscar as pessoas',
+        errorMessage: 'Erro ao buscar os clientes e vendedores',
       ));
     }
   }
