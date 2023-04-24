@@ -17,8 +17,7 @@ class PeopleListRouter {
                   ApiGetPeoples(dio: context.read<CustomDio>())),
           Provider(
               create: (context) =>
-                  PeopleListController(getPeople: context.read<GetPeople>())
-                    ..loadPeoples())
+                  PeopleListController(getPeople: context.read<GetPeople>()))
         ],
         child: const PeopleListPage(),
       );

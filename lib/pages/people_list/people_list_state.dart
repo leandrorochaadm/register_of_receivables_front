@@ -1,4 +1,10 @@
-part of 'people_list_controller.dart';
+// part of 'people_list_controller.dart';
+import 'package:equatable/equatable.dart';
+import 'package:match/match.dart';
+
+import '../../data/models/models.dart';
+
+part 'people_list_state.g.dart';
 
 @match
 enum PeopleListStateStatus {
