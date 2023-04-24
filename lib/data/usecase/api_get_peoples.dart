@@ -1,15 +1,18 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:register_of_receivables_front/core/core.dart';
-import 'package:register_of_receivables_front/data/models/people_model.dart';
 
-class ApiGetPeoples {
+import '../../core/core.dart';
+import '../../data/models/people_model.dart';
+import '../../domain/usecases/usecases.dart';
+
+class ApiGetPeoples implements GetPeople {
   final CustomDio dio;
 
   ApiGetPeoples({required this.dio});
 
-  Future<List<PeopleModel>> call() async {
+  @override
+  Future<List<PeopleModel>> findAllPeoples() async {
     try {
       final response = await dio.get('/users');
       var list = <PeopleModel>[];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:register_of_receivables_front/pages/people_list/people_list_controller.dart';
 
-import '../bloc/people_bloc.dart';
 import '../widgets/widgets.dart';
 
 class PeopleListPage extends StatelessWidget {
@@ -9,9 +9,8 @@ class PeopleListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PeopleBloc, PeopleState>(
+    return BlocBuilder<PeopleListController, PeopleListState>(
       builder: (context, state) {
-        final list = state.allPeople;
         return Scaffold(
             backgroundColor: Colors.blue[100],
             body: Container(
@@ -31,7 +30,7 @@ class PeopleListPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 22),
-                  PeopleTableWidget(list: list),
+                  PeopleTableWidget(list: state.peoples),
                 ],
               ),
             ));
