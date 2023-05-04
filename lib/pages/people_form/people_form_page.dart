@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:register_of_receivables_front/pages/people_form/people_form_controller.dart';
+import 'package:validatorless/validatorless.dart';
 
 import '../../data/models/models.dart';
 import '../../ui/ui.dart';
@@ -30,7 +31,6 @@ class _PeopleFormPageState
   void dispose() {
     widget.formKey.currentState?.dispose();
     widget.nameEC.dispose();
-    widget.nickEC.dispose();
     widget.nickEC.dispose();
     widget.phone1EC.dispose();
     widget.phone2EC.dispose();
@@ -74,16 +74,16 @@ class _PeopleFormPageState
           if (valid) {
             print('deu certo');
             print(valid);
+            Navigator.pop(context);
           } else {
             print('não deu certo');
             print(valid);
           }
-
-          Navigator.pop(context);
         },
       ),
       children: [
         Form(
+          key: widget.formKey,
           child: SizedBox(
             width: 1300,
             child: Wrap(
@@ -106,6 +106,7 @@ class _PeopleFormPageState
                   width: 300,
                   child: TextFormField(
                     controller: widget.nameEC,
+                    validator: Validatorless.required('Nome obrigatório'),
                     decoration: const InputDecoration(
                       labelText: "Razão social / Nome",
                       hintText: "Digite a razão social ou o nome",
@@ -136,6 +137,10 @@ class _PeopleFormPageState
                   width: 183.3,
                   child: TextFormField(
                     controller: widget.phone1EC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('Telefone obrigatório'),
+                      Validatorless.min(9, 'Telefone inválido'),
+                    ]),
                     decoration: const InputDecoration(
                       labelText: "Telefone1",
                       hintText: "Digite o telefone",
