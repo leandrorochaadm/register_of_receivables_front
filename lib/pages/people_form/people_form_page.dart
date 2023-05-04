@@ -27,6 +27,24 @@ class PeopleFormPage extends StatefulWidget {
 class _PeopleFormPageState
     extends BaseState<PeopleFormPage, PeopleFormController> {
   @override
+  void dispose() {
+    widget.formKey.currentState?.dispose();
+    widget.nameEC.dispose();
+    widget.nickEC.dispose();
+    widget.nickEC.dispose();
+    widget.phone1EC.dispose();
+    widget.phone2EC.dispose();
+    widget.phone3EC.dispose();
+    widget.ieEC.dispose();
+    widget.cnpjEC.dispose();
+    widget.addressEC.dispose();
+    widget.obsEC.dispose();
+    widget.isClientEC.dispose();
+    widget.isSellerEC.dispose();
+    super.dispose();
+  }
+
+  @override
   void onReady() {
     final people = ModalRoute.of(context)!.settings.arguments as PeopleModel;
     widget.nameEC.text = people.name;
