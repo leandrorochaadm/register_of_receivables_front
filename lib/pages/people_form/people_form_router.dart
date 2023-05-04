@@ -15,9 +15,14 @@ class PeopleFormRouter {
           Provider<PostPeople>(
               create: (context) =>
                   ApiPostPeoples(dio: context.read<CustomDio>())),
-          Provider(
+          Provider<PutPeople>(
               create: (context) =>
-                  PeopleFormController(postPeople: context.read<PostPeople>())),
+                  ApiPutPeoples(dio: context.read<CustomDio>())),
+          Provider(
+              create: (context) => PeopleFormController(
+                    postPeople: context.read<PostPeople>(),
+                    putPeople: context.read<PutPeople>(),
+                  )),
         ],
         child: PeopleFormPage(),
       );

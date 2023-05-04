@@ -6,20 +6,20 @@ import '../../core/core.dart';
 import '../../data/models/people_model.dart';
 import '../../domain/usecases/usecases.dart';
 
-class ApiPostPeoples implements PostPeople {
+class ApiPutPeoples implements PutPeople {
   final CustomDio dio;
 
-  ApiPostPeoples({required this.dio});
+  ApiPutPeoples({required this.dio});
 
   @override
-  Future<bool> createPeople(PeopleModel people) async {
+  Future<bool> updatePeople(PeopleModel people) async {
     try {
-      await dio.post('/users', data: people.toJson());
+      await dio.put('/users/${people.id}', data: people.toJson());
       return true;
     } on DioError catch (e, s) {
-      log("Erro ao criar pessoa", error: e, stackTrace: s);
+      log("Erro ao atualizar pessoa", error: e, stackTrace: s);
       throw RepositoryException(
-          message: e.response?.data['error'] ?? 'Error ao registrar pessoa');
+          message: e.response?.data['error'] ?? 'Error ao atualizar pessoa');
       return false;
     }
   }
