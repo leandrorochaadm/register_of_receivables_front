@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:register_of_receivables_front/pages/people_form/people_form_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -23,6 +24,9 @@ class PeopleFormPage extends StatefulWidget {
   final obsEC = TextEditingController();
   final isClientEC = TextEditingController();
   final isSellerEC = TextEditingController();
+
+  final MaskTextInputFormatter phoneFormatter =
+      MaskTextInputFormatter(mask: '(##) #####-####');
 
   @override
   State<PeopleFormPage> createState() => _PeopleFormPageState();
@@ -202,9 +206,10 @@ class _PeopleFormPageState
                             Validatorless.required('Telefone obrigatório'),
                             Validatorless.min(9, 'Telefone inválido'),
                           ]),
+                          inputFormatters: [widget.phoneFormatter],
                           decoration: const InputDecoration(
                             labelText: "Telefone1",
-                            hintText: "Digite o telefone",
+                            hintText: "Digite o telefone (69) 99999-9999",
                           ),
                         ),
                       ),
@@ -212,6 +217,7 @@ class _PeopleFormPageState
                         width: 183.3,
                         child: TextFormField(
                           controller: widget.phone2EC,
+                          inputFormatters: [widget.phoneFormatter],
                           decoration: const InputDecoration(
                             labelText: "Telefone2",
                             hintText: "Digite o telefone",
@@ -222,6 +228,7 @@ class _PeopleFormPageState
                         width: 183.3,
                         child: TextFormField(
                           controller: widget.phone3EC,
+                          inputFormatters: [widget.phoneFormatter],
                           decoration: const InputDecoration(
                             labelText: "Telefone3",
                             hintText: "Digite o telefone",
