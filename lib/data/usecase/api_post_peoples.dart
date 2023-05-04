@@ -12,15 +12,13 @@ class ApiPostPeoples implements PostPeople {
   ApiPostPeoples({required this.dio});
 
   @override
-  Future<bool> createPeople(PeopleModel people) async {
+  Future<void> createPeople(PeopleModel people) async {
     try {
       await dio.post('/users', data: people.toJson());
-      return true;
     } on DioError catch (e, s) {
       log("Erro ao criar pessoa", error: e, stackTrace: s);
       throw RepositoryException(
           message: e.response?.data['error'] ?? 'Error ao registrar pessoa');
-      return false;
     }
   }
 }

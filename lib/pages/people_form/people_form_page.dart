@@ -95,9 +95,7 @@ class _PeopleFormPageState
               onPressed: () async {
                 final valid = widget.formKey.currentState?.validate() ?? false;
                 if (valid) {
-                  print('deu certo');
-                  print(valid);
-                  final result = await controller.registerOrUpdate(
+                  await controller.registerOrUpdate(
                     widget.idEC.text,
                     widget.nameEC.text,
                     widget.nickEC.text,
@@ -111,12 +109,6 @@ class _PeopleFormPageState
                     widget.addressEC.text,
                     widget.obsEC.text,
                   );
-                  if (result) {
-                    // Navigator.pop(context);
-                  }
-                } else {
-                  print('não deu certo');
-                  print(valid);
                 }
               },
             ),

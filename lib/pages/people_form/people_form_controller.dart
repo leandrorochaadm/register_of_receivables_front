@@ -20,7 +20,7 @@ class PeopleFormController extends Cubit<PeopleFormState> {
     emit(state.copyWith(people: people, status: PeopleFormStateStatus.loaded));
   }
 
-  Future<bool> registerOrUpdate(
+  Future<void> registerOrUpdate(
     String id,
     String name,
     String nick,
@@ -35,7 +35,6 @@ class PeopleFormController extends Cubit<PeopleFormState> {
     String obs,
   ) async {
     try {
-      bool result = false;
       emit(state.copyWith(status: PeopleFormStateStatus.register));
       final people = PeopleModel(
         id: int.parse(id),
@@ -52,22 +51,19 @@ class PeopleFormController extends Cubit<PeopleFormState> {
         obs: obs,
       );
       if (id == '0') {
-        result = await postPeople.createPeople(people);
+        await postPeople.createPeople(people);
       } else {
-        result = await putPeople.updatePeople(people);
+        await putPeople.updatePeople(people);
       }
 
       emit(state.copyWith(status: PeopleFormStateStatus.success));
-      return result;
     } on RepositoryException catch (e, s) {
       log('Erro ao registrar ou atualizar usuário', error: e, stackTrace: s);
       emit(state.copyWith(
           status: PeopleFormStateStatus.error, errorMessage: e.message));
-      return false;
     } catch (e, s) {
       log('Erro ao registrar ou atualizar usuário', error: e, stackTrace: s);
       emit(state.copyWith(status: PeopleFormStateStatus.error));
-      return false;
     }
   }
 }

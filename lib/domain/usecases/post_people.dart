@@ -1,5 +1,5 @@
 import 'package:register_of_receivables_front/data/models/models.dart';
 
 abstract class PostPeople {
-  Future<bool> createPeople(PeopleModel people);
+  Future<void> createPeople(PeopleModel people);
 }
