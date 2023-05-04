@@ -11,6 +11,7 @@ enum PeopleFormStateStatus {
   loaded,
   register,
   success,
+  deletedSuccess,
   error,
 }
 

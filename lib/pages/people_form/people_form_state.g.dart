@@ -12,6 +12,7 @@ extension PeopleFormStateStatusMatch on PeopleFormStateStatus {
       required T Function() loaded,
       required T Function() register,
       required T Function() success,
+      required T Function() deletedSuccess,
       required T Function() error}) {
     final v = this;
     if (v == PeopleFormStateStatus.initial) {
@@ -30,6 +31,10 @@ extension PeopleFormStateStatusMatch on PeopleFormStateStatus {
       return success();
     }
 
+    if (v == PeopleFormStateStatus.deletedSuccess) {
+      return deletedSuccess();
+    }
+
     if (v == PeopleFormStateStatus.error) {
       return error();
     }
@@ -44,6 +49,7 @@ extension PeopleFormStateStatusMatch on PeopleFormStateStatus {
       T Function()? loaded,
       T Function()? register,
       T Function()? success,
+      T Function()? deletedSuccess,
       T Function()? error}) {
     final v = this;
     if (v == PeopleFormStateStatus.initial && initial != null) {
@@ -60,6 +66,10 @@ extension PeopleFormStateStatusMatch on PeopleFormStateStatus {
 
     if (v == PeopleFormStateStatus.success && success != null) {
       return success();
+    }
+
+    if (v == PeopleFormStateStatus.deletedSuccess && deletedSuccess != null) {
+      return deletedSuccess();
     }
 
     if (v == PeopleFormStateStatus.error && error != null) {

@@ -75,7 +75,7 @@ class PeopleFormController extends Cubit<PeopleFormState> {
 
       await deletePeople.deletePeople(id);
 
-      emit(state.copyWith(status: PeopleFormStateStatus.success));
+      emit(state.copyWith(status: PeopleFormStateStatus.deletedSuccess));
     } on RepositoryException catch (e, s) {
       log('Erro ao excluir pessoa', error: e, stackTrace: s);
       emit(state.copyWith(
