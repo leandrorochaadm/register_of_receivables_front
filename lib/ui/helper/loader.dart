@@ -11,7 +11,7 @@ mixin Loader<T extends StatefulWidget> on State<T> {
         context: context,
         builder: (context) {
           return LoadingAnimationWidget.threeArchedCircle(
-            color: Colors.white,
+            color: Colors.blue,
             size: 60,
           );
         },
