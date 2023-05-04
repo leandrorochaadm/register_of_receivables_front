@@ -18,20 +18,21 @@ class PeopleListState extends Equatable {
   final PeopleListStateStatus status;
   final List<PeopleModel> peoples;
   final String? errorMessage;
-  final PeopleModel peopleEditing;
+
+  // final PeopleModel peopleEditing;
 
   const PeopleListState({
     required this.peoples,
     this.errorMessage,
     required this.status,
-    required this.peopleEditing,
+    // required this.peopleEditing,
   });
 
   const PeopleListState.initial()
       : status = PeopleListStateStatus.initial,
         peoples = const [],
-        errorMessage = null,
-        peopleEditing = const PeopleModel(
+        errorMessage = null;
+/*        peopleEditing = const PeopleModel(
           id: 0,
           name: '',
           nick: '',
@@ -44,10 +45,14 @@ class PeopleListState extends Equatable {
           phone3: '',
           address: '',
           obs: '',
-        );
+        );*/
 
   @override
-  List<Object?> get props => [status, peoples, errorMessage, peopleEditing];
+  List<Object?> get props => [
+        status,
+        peoples,
+        errorMessage,
+      ];
 
   PeopleListState copyWith({
     PeopleListStateStatus? status,
@@ -59,7 +64,7 @@ class PeopleListState extends Equatable {
       status: status ?? this.status,
       peoples: peoples ?? this.peoples,
       errorMessage: errorMessage ?? this.errorMessage,
-      peopleEditing: peopleEditing ?? this.peopleEditing,
+      // peopleEditing: peopleEditing ?? this.peopleEditing,
     );
   }
 }
