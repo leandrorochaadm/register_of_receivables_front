@@ -6,8 +6,9 @@ import '../../data/models/models.dart';
 @match
 enum PeopleFormStateStatus {
   initial,
-  loading,
   loaded,
+  register,
+  success,
   error,
 }
 

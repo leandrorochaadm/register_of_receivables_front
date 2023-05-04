@@ -9,6 +9,7 @@ import '../widgets/widgets.dart';
 class PeopleFormPage extends StatefulWidget {
   PeopleFormPage({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
+  final idEC = TextEditingController();
   final nameEC = TextEditingController();
   final nickEC = TextEditingController();
   final phone1EC = TextEditingController();
@@ -30,6 +31,7 @@ class _PeopleFormPageState
   @override
   void dispose() {
     widget.formKey.currentState?.dispose();
+    widget.idEC.dispose();
     widget.nameEC.dispose();
     widget.nickEC.dispose();
     widget.phone1EC.dispose();
@@ -47,6 +49,7 @@ class _PeopleFormPageState
   @override
   void onReady() {
     final people = ModalRoute.of(context)!.settings.arguments as PeopleModel;
+    widget.idEC.text = people.id.toString();
     widget.nameEC.text = people.name;
     widget.nickEC.text = people.nick;
     widget.phone1EC.text = people.phone1;
@@ -74,6 +77,20 @@ class _PeopleFormPageState
           if (valid) {
             print('deu certo');
             print(valid);
+            controller.registerOrUpdate(
+              widget.idEC.text,
+              widget.nameEC.text,
+              widget.nickEC.text,
+              widget.cnpjEC.text,
+              widget.ieEC.text,
+              widget.isClientEC.text,
+              widget.isSellerEC.text,
+              widget.phone1EC.text,
+              widget.phone2EC.text,
+              widget.phone3EC.text,
+              widget.addressEC.text,
+              widget.obsEC.text,
+            );
             Navigator.pop(context);
           } else {
             print('não deu certo');

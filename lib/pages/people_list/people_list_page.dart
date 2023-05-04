@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:register_of_receivables_front/pages/people_list/people_list_controller.dart';
 
+import '../../data/models/models.dart';
 import '../../ui/ui.dart';
 import '../widgets/widgets.dart';
 import 'people_list_state.dart';
@@ -39,6 +40,12 @@ class _PeopleListPageState
       builder: (context, state) {
         return Scaffold(
             backgroundColor: Colors.blue[100],
+            floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/people_form',
+                      arguments: PeopleModel.empty());
+                },
+                child: const Icon(Icons.add)),
             body: Container(
               margin: const EdgeInsets.all(24),
               child: Column(
