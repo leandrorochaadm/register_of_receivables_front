@@ -1,3 +1,4 @@
+import 'package:cnpj_cpf_formatter_nullsafety/cnpj_cpf_formatter_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -122,7 +123,13 @@ class _PeopleFormPageState
               ),
               const SizedBox(width: 32),
               ElevatedButton(
-                onPressed: () => controller.delPeople(widget.idEC.text),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => Text('Dialog'),
+                  );
+                  // controller.delPeople(widget.idEC.text);
+                },
                 style:
                     ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
                 child: const Icon(
@@ -192,7 +199,18 @@ class _PeopleFormPageState
                       SizedBox(
                         width: 300,
                         child: TextFormField(
+                          /*inputFormatters: widget.cnpjEC.text.length < 11
+                              ? [widget.cpfFormatter]
+                              : [widget.cnpjFormatter],*/
+                          /*inputFormatters: [
+                            widget.cpfFormatter,
+                            widget.cnpjFormatter
+                          ],*/
+                          inputFormatters: [
+                            CnpjCpfFormatter(eDocumentType: EDocumentType.BOTH)
+                          ],
                           controller: widget.cnpjEC,
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             labelText: "CNPJ / CPF",
                             hintText: "Digite o CNPJ ou CPF",
@@ -218,6 +236,7 @@ class _PeopleFormPageState
                             Validatorless.min(9, 'Telefone inválido'),
                           ]),
                           inputFormatters: [widget.phoneFormatter],
+                          keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
                             labelText: "Telefone1",
                             hintText: "Digite o telefone (69) 99999-9999",
@@ -229,6 +248,7 @@ class _PeopleFormPageState
                         child: TextFormField(
                           controller: widget.phone2EC,
                           inputFormatters: [widget.phoneFormatter],
+                          keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
                             labelText: "Telefone2",
                             hintText: "Digite o telefone",
@@ -240,6 +260,7 @@ class _PeopleFormPageState
                         child: TextFormField(
                           controller: widget.phone3EC,
                           inputFormatters: [widget.phoneFormatter],
+                          keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
                             labelText: "Telefone3",
                             hintText: "Digite o telefone",
