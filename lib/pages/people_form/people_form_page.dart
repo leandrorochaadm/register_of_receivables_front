@@ -90,6 +90,15 @@ class _PeopleFormPageState
           return BasePageWidget(
             title: "Cadastro de Clientes e Vendedores",
             widgets: [
+              ElevatedButton(
+                onPressed: () => controller.delPeople(widget.idEC.text),
+                style:
+                    ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+              ),
               const SizedBox(width: 32),
               ElevatedButton(
                 onPressed: () async {
@@ -112,6 +121,8 @@ class _PeopleFormPageState
                     );
                   }
                 },
+                style:
+                    ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
                 child: const Icon(Icons.save),
               )
             ],

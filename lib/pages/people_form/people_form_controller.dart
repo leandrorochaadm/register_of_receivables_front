@@ -10,10 +10,12 @@ import '../../domain/usecases/usecases.dart';
 class PeopleFormController extends Cubit<PeopleFormState> {
   final PostPeople postPeople;
   final PutPeople putPeople;
+  final DeletePeople deletePeople;
 
   PeopleFormController({
     required this.postPeople,
     required this.putPeople,
+    required this.deletePeople,
   }) : super(PeopleFormState.initial());
 
   load(PeopleModel people) {
@@ -63,6 +65,23 @@ class PeopleFormController extends Cubit<PeopleFormState> {
           status: PeopleFormStateStatus.error, errorMessage: e.message));
     } catch (e, s) {
       log('Erro ao registrar ou atualizar usuário', error: e, stackTrace: s);
+      emit(state.copyWith(status: PeopleFormStateStatus.error));
+    }
+  }
+
+  Future<void> delPeople(String id) async {
+    try {
+      emit(state.copyWith(status: PeopleFormStateStatus.register));
+
+      await deletePeople.deletePeople(id);
+
+      emit(state.copyWith(status: PeopleFormStateStatus.success));
+    } on RepositoryException catch (e, s) {
+      log('Erro ao excluir pessoa', error: e, stackTrace: s);
+      emit(state.copyWith(
+          status: PeopleFormStateStatus.error, errorMessage: e.message));
+    } catch (e, s) {
+      log('Erro ao excluir pessoa', error: e, stackTrace: s);
       emit(state.copyWith(status: PeopleFormStateStatus.error));
     }
   }
