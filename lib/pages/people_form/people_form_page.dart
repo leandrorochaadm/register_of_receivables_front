@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:register_of_receivables_front/pages/people_form/people_form_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../data/models/models.dart';
 import '../../ui/ui.dart';
 import '../widgets/widgets.dart';
+import 'people_form_state.dart';
 
 class PeopleFormPage extends StatefulWidget {
   PeopleFormPage({Key? key}) : super(key: key);
@@ -67,188 +69,211 @@ class _PeopleFormPageState
 
   @override
   Widget build(BuildContext context) {
-    return BasePageWidget(
-      title: "Cadastro de Clientes e Vendedores",
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.save),
-        tooltip: 'Salvar',
-        onPressed: () {
-          final valid = widget.formKey.currentState?.validate() ?? false;
-          if (valid) {
-            print('deu certo');
-            print(valid);
-            controller.registerOrUpdate(
-              widget.idEC.text,
-              widget.nameEC.text,
-              widget.nickEC.text,
-              widget.cnpjEC.text,
-              widget.ieEC.text,
-              widget.isClientEC.text,
-              widget.isSellerEC.text,
-              widget.phone1EC.text,
-              widget.phone2EC.text,
-              widget.phone3EC.text,
-              widget.addressEC.text,
-              widget.obsEC.text,
-            );
-            Navigator.pop(context);
-          } else {
-            print('não deu certo');
-            print(valid);
-          }
-        },
-      ),
-      children: [
-        Form(
-          key: widget.formKey,
-          child: SizedBox(
-            width: 1300,
-            child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runAlignment: WrapAlignment.spaceBetween,
-              spacing: 50,
-              runSpacing: 50,
-              children: [
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: widget.nickEC,
-                    decoration: const InputDecoration(
-                      labelText: "Nome Fantasia / Apelido",
-                      hintText: "Digite o nome fantasia ou apelido",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: widget.nameEC,
-                    validator: Validatorless.required('Nome obrigatório'),
-                    decoration: const InputDecoration(
-                      labelText: "Razão social / Nome",
-                      hintText: "Digite a razão social ou o nome",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: widget.cnpjEC,
-                    decoration: const InputDecoration(
-                      labelText: "CNPJ / CPF",
-                      hintText: "Digite o CNPJ ou CPF",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 200,
-                  child: TextFormField(
-                    controller: widget.ieEC,
-                    decoration: const InputDecoration(
-                      labelText: "IE / RG",
-                      hintText: "Digite a IE ou RG",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 183.3,
-                  child: TextFormField(
-                    controller: widget.phone1EC,
-                    validator: Validatorless.multiple([
-                      Validatorless.required('Telefone obrigatório'),
-                      Validatorless.min(9, 'Telefone inválido'),
-                    ]),
-                    decoration: const InputDecoration(
-                      labelText: "Telefone1",
-                      hintText: "Digite o telefone",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 183.3,
-                  child: TextFormField(
-                    controller: widget.phone2EC,
-                    decoration: const InputDecoration(
-                      labelText: "Telefone2",
-                      hintText: "Digite o telefone",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 183.3,
-                  child: TextFormField(
-                    controller: widget.phone3EC,
-                    decoration: const InputDecoration(
-                      labelText: "Telefone3",
-                      hintText: "Digite o telefone",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 550,
-                  child: TextFormField(
-                    controller: widget.addressEC,
-                    decoration: const InputDecoration(
-                      labelText: "Endereço",
-                      hintText: "Digite o endereço",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 650,
-                  child: TextFormField(
-                    controller: widget.obsEC,
-                    decoration: const InputDecoration(
-                      labelText: "Observações",
-                      hintText: "Digite observações",
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 48,
-                  child: ElevatedButton(
-                    style: widget.isClientEC.text == '1'
-                        ? ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green)
-                        : ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    onPressed: () {
-                      setState(() {
-                        if (widget.isClientEC.text == '1') {
-                          widget.isClientEC.text = '0';
-                        } else {
-                          widget.isClientEC.text = '1';
-                        }
-                      });
-                    },
-                    child: Text(
-                        "${widget.isClientEC.text == '1' ? 'É' : 'Não é'} Cliente"),
-                  ),
-                ),
-                SizedBox(
-                  height: 48,
-                  child: ElevatedButton(
-                    style: widget.isSellerEC.text == '1'
-                        ? ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green)
-                        : ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    onPressed: () {
-                      setState(() {
-                        if (widget.isSellerEC.text == '1') {
-                          widget.isSellerEC.text = '0';
-                        } else {
-                          widget.isSellerEC.text = '1';
-                        }
-                      });
-                    },
-                    child: Text(
-                        "${widget.isSellerEC.text == '1' ? 'É' : 'Não é'} vendedor"),
-                  ),
-                ),
-              ],
+    return BlocConsumer<PeopleFormController, PeopleFormState>(
+        listener: (context, state) => state.status.matchAny(
+              any: () => hideLoader(),
+              success: () {
+                hideLoader();
+                showSuccess('Pessoa salva com sucesso');
+              },
+              error: () {
+                hideLoader();
+                showError(state.errorMessage ?? 'Erro não informado');
+              },
             ),
-          ),
-        )
-      ],
-    );
+        buildWhen: (previous, current) => current.status.matchAny(
+              any: () => false,
+              initial: () => true,
+              loaded: () => true,
+            ),
+        builder: (context, state) {
+          return BasePageWidget(
+            title: "Cadastro de Clientes e Vendedores",
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.save),
+              tooltip: 'Salvar',
+              onPressed: () async {
+                final valid = widget.formKey.currentState?.validate() ?? false;
+                if (valid) {
+                  print('deu certo');
+                  print(valid);
+                  final result = await controller.registerOrUpdate(
+                    widget.idEC.text,
+                    widget.nameEC.text,
+                    widget.nickEC.text,
+                    widget.cnpjEC.text,
+                    widget.ieEC.text,
+                    widget.isClientEC.text,
+                    widget.isSellerEC.text,
+                    widget.phone1EC.text,
+                    widget.phone2EC.text,
+                    widget.phone3EC.text,
+                    widget.addressEC.text,
+                    widget.obsEC.text,
+                  );
+                  if (result) {
+                    // Navigator.pop(context);
+                  }
+                } else {
+                  print('não deu certo');
+                  print(valid);
+                }
+              },
+            ),
+            children: [
+              Form(
+                key: widget.formKey,
+                child: SizedBox(
+                  width: 1300,
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    runAlignment: WrapAlignment.spaceBetween,
+                    spacing: 50,
+                    runSpacing: 50,
+                    children: [
+                      SizedBox(
+                        width: 300,
+                        child: TextFormField(
+                          controller: widget.nickEC,
+                          decoration: const InputDecoration(
+                            labelText: "Nome Fantasia / Apelido",
+                            hintText: "Digite o nome fantasia ou apelido",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: TextFormField(
+                          controller: widget.nameEC,
+                          validator: Validatorless.required('Nome obrigatório'),
+                          decoration: const InputDecoration(
+                            labelText: "Razão social / Nome",
+                            hintText: "Digite a razão social ou o nome",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: TextFormField(
+                          controller: widget.cnpjEC,
+                          decoration: const InputDecoration(
+                            labelText: "CNPJ / CPF",
+                            hintText: "Digite o CNPJ ou CPF",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 200,
+                        child: TextFormField(
+                          controller: widget.ieEC,
+                          decoration: const InputDecoration(
+                            labelText: "IE / RG",
+                            hintText: "Digite a IE ou RG",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 183.3,
+                        child: TextFormField(
+                          controller: widget.phone1EC,
+                          validator: Validatorless.multiple([
+                            Validatorless.required('Telefone obrigatório'),
+                            Validatorless.min(9, 'Telefone inválido'),
+                          ]),
+                          decoration: const InputDecoration(
+                            labelText: "Telefone1",
+                            hintText: "Digite o telefone",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 183.3,
+                        child: TextFormField(
+                          controller: widget.phone2EC,
+                          decoration: const InputDecoration(
+                            labelText: "Telefone2",
+                            hintText: "Digite o telefone",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 183.3,
+                        child: TextFormField(
+                          controller: widget.phone3EC,
+                          decoration: const InputDecoration(
+                            labelText: "Telefone3",
+                            hintText: "Digite o telefone",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 550,
+                        child: TextFormField(
+                          controller: widget.addressEC,
+                          decoration: const InputDecoration(
+                            labelText: "Endereço",
+                            hintText: "Digite o endereço",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 650,
+                        child: TextFormField(
+                          controller: widget.obsEC,
+                          decoration: const InputDecoration(
+                            labelText: "Observações",
+                            hintText: "Digite observações",
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 48,
+                        child: ElevatedButton(
+                          style: widget.isClientEC.text == '1'
+                              ? ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green)
+                              : ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              if (widget.isClientEC.text == '1') {
+                                widget.isClientEC.text = '0';
+                              } else {
+                                widget.isClientEC.text = '1';
+                              }
+                            });
+                          },
+                          child: Text(
+                              "${widget.isClientEC.text == '1' ? 'É' : 'Não é'} Cliente"),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 48,
+                        child: ElevatedButton(
+                          style: widget.isSellerEC.text == '1'
+                              ? ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green)
+                              : ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              if (widget.isSellerEC.text == '1') {
+                                widget.isSellerEC.text = '0';
+                              } else {
+                                widget.isSellerEC.text = '1';
+                              }
+                            });
+                          },
+                          child: Text(
+                              "${widget.isSellerEC.text == '1' ? 'É' : 'Não é'} vendedor"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          );
+        });
   }
 }

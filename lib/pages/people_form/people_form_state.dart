@@ -3,6 +3,8 @@ import 'package:match/match.dart';
 
 import '../../data/models/models.dart';
 
+part 'people_form_state.g.dart';
+
 @match
 enum PeopleFormStateStatus {
   initial,

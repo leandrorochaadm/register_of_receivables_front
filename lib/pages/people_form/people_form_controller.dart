@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:register_of_receivables_front/data/models/models.dart';
 import 'package:register_of_receivables_front/pages/people_form/people_form_state.dart';
 
+import '../../core/core.dart';
 import '../../domain/usecases/usecases.dart';
 
 class PeopleFormController extends Cubit<PeopleFormState> {
@@ -15,7 +16,7 @@ class PeopleFormController extends Cubit<PeopleFormState> {
     emit(state.copyWith(people: people, status: PeopleFormStateStatus.loaded));
   }
 
-  Future<void> registerOrUpdate(
+  Future<bool> registerOrUpdate(
     String id,
     String name,
     String nick,
@@ -30,9 +31,10 @@ class PeopleFormController extends Cubit<PeopleFormState> {
     String obs,
   ) async {
     try {
+      bool result = false;
       emit(state.copyWith(status: PeopleFormStateStatus.register));
       if (id == '0') {
-        await postPeople.createPeople(PeopleModel(
+        result = await postPeople.createPeople(PeopleModel(
           id: 0,
           name: name,
           nick: nick,
@@ -48,9 +50,16 @@ class PeopleFormController extends Cubit<PeopleFormState> {
         ));
       }
       emit(state.copyWith(status: PeopleFormStateStatus.success));
+      return result;
+    } on RepositoryException catch (e, s) {
+      log('Erro ao registrar usuário', error: e, stackTrace: s);
+      emit(state.copyWith(
+          status: PeopleFormStateStatus.error, errorMessage: e.message));
+      return false;
     } catch (e, s) {
       log('Erro ao registrar usuário', error: e, stackTrace: s);
       emit(state.copyWith(status: PeopleFormStateStatus.error));
+      return false;
     }
   }
 }
