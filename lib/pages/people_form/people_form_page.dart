@@ -89,29 +89,32 @@ class _PeopleFormPageState
         builder: (context, state) {
           return BasePageWidget(
             title: "Cadastro de Clientes e Vendedores",
-            floatingActionButton: FloatingActionButton(
-              child: const Icon(Icons.save),
-              tooltip: 'Salvar',
-              onPressed: () async {
-                final valid = widget.formKey.currentState?.validate() ?? false;
-                if (valid) {
-                  await controller.registerOrUpdate(
-                    widget.idEC.text,
-                    widget.nameEC.text,
-                    widget.nickEC.text,
-                    widget.cnpjEC.text,
-                    widget.ieEC.text,
-                    widget.isClientEC.text,
-                    widget.isSellerEC.text,
-                    widget.phone1EC.text,
-                    widget.phone2EC.text,
-                    widget.phone3EC.text,
-                    widget.addressEC.text,
-                    widget.obsEC.text,
-                  );
-                }
-              },
-            ),
+            widgets: [
+              const SizedBox(width: 32),
+              ElevatedButton(
+                onPressed: () async {
+                  final valid =
+                      widget.formKey.currentState?.validate() ?? false;
+                  if (valid) {
+                    await controller.registerOrUpdate(
+                      widget.idEC.text,
+                      widget.nameEC.text,
+                      widget.nickEC.text,
+                      widget.cnpjEC.text,
+                      widget.ieEC.text,
+                      widget.isClientEC.text,
+                      widget.isSellerEC.text,
+                      widget.phone1EC.text,
+                      widget.phone2EC.text,
+                      widget.phone3EC.text,
+                      widget.addressEC.text,
+                      widget.obsEC.text,
+                    );
+                  }
+                },
+                child: const Icon(Icons.save),
+              )
+            ],
             children: [
               Form(
                 key: widget.formKey,
