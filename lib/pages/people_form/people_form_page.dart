@@ -7,7 +7,6 @@ import '../widgets/widgets.dart';
 
 class PeopleFormPage extends StatefulWidget {
   PeopleFormPage({Key? key}) : super(key: key);
-  List<bool> PeopleSelectedType = [false, false];
   final formKey = GlobalKey<FormState>();
   final nameEC = TextEditingController();
   final nickEC = TextEditingController();
@@ -18,6 +17,8 @@ class PeopleFormPage extends StatefulWidget {
   final cnpjEC = TextEditingController();
   final addressEC = TextEditingController();
   final obsEC = TextEditingController();
+  final isClientEC = TextEditingController();
+  final isSellerEC = TextEditingController();
 
   @override
   State<PeopleFormPage> createState() => _PeopleFormPageState();
@@ -36,7 +37,11 @@ class _PeopleFormPageState
     widget.ieEC.text = people.ie;
     widget.addressEC.text = people.address;
     widget.obsEC.text = people.obs;
-    widget.PeopleSelectedType = [people.isClient == 1, people.isSeller == 1];
+
+    setState(() {
+      widget.isClientEC.text = people.isClient.toString();
+      widget.isSellerEC.text = people.isSeller.toString();
+    });
   }
 
   @override
@@ -47,7 +52,15 @@ class _PeopleFormPageState
         child: const Icon(Icons.save),
         tooltip: 'Salvar',
         onPressed: () {
-          // if (widget.formKey.currentState!.validate()) {}
+          final valid = widget.formKey.currentState?.validate() ?? false;
+          if (valid) {
+            print('deu certo');
+            print(valid);
+          } else {
+            print('não deu certo');
+            print(valid);
+          }
+
           Navigator.pop(context);
         },
       ),
@@ -151,30 +164,45 @@ class _PeopleFormPageState
                     ),
                   ),
                 ),
-                ToggleButtons(
-                  isSelected: widget.PeopleSelectedType,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  selectedBorderColor: Colors.blue[700],
-                  selectedColor: Colors.white,
-                  fillColor: Colors.blue[200],
-                  color: Colors.blue[400],
-                  borderWidth: 2,
-                  onPressed: (int index) {
-                    setState(() {
-                      widget.PeopleSelectedType[index] =
-                          !widget.PeopleSelectedType[index];
-                    });
-                  },
-                  children: const <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('Cliente'),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('Vendedor'),
-                    ),
-                  ],
+                SizedBox(
+                  height: 48,
+                  child: ElevatedButton(
+                    style: widget.isClientEC.text == '1'
+                        ? ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green)
+                        : ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    onPressed: () {
+                      setState(() {
+                        if (widget.isClientEC.text == '1') {
+                          widget.isClientEC.text = '0';
+                        } else {
+                          widget.isClientEC.text = '1';
+                        }
+                      });
+                    },
+                    child: Text(
+                        "${widget.isClientEC.text == '1' ? 'É' : 'Não é'} Cliente"),
+                  ),
+                ),
+                SizedBox(
+                  height: 48,
+                  child: ElevatedButton(
+                    style: widget.isSellerEC.text == '1'
+                        ? ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green)
+                        : ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    onPressed: () {
+                      setState(() {
+                        if (widget.isSellerEC.text == '1') {
+                          widget.isSellerEC.text = '0';
+                        } else {
+                          widget.isSellerEC.text = '1';
+                        }
+                      });
+                    },
+                    child: Text(
+                        "${widget.isSellerEC.text == '1' ? 'É' : 'Não é'} vendedor"),
+                  ),
                 ),
               ],
             ),
