@@ -4,12 +4,14 @@ class BasePageWidget extends StatefulWidget {
   final List<Widget> children;
   final String title;
   final FloatingActionButton? floatingActionButton;
+  final List<Widget>? widgets;
 
   const BasePageWidget({
     Key? key,
     required this.title,
     required this.children,
     this.floatingActionButton,
+    this.widgets,
   }) : super(key: key);
 
   @override
@@ -27,6 +29,7 @@ class _BasePageWidgetState extends State<BasePageWidget> {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   widget.title,
@@ -36,6 +39,9 @@ class _BasePageWidgetState extends State<BasePageWidget> {
                     fontSize: 30,
                   ),
                 ),
+                Row(
+                  children: [...?widget.widgets],
+                )
               ],
             ),
             const SizedBox(height: 22),
