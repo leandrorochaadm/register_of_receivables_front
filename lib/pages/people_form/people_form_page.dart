@@ -75,6 +75,22 @@ class _PeopleFormPageState
               success: () {
                 hideLoader();
                 showSuccess('Pessoa salva com sucesso');
+
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/people_list',
+                  ModalRoute.withName('/'),
+                );
+              },
+              deletedSuccess: () {
+                hideLoader();
+                showSuccess('Pessoa excluida com sucesso');
+
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/people_list',
+                  ModalRoute.withName('/'),
+                );
               },
               error: () {
                 hideLoader();
