@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'core/core.dart';
 import 'pages/pages.dart';
+import 'pages/people_form/people_form_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/people_list',
         routes: {
           '/people_list': (context) => PeopleListRouter.page,
-          '/people_form': (context) => PeopleFormPage(),
+          '/people_form': (context) => PeopleFormRouter.page,
         },
       ),
     );
