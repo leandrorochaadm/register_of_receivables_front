@@ -110,6 +110,16 @@ class _PeopleFormPageState
           return BasePageWidget(
             title: "Cadastro de Clientes e Vendedores",
             widgets: [
+              Tooltip(
+                message: 'Voltar para a tela lista de Clientes',
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(20)),
+                  child: const Icon(Icons.exit_to_app),
+                ),
+              ),
+              const SizedBox(width: 32),
               ElevatedButton(
                 onPressed: () => controller.delPeople(widget.idEC.text),
                 style:
