@@ -61,6 +61,7 @@ class _PeopleFormPageState
     widget.phone1EC.text = people.phone1;
     widget.phone2EC.text = people.phone2;
     widget.phone3EC.text = people.phone3;
+    widget.cnpjEC.text = people.cnpj;
     widget.ieEC.text = people.ie;
     widget.addressEC.text = people.address;
     widget.obsEC.text = people.obs;
