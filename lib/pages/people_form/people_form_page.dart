@@ -123,13 +123,7 @@ class _PeopleFormPageState
               ),
               const SizedBox(width: 32),
               ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => Text('Dialog'),
-                  );
-                  // controller.delPeople(widget.idEC.text);
-                },
+                onPressed: () => _showMyDialog(),
                 style:
                     ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
                 child: const Icon(
@@ -336,5 +330,29 @@ class _PeopleFormPageState
             ],
           );
         });
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Deseja realmente excluir?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Não'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Sim'),
+              onPressed: () => controller.delPeople(widget.idEC.text),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
