@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:register_of_receivables_front/ui/helper/size_extesions.dart';
 
 import '../../data/models/models.dart';
 import 'widgets.dart';
@@ -22,13 +23,31 @@ class PeopleTableWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              HeaderWidget(width: 200, label: 'Nome Fantasia'),
-              HeaderWidget(width: 200, label: 'Razão Social'),
-              HeaderWidget(width: 200, label: 'CNPJ'),
-              HeaderWidget(width: 150, label: 'IE'),
-              HeaderWidget(width: 200, label: 'Telefone1'),
-              HeaderWidget(width: 200, label: 'Telefone2'),
+            children: [
+              HeaderWidget(
+                width: context.percentWidth(.15),
+                label: 'Nome Fantasia',
+              ),
+              HeaderWidget(
+                width: context.percentWidth(.15),
+                label: 'Razão Social',
+              ),
+              HeaderWidget(
+                width: context.percentWidth(.18),
+                label: 'CNPJ',
+              ),
+              HeaderWidget(
+                width: context.percentWidth(.1),
+                label: 'IE',
+              ),
+              HeaderWidget(
+                width: context.percentWidth(.12),
+                label: 'Telefone1',
+              ),
+              HeaderWidget(
+                width: context.percentWidth(.12),
+                label: 'Telefone2',
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -48,17 +67,26 @@ class PeopleTableWidget extends StatelessWidget {
                     Row(
                       children: [
                         BodyWidget(
+                          width: context.percentWidth(.15),
                           label: people.nick,
                           fontWeight: FontWeight.bold,
                         ),
-                        BodyWidget(label: people.name),
-                        BodyWidget(label: people.cnpj),
                         BodyWidget(
+                            width: context.percentWidth(.15),
+                            label: people.name),
+                        BodyWidget(
+                            width: context.percentWidth(.18),
+                            label: people.cnpj),
+                        BodyWidget(
+                          width: context.percentWidth(.1),
                           label: people.ie,
-                          width: 150,
                         ),
-                        BodyWidget(label: people.phone1),
-                        BodyWidget(label: people.phone2),
+                        BodyWidget(
+                            width: context.percentWidth(.12),
+                            label: people.phone1),
+                        BodyWidget(
+                            width: context.percentWidth(.12),
+                            label: people.phone2),
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
