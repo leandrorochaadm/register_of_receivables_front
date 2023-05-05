@@ -1,2 +1,3 @@
-export 'people_form/people_form.dart';
-export 'people_list/people_list.dart';
+export 'people_form/people_form_router.dart';
+export 'people_list/people_list_router.dart';
+export 'receivables_list/receivable_list_router.dart';
