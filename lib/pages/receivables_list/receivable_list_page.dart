@@ -45,8 +45,11 @@ class _ReceivablesListPageState
             Tooltip(
               message: 'Cadastrar nova conta',
               child: ElevatedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, '/', arguments: null),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  '/receivable_form',
+                  arguments: ReceivableModel.empty(),
+                ),
                 style:
                     ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
                 child: const Icon(Icons.add),

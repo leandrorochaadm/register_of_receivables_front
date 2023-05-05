@@ -21,7 +21,7 @@ class ReceivableModel extends Equatable {
     required this.seller,
   });
 
-  ReceivableModel.initial()
+  ReceivableModel.empty()
       : value = 0,
         client = '',
         dateDue = DateTime.now(),

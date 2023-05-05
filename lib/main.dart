@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
           '/people_list': (context) => PeopleListRouter.page,
           '/people_form': (context) => PeopleFormRouter.page,
           '/receivables_list': (context) => ReceivablesListRouter.page,
+          '/receivable_form': (context) => ReceivableFormRouter.page,
         },
       ),
     );

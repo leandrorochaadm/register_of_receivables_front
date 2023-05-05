@@ -24,7 +24,7 @@ class ReceivablesTableWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Wrap(
-            runSpacing: 16,
+            runSpacing: 8,
             children: [
               HeaderWidget(
                 width: context.percentWidth(.07),
@@ -78,6 +78,7 @@ class ReceivablesTableWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Wrap(
+                      runSpacing: 8,
                       children: [
                         BodyWidget(
                           width: context.percentWidth(.07),
@@ -117,7 +118,7 @@ class ReceivablesTableWidget extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () => Navigator.pushNamed(
-                        context, "/Receivables_form",
+                        context, "/receivable_form",
                         arguments: Receivables),
                     icon: const Icon(
                       Icons.edit,
