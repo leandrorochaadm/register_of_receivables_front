@@ -38,35 +38,22 @@ class _PeopleListPageState
         loaded: () => true,
       ),
       builder: (context, state) {
-        return Scaffold(
-            backgroundColor: Colors.blue[100],
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/people_form',
-                      arguments: PeopleModel.empty());
-                },
-                child: const Icon(Icons.add)),
-            body: Container(
-              margin: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  Row(
-                    children: const [
-                      Text(
-                        "Listagem de Clientes",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 22),
-                  PeopleTableWidget(list: state.peoples),
-                ],
+        return BasePageWidget(
+          title: "Listagem de Clientes e Vendedores",
+          widgets: [
+            Tooltip(
+              message: 'Voltar para a tela lista de Clientes',
+              child: ElevatedButton(
+                onPressed: () => Navigator.pushNamed(context, '/people_form',
+                    arguments: PeopleModel.empty()),
+                style:
+                    ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
+                child: const Icon(Icons.add),
               ),
-            ));
+            ),
+          ],
+          children: [PeopleTableWidget(list: state.peoples)],
+        );
       },
     );
   }
