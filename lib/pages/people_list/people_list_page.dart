@@ -42,7 +42,7 @@ class _PeopleListPageState
           title: "Listagem de Clientes e Vendedores",
           widgets: [
             Tooltip(
-              message: 'Voltar para a tela lista de Clientes',
+              message: 'Cadastrar nova pessoa',
               child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, '/people_form',
                     arguments: PeopleModel.empty()),
