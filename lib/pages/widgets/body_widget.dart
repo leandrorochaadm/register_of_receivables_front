@@ -18,6 +18,7 @@ class BodyWidget extends StatelessWidget {
       width: width,
       child: Text(
         label,
+        textAlign: TextAlign.start,
         style: TextStyle(
           color: Colors.black,
           fontSize: 24,

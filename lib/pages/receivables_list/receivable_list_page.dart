@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:register_of_receivables_front/data/models/models.dart';
+import 'package:register_of_receivables_front/pages/widgets/receivables_table_widget.dart';
 
 import '../../ui/ui.dart';
 import '../widgets/widgets.dart';
@@ -51,7 +53,30 @@ class _ReceivablesListPageState
               ),
             ),
           ],
-          children: [Text('Tabela de contas a receber')],
+          children: [
+            ReceivablesTableWidget(list: [
+              ReceivableModel(
+                type: TypeReceivable.Boleto,
+                dateEntry: DateTime(2023),
+                dateDue: DateTime(2024),
+                client: 'Casa da ração',
+                numDoc: '123456',
+                value: 15000,
+                destiny: 'banco Amazônia',
+                seller: 'José',
+              ),
+              ReceivableModel(
+                type: TypeReceivable.Boleto,
+                dateEntry: DateTime(2023),
+                dateDue: DateTime(2024),
+                client: 'Casa da ração',
+                numDoc: '123456',
+                value: 15000,
+                destiny: 'banco Amazônia',
+                seller: 'José',
+              ),
+            ])
+          ],
         );
       },
     );

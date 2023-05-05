@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class ReceivableModel extends Equatable {
+  final TypeReceivable type;
   final DateTime dateEntry;
   final DateTime dateDue;
   final String client;
@@ -10,6 +11,7 @@ class ReceivableModel extends Equatable {
   final String seller;
 
   const ReceivableModel({
+    required this.type,
     required this.dateEntry,
     required this.dateDue,
     required this.client,
@@ -26,10 +28,12 @@ class ReceivableModel extends Equatable {
         dateEntry = DateTime.now(),
         destiny = '',
         numDoc = '',
-        seller = '';
+        seller = '',
+        type = TypeReceivable.Boleto;
 
   @override
   List<Object> get props => [
+        type,
         dateEntry,
         dateDue,
         client,
@@ -38,4 +42,10 @@ class ReceivableModel extends Equatable {
         destiny,
         seller,
       ];
+}
+
+enum TypeReceivable {
+  Boleto,
+  Cheque,
+  Promissoria,
 }

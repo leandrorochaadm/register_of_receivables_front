@@ -16,6 +16,7 @@ class HeaderWidget extends StatelessWidget {
       width: width,
       child: Text(
         label,
+        textAlign: TextAlign.start,
         style: const TextStyle(
           color: Colors.grey,
           fontSize: 24,

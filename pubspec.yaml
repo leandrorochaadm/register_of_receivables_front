@@ -39,6 +39,7 @@ dependencies:
   validatorless: ^1.2.3
   mask_text_input_formatter: ^2.4.0
   cnpj_cpf_formatter_nullsafety: ^1.1.1
+  intl: ^0.18.1
 
 
   # The following adds the Cupertino Icons font to your application.
