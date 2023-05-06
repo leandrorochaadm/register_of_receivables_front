@@ -60,7 +60,7 @@ class ReceivablesTableWidget extends StatelessWidget {
               ),
               HeaderWidget(
                 width: context.percentWidth(.15),
-                label: 'Condições',
+                label: 'Prazo',
               ),
             ],
           ),

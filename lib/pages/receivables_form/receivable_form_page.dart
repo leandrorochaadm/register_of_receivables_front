@@ -1,6 +1,7 @@
-import 'package:cnpj_cpf_formatter_nullsafety/cnpj_cpf_formatter_nullsafety.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -14,20 +15,20 @@ class ReceivableFormPage extends StatefulWidget {
   ReceivableFormPage({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
   final idEC = TextEditingController();
-  final nameEC = TextEditingController();
-  final nickEC = TextEditingController();
-  final phone1EC = TextEditingController();
+  final valueEC = TextEditingController();
+  final numDocEC = TextEditingController();
+  final dateDueEC = TextEditingController();
   final phone2EC = TextEditingController();
   final phone3EC = TextEditingController();
-  final ieEC = TextEditingController();
-  final cnpjEC = TextEditingController();
+  final dateEntryEC = TextEditingController();
+  final destinyEC = TextEditingController();
   final addressEC = TextEditingController();
   final obsEC = TextEditingController();
-  final isClientEC = TextEditingController();
+  final isPaidEC = TextEditingController();
   final isSellerEC = TextEditingController();
 
-  final MaskTextInputFormatter phoneFormatter =
-      MaskTextInputFormatter(mask: '(##) #####-####');
+  final MaskTextInputFormatter dateFormatter =
+      MaskTextInputFormatter(mask: '##/##/##');
 
   @override
   State<ReceivableFormPage> createState() => _ReceivableFormPageState();
@@ -39,16 +40,16 @@ class _ReceivableFormPageState
   void dispose() {
     widget.formKey.currentState?.dispose();
     widget.idEC.dispose();
-    widget.nameEC.dispose();
-    widget.nickEC.dispose();
-    widget.phone1EC.dispose();
+    widget.valueEC.dispose();
+    widget.numDocEC.dispose();
+    widget.dateDueEC.dispose();
     widget.phone2EC.dispose();
     widget.phone3EC.dispose();
-    widget.ieEC.dispose();
-    widget.cnpjEC.dispose();
+    widget.dateEntryEC.dispose();
+    widget.destinyEC.dispose();
     widget.addressEC.dispose();
     widget.obsEC.dispose();
-    widget.isClientEC.dispose();
+    widget.isPaidEC.dispose();
     widget.isSellerEC.dispose();
     super.dispose();
   }
@@ -76,6 +77,16 @@ class _ReceivableFormPageState
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateEntry = DateTime.now();
+    DateTime dateDue = DateTime.now();
+    if (widget.dateEntryEC.text.isNotEmpty) {
+      dateEntry = DateTime.parse(widget.dateEntryEC.text);
+    }
+    if (widget.dateDueEC.text.isNotEmpty) {
+      dateDue = DateTime.parse(widget.dateDueEC.text);
+    }
+    int expiration = dateDue.difference(dateEntry).inDays;
+
     return BlocConsumer<ReceivableFormController, ReceivableFormState>(
         listener: (context, state) => state.status.matchAny(
               any: () => hideLoader(),
@@ -138,15 +149,16 @@ class _ReceivableFormPageState
                   final valid =
                       widget.formKey.currentState?.validate() ?? false;
                   if (valid) {
+                    widget.formKey.currentState?.save();
                     await controller.registerOrUpdate(
                       widget.idEC.text,
-                      widget.nameEC.text,
-                      widget.nickEC.text,
-                      widget.cnpjEC.text,
-                      widget.ieEC.text,
-                      widget.isClientEC.text,
+                      widget.valueEC.text,
+                      widget.numDocEC.text,
+                      widget.destinyEC.text,
+                      widget.dateEntryEC.text,
+                      widget.isPaidEC.text,
                       widget.isSellerEC.text,
-                      widget.phone1EC.text,
+                      widget.dateDueEC.text,
                       widget.phone2EC.text,
                       widget.phone3EC.text,
                       widget.addressEC.text,
@@ -163,7 +175,7 @@ class _ReceivableFormPageState
               Form(
                 key: widget.formKey,
                 child: SizedBox(
-                  width: 1300,
+                  // width: 1300,
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
                     runAlignment: WrapAlignment.spaceBetween,
@@ -173,156 +185,115 @@ class _ReceivableFormPageState
                       SizedBox(
                         width: 300,
                         child: TextFormField(
-                          controller: widget.nickEC,
+                          controller: widget.numDocEC,
                           decoration: const InputDecoration(
-                            labelText: "Nome Fantasia / Apelido",
-                            hintText: "Digite o nome fantasia ou apelido",
+                            labelText: "Numero",
+                            hintText: "Digite o número do cheque ou boleto",
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 300,
                         child: TextFormField(
-                          controller: widget.nameEC,
-                          validator: Validatorless.required('Nome obrigatório'),
+                          controller: widget.valueEC,
+                          validator:
+                              Validatorless.required('Valor obrigatório'),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
                           decoration: const InputDecoration(
-                            labelText: "Razão social / Nome",
-                            hintText: "Digite a razão social ou o nome",
+                            labelText: "Valor",
+                            hintText: "Digite o valor",
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 300,
                         child: TextFormField(
-                          /*inputFormatters: widget.cnpjEC.text.length < 11
-                              ? [widget.cpfFormatter]
-                              : [widget.cnpjFormatter],*/
-                          /*inputFormatters: [
-                            widget.cpfFormatter,
-                            widget.cnpjFormatter
-                          ],*/
-                          inputFormatters: [
-                            CnpjCpfFormatter(eDocumentType: EDocumentType.BOTH)
-                          ],
-                          controller: widget.cnpjEC,
-                          keyboardType: TextInputType.number,
+                          controller: widget.destinyEC,
                           decoration: const InputDecoration(
-                            labelText: "CNPJ / CPF",
-                            hintText: "Digite o CNPJ ou CPF",
+                            labelText: "Destino",
+                            hintText: "Digite o destino",
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 200,
-                        child: TextFormField(
-                          controller: widget.ieEC,
-                          decoration: const InputDecoration(
-                            labelText: "IE / RG",
-                            hintText: "Digite a IE ou RG",
-                          ),
+                        child: DateTimePicker(
+                          controller: widget.dateEntryEC,
+                          dateMask: 'EEE dd/MM/yy',
+                          firstDate: DateTime(2022),
+                          lastDate: dateDue,
+                          icon: const Icon(Icons.event),
+                          dateLabelText: 'Entrada',
+                          errorInvalidText: "Entrada inválida",
+                          errorFormatText: 'Entrada inválida',
+                          // locale: const Locale('pt', 'BR'),
+                          onChanged: (_) => setState(() {}),
+                          validator: (val) {
+                            if (val != null && val != '' && val!.isNotEmpty) {
+                              final date = DateFormat('yyyy-MM-dd').parse(val);
+                              if (date.difference(DateTime.now()).inDays >= 0) {
+                                return null;
+                              }
+                              return "Entrada inválida";
+                            }
+                            return "Entrada obrigatória";
+                          },
+                          onSaved: (val) => print(val),
                         ),
                       ),
                       SizedBox(
                         width: 183.3,
-                        child: TextFormField(
-                          controller: widget.phone1EC,
-                          validator: Validatorless.multiple([
-                            Validatorless.required('Telefone obrigatório'),
-                            Validatorless.min(9, 'Telefone inválido'),
-                          ]),
-                          inputFormatters: [widget.phoneFormatter],
-                          keyboardType: TextInputType.phone,
-                          decoration: const InputDecoration(
-                            labelText: "Telefone1",
-                            hintText: "Digite o telefone (69) 99999-9999",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 183.3,
-                        child: TextFormField(
-                          controller: widget.phone2EC,
-                          inputFormatters: [widget.phoneFormatter],
-                          keyboardType: TextInputType.phone,
-                          decoration: const InputDecoration(
-                            labelText: "Telefone2",
-                            hintText: "Digite o telefone",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 183.3,
-                        child: TextFormField(
-                          controller: widget.phone3EC,
-                          inputFormatters: [widget.phoneFormatter],
-                          keyboardType: TextInputType.phone,
-                          decoration: const InputDecoration(
-                            labelText: "Telefone3",
-                            hintText: "Digite o telefone",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 550,
-                        child: TextFormField(
-                          controller: widget.addressEC,
-                          decoration: const InputDecoration(
-                            labelText: "Endereço",
-                            hintText: "Digite o endereço",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 650,
-                        child: TextFormField(
-                          controller: widget.obsEC,
-                          decoration: const InputDecoration(
-                            labelText: "Observações",
-                            hintText: "Digite observações",
-                          ),
+                        child: DateTimePicker(
+                          controller: widget.dateDueEC,
+                          dateMask: 'EEE dd/MM/yy',
+                          firstDate: dateDue,
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365)),
+                          icon: const Icon(Icons.event),
+                          dateLabelText: 'Vencimento',
+                          errorInvalidText: "Vencimento inválido",
+                          errorFormatText: 'Vencimento inválido',
+                          // locale: const Locale('pt', 'BR'),
+                          onChanged: (_) => setState(() {}),
+                          validator: (val) {
+                            if (val != null && val != '' && val!.isNotEmpty) {
+                              final date = DateFormat('yyyy-MM-dd').parse(val);
+                              if (date.difference(DateTime.now()).inDays >= 0) {
+                                return null;
+                              }
+                              return "Vencimento inválido";
+                            }
+                            return "Vencimento obrigatório";
+                          },
+                          onSaved: (val) => print(val),
                         ),
                       ),
                       SizedBox(
                         height: 48,
                         child: ElevatedButton(
-                          style: widget.isClientEC.text == '1'
+                          style: widget.isPaidEC.text == '1'
                               ? ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green)
                               : ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red),
                           onPressed: () {
                             setState(() {
-                              if (widget.isClientEC.text == '1') {
-                                widget.isClientEC.text = '0';
+                              if (widget.isPaidEC.text == '1') {
+                                widget.isPaidEC.text = '0';
                               } else {
-                                widget.isClientEC.text = '1';
+                                widget.isPaidEC.text = '1';
                               }
                             });
                           },
                           child: Text(
-                              "${widget.isClientEC.text == '1' ? 'É' : 'Não é'} Cliente"),
+                              "${widget.isPaidEC.text == '1' ? 'Está' : 'Não Está'} Pago"),
                         ),
                       ),
-                      SizedBox(
-                        height: 48,
-                        child: ElevatedButton(
-                          style: widget.isSellerEC.text == '1'
-                              ? ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green)
-                              : ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              if (widget.isSellerEC.text == '1') {
-                                widget.isSellerEC.text = '0';
-                              } else {
-                                widget.isSellerEC.text = '1';
-                              }
-                            });
-                          },
-                          child: Text(
-                              "${widget.isSellerEC.text == '1' ? 'É' : 'Não é'} vendedor"),
-                        ),
+                      Visibility(
+                        visible: expiration > 0,
+                        child: Text(
+                            "Prazo de:\n$expiration ${expiration > 1 ? 'dias' : 'dia'}"),
                       ),
                     ],
                   ),
