@@ -75,6 +75,8 @@ class _ReceivableFormPageState
     });
   }
 
+  List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+
   @override
   Widget build(BuildContext context) {
     DateTime dateEntry = DateTime.now();
@@ -86,6 +88,8 @@ class _ReceivableFormPageState
       dateDue = DateTime.parse(widget.dateDueEC.text);
     }
     int expiration = dateDue.difference(dateEntry).inDays;
+
+    late String _selectedValue = list.first;
 
     return BlocConsumer<ReceivableFormController, ReceivableFormState>(
         listener: (context, state) => state.status.matchAny(
@@ -182,6 +186,105 @@ class _ReceivableFormPageState
                     spacing: 50,
                     runSpacing: 50,
                     children: [
+                      SizedBox(
+                        width: 200,
+                        child: DropdownButtonFormField(
+                          decoration: const InputDecoration(
+                            labelText: "Vendedor",
+                          ),
+                          hint: const Text('Escolha o vendedor'),
+                          isExpanded: true,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          onSaved: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          validator: (String? value) {
+                            if (value != null) {
+                              return null;
+                            } else {
+                              return "Vendedor é obrigatório";
+                            }
+                          },
+                          items: list.map((String val) {
+                            return DropdownMenuItem(
+                              value: val,
+                              child: Text(val),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 400,
+                        child: DropdownButtonFormField(
+                          decoration: const InputDecoration(
+                            labelText: "Cliente",
+                          ),
+                          hint: const Text('Escolha o cliente'),
+                          isExpanded: true,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          onSaved: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          validator: (String? value) {
+                            if (value != null) {
+                              return null;
+                            } else {
+                              return "Cliente é obrigatório";
+                            }
+                          },
+                          items: list.map((String val) {
+                            return DropdownMenuItem(
+                              value: val,
+                              child: Text(val),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 200,
+                        child: DropdownButtonFormField(
+                          decoration: const InputDecoration(
+                            labelText: "Tipo",
+                          ),
+                          hint: const Text('Escolha o tipo'),
+                          isExpanded: true,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          onSaved: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          validator: (String? value) {
+                            if (value != null) {
+                              return null;
+                            } else {
+                              return "Tipo é obrigatório";
+                            }
+                          },
+                          items: list.map((String val) {
+                            return DropdownMenuItem(
+                              value: val,
+                              child: Text(val),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                       SizedBox(
                         width: 300,
                         child: TextFormField(
