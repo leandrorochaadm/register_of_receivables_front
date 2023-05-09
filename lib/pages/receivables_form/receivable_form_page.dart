@@ -18,6 +18,7 @@ class ReceivableFormPage extends StatefulWidget {
   final valueEC = TextEditingController();
   final numDocEC = TextEditingController();
   final dateDueEC = TextEditingController();
+  final dateReceivingEC = TextEditingController();
   final phone2EC = TextEditingController();
   final phone3EC = TextEditingController();
   final dateEntryEC = TextEditingController();
@@ -350,7 +351,7 @@ class _ReceivableFormPageState
                         child: DateTimePicker(
                           controller: widget.dateDueEC,
                           dateMask: 'EEE dd/MM/yy',
-                          firstDate: dateDue,
+                          firstDate: dateEntry,
                           lastDate:
                               DateTime.now().add(const Duration(days: 365)),
                           icon: const Icon(Icons.event),
@@ -373,24 +374,29 @@ class _ReceivableFormPageState
                         ),
                       ),
                       SizedBox(
-                        height: 48,
-                        child: ElevatedButton(
-                          style: widget.isPaidEC.text == '1'
-                              ? ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green)
-                              : ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              if (widget.isPaidEC.text == '1') {
-                                widget.isPaidEC.text = '0';
-                              } else {
-                                widget.isPaidEC.text = '1';
+                        width: 183.3,
+                        child: DateTimePicker(
+                          controller: widget.dateReceivingEC,
+                          dateMask: 'EEE dd/MM/yy',
+                          firstDate: dateEntry,
+                          lastDate: DateTime.now(),
+                          icon: const Icon(Icons.event),
+                          dateLabelText: 'Recebimento',
+                          errorInvalidText: "Recebimento inválido",
+                          errorFormatText: 'Recebimento inválido',
+                          // locale: const Locale('pt', 'BR'),
+                          onChanged: (_) => setState(() {}),
+                          validator: (val) {
+                            if (val != null && val != '' && val!.isNotEmpty) {
+                              final date = DateFormat('yyyy-MM-dd').parse(val);
+                              if (date.difference(DateTime.now()).inDays >= 0) {
+                                return null;
                               }
-                            });
+                              return "Recebimento inválido";
+                            }
+                            return "Recebimento obrigatório";
                           },
-                          child: Text(
-                              "${widget.isPaidEC.text == '1' ? 'Está' : 'Não Está'} Pago"),
+                          onSaved: (val) => print(val),
                         ),
                       ),
                       Visibility(
