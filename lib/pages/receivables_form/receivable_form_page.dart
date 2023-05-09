@@ -419,6 +419,8 @@ class _ReceivableFormPageState
                         child: Text(
                             "Vencido há:\n$overdue ${overdue > 1 ? 'dias' : 'dia'}"),
                       ),
+                      Text(
+                          "Situação: \n${widget.dateReceivingEC.text.isNotEmpty ? 'Está pago' : 'Não está pago'}")
                     ],
                   ),
                 ),
