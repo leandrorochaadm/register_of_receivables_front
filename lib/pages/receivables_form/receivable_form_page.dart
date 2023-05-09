@@ -83,7 +83,6 @@ class _ReceivableFormPageState
     DateTime dateEntry = DateTime.now();
     DateTime dateDue = DateTime.now();
     DateTime dateReceiving = DateTime.now();
-    int overdue = 0;
 
     if (widget.dateEntryEC.text.isNotEmpty) {
       dateEntry = DateTime.parse(widget.dateEntryEC.text);
@@ -95,9 +94,8 @@ class _ReceivableFormPageState
       dateReceiving = DateTime.parse(widget.dateReceivingEC.text);
     }
     int expiration = dateDue.difference(dateEntry).inDays;
-    if (dateDue.isAfter(DateTime.now())) {
-      overdue = dateDue.difference(DateTime.now()).inDays;
-    }
+
+    int overdue = DateTime.now().difference(dateDue).inDays;
 
     late String _selectedValue = list.first;
 
@@ -410,7 +408,8 @@ class _ReceivableFormPageState
                       ),
                       Visibility(
                         visible: expiration > 0 &&
-                            widget.dateEntryEC.text.isNotEmpty,
+                            widget.dateEntryEC.text.isNotEmpty &&
+                            widget.dateDueEC.text.isNotEmpty,
                         child: Text(
                             "Prazo de:\n$expiration ${expiration > 1 ? 'dias' : 'dia'}"),
                       ),
