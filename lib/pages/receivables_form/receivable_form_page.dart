@@ -68,7 +68,35 @@ class _ReceivableFormPageState
     });
   }
 
-  List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+  List<PeopleModel> listPeople = <PeopleModel>[
+    PeopleModel.empty(),
+    const PeopleModel(
+        id: 1,
+        name: "Cliente 1",
+        nick: "Cliente 1",
+        cnpj: "1",
+        ie: '1',
+        isClient: 1,
+        isSeller: 0,
+        phone1: 'phone1',
+        phone2: 'phone2',
+        phone3: 'phone3',
+        address: 'address',
+        obs: 'obs'),
+    const PeopleModel(
+        id: 1,
+        name: "Vendedor 1",
+        nick: "Vendedor 1",
+        cnpj: "1",
+        ie: '1',
+        isClient: 0,
+        isSeller: 1,
+        phone1: 'phone1',
+        phone2: 'phone2',
+        phone3: 'phone3',
+        address: 'address',
+        obs: 'obs'),
+  ];
   List<String> listType = <String>[
     'Selecione',
     TypeReceivable.Boleto.name,
@@ -95,9 +123,9 @@ class _ReceivableFormPageState
 
     int overdue = DateTime.now().difference(dateDue).inDays;
 
-    late String _selectedValue = list.first;
-    late String _selectedSeller = list.first;
-    late String _selectedClient = list.first;
+    late PeopleModel _selectedValue = listPeople.first;
+    late PeopleModel _selectedSeller = listPeople.first;
+    late PeopleModel _selectedClient = listPeople.first;
     late String _selectedType = listType.first;
 
     return BlocConsumer<ReceivableFormController, ReceivableFormState>(
@@ -197,10 +225,9 @@ class _ReceivableFormPageState
                     children: [
                       SizedBox(
                         width: 200,
-                        child: DropdownButtonFormField(
-                          decoration: const InputDecoration(
-                            labelText: "Vendedor",
-                          ),
+                        child: DropdownButtonFormField<PeopleModel>(
+                          decoration:
+                              const InputDecoration(labelText: "Vendedor"),
                           hint: const Text('Escolha o vendedor'),
                           isExpanded: true,
                           value: _selectedSeller,
@@ -214,24 +241,23 @@ class _ReceivableFormPageState
                               _selectedValue = value!;
                             });
                           },
-                          validator: (String? value) {
-                            if (value != null) {
-                              return null;
-                            } else {
+                          validator: (PeopleModel? value) {
+                            if (value == null || value == PeopleModel.empty()) {
                               return "Vendedor é obrigatório";
                             }
+                            return null;
                           },
-                          items: list.map((String val) {
+                          items: listPeople.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
-                              child: Text(val),
+                              child: Text(val.name),
                             );
                           }).toList(),
                         ),
                       ),
                       SizedBox(
                         width: 400,
-                        child: DropdownButtonFormField(
+                        child: DropdownButtonFormField<PeopleModel>(
                           decoration: const InputDecoration(
                             labelText: "Cliente",
                           ),
@@ -248,17 +274,16 @@ class _ReceivableFormPageState
                               _selectedValue = value!;
                             });
                           },
-                          validator: (String? value) {
-                            if (value != null) {
-                              return null;
-                            } else {
+                          validator: (PeopleModel? value) {
+                            if (value == null || value == PeopleModel.empty()) {
                               return "Cliente é obrigatório";
                             }
+                            return null;
                           },
-                          items: list.map((String val) {
+                          items: listPeople.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
-                              child: Text(val),
+                              child: Text(val.name),
                             );
                           }).toList(),
                         ),

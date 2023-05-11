@@ -31,7 +31,7 @@ class PeopleModel extends Equatable {
 
   factory PeopleModel.empty() => const PeopleModel(
         id: 0,
-        name: '',
+        name: 'Selecione',
         nick: '',
         cnpj: '',
         ie: '',
