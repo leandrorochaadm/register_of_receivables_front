@@ -358,7 +358,7 @@ class _ReceivableFormPageState
                           validator: (val) {
                             if (val != null && val != '' && val!.isNotEmpty) {
                               final date = DateFormat('yyyy-MM-dd').parse(val);
-                              if (date.difference(DateTime.now()).inDays >= 0) {
+                              if (date.day > 0) {
                                 return null;
                               }
                               return "Entrada inválida";
@@ -385,7 +385,7 @@ class _ReceivableFormPageState
                           validator: (val) {
                             if (val != null && val != '' && val!.isNotEmpty) {
                               final date = DateFormat('yyyy-MM-dd').parse(val);
-                              if (date.difference(DateTime.now()).inDays >= 0) {
+                              if (date.day > 0) {
                                 return null;
                               }
                               return "Vencimento inválido";
@@ -411,7 +411,7 @@ class _ReceivableFormPageState
                           validator: (val) {
                             if (val != null && val != '' && val!.isNotEmpty) {
                               final date = DateFormat('yyyy-MM-dd').parse(val);
-                              if (date.difference(DateTime.now()).inDays >= 0) {
+                              if (date.day > 0) {
                                 return null;
                               }
                               return "Recebimento inválido";
