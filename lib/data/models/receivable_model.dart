@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class ReceivableModel extends Equatable {
+  final int id;
   final TypeReceivable type;
   final DateTime dateEntry;
   final DateTime dateDue;
+  final DateTime dateReceiving;
   final String client;
   final String numDoc;
   final double value;
@@ -11,9 +13,11 @@ class ReceivableModel extends Equatable {
   final String seller;
 
   const ReceivableModel({
+    required this.id,
     required this.type,
     required this.dateEntry,
     required this.dateDue,
+    required this.dateReceiving,
     required this.client,
     required this.numDoc,
     required this.value,
@@ -22,10 +26,12 @@ class ReceivableModel extends Equatable {
   });
 
   ReceivableModel.empty()
-      : value = 0,
+      : id = 0,
+        value = 0,
         client = '',
         dateDue = DateTime.now(),
         dateEntry = DateTime.now(),
+        dateReceiving = DateTime.now(),
         destiny = '',
         numDoc = '',
         seller = '',
@@ -33,9 +39,11 @@ class ReceivableModel extends Equatable {
 
   @override
   List<Object> get props => [
+        id,
         type,
         dateEntry,
         dateDue,
+        dateReceiving,
         client,
         numDoc,
         value,

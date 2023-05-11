@@ -44,14 +44,9 @@ class _ReceivableFormPageState
     widget.valueEC.dispose();
     widget.numDocEC.dispose();
     widget.dateDueEC.dispose();
-    widget.phone2EC.dispose();
-    widget.phone3EC.dispose();
     widget.dateEntryEC.dispose();
     widget.destinyEC.dispose();
     widget.addressEC.dispose();
-    widget.obsEC.dispose();
-    widget.isPaidEC.dispose();
-    widget.isSellerEC.dispose();
     super.dispose();
   }
 
@@ -59,16 +54,13 @@ class _ReceivableFormPageState
   void onReady() {
     final receivable =
         ModalRoute.of(context)!.settings.arguments as ReceivableModel;
-    // widget.idEC.text = receivable.id.toString();
-    // widget.nameEC.text = receivable.name;
-    // widget.nickEC.text = receivable.nick;
-    // widget.phone1EC.text = receivable.phone1;
-    // widget.phone2EC.text = receivable.phone2;
-    // widget.phone3EC.text = receivable.phone3;
-    // widget.cnpjEC.text = receivable.cnpj;
-    // widget.ieEC.text = receivable.ie;
-    // widget.addressEC.text = receivable.address;
-    // widget.obsEC.text = receivable.obs;
+    widget.idEC.text = receivable.id.toString();
+    widget.dateEntryEC.text = receivable.dateEntry.toString();
+    widget.dateDueEC.text = receivable.dateDue.toString();
+    widget.dateReceivingEC.text = receivable.dateReceiving.toString();
+    widget.numDocEC.text = receivable.numDoc;
+    widget.valueEC.text = receivable.value.toString();
+    widget.destinyEC.text = receivable.destiny;
 
     setState(() {
       // widget.isClientEC.text = receivable.isClient.toString();
@@ -270,7 +262,7 @@ class _ReceivableFormPageState
                           isExpanded: true,
                           onChanged: (value) {
                             setState(() {
-                              _selectedValue = value!;
+                              _selectedType = value!;
                             });
                           },
                           onSaved: (value) {

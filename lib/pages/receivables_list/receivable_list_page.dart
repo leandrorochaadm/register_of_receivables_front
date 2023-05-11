@@ -59,9 +59,11 @@ class _ReceivablesListPageState
           children: [
             ReceivablesTableWidget(list: [
               ReceivableModel(
+                id: 1,
                 type: TypeReceivable.Boleto,
                 dateEntry: DateTime(2023),
                 dateDue: DateTime(2024),
+                dateReceiving: DateTime(2024),
                 client: 'Casa da ração',
                 numDoc: '123456',
                 value: 15000,
@@ -69,13 +71,15 @@ class _ReceivablesListPageState
                 seller: 'José',
               ),
               ReceivableModel(
+                id: 2,
                 type: TypeReceivable.Boleto,
                 dateEntry: DateTime(2023),
                 dateDue: DateTime(2024),
+                dateReceiving: DateTime(2024),
                 client: 'Casa da ração',
                 numDoc: '123456',
                 value: 15000,
-                destiny: 'banco Amazônia',
+                destiny: 'Nutridani',
                 seller: 'José',
               ),
             ])
