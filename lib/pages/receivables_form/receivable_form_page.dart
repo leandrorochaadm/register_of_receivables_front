@@ -224,7 +224,7 @@ class _ReceivableFormPageState
                     runSpacing: 50,
                     children: [
                       SizedBox(
-                        width: 200,
+                        width: 250,
                         child: DropdownButtonFormField<PeopleModel>(
                           decoration:
                               const InputDecoration(labelText: "Vendedor"),
@@ -250,7 +250,7 @@ class _ReceivableFormPageState
                           items: listPeople.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
-                              child: Text(val.name),
+                              child: Text("${val.name} (${val.nick})"),
                             );
                           }).toList(),
                         ),
@@ -283,7 +283,7 @@ class _ReceivableFormPageState
                           items: listPeople.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
-                              child: Text(val.name),
+                              child: Text("${val.name} (${val.nick})"),
                             );
                           }).toList(),
                         ),
