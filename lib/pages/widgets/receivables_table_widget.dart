@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:register_of_receivables_front/ui/helper/size_extesions.dart';
 
 import '../../data/models/models.dart';
 import 'widgets.dart';
@@ -23,53 +22,11 @@ class ReceivablesTableWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Wrap(
-            runSpacing: 8,
-            children: [
-              HeaderWidget(
-                width: context.percentWidth(.07),
-                label: 'Tipo',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.25),
-                label: 'Cliente',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.12),
-                label: 'Número',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.12),
-                label: 'Valor',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.12),
-                label: 'Vendedor',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.18),
-                label: 'Destino',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.15),
-                label: 'Entrada',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.15),
-                label: 'Vencimento',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.15),
-                label: 'Prazo',
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          const Divider(color: Colors.grey),
-          const SizedBox(height: 8),
           ListView.separated(
-            separatorBuilder: (context, index) =>
-                const Divider(color: Colors.grey),
+            separatorBuilder: (context, index) => const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Divider(color: Colors.grey),
+            ),
             itemCount: list.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
@@ -78,41 +35,58 @@ class ReceivablesTableWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Wrap(
-                      runSpacing: 8,
+                      runSpacing: 16,
+                      spacing: 8,
                       children: [
                         BodyWidget(
-                          width: context.percentWidth(.07),
-                          label: Receivables.type.name,
-                          fontWeight: FontWeight.bold,
+                          width: 200,
+                          data: Receivables.type.name,
+                          label: 'Tipo',
                         ),
                         BodyWidget(
-                            width: context.percentWidth(.25),
-                            label: Receivables.client.name),
-                        BodyWidget(
-                          width: context.percentWidth(.12),
-                          label: Receivables.numDoc,
+                          width: 750,
+                          data:
+                              "${Receivables.client.name} (${Receivables.client.nick})",
+                          label: 'Razão Social',
                         ),
                         BodyWidget(
-                            width: context.percentWidth(.12),
-                            label: Receivables.value.toString()),
+                          width: 200,
+                          data: Receivables.numDoc,
+                          label: 'Número',
+                        ),
                         BodyWidget(
-                            width: context.percentWidth(.12),
-                            label: Receivables.seller.name),
+                          width: 200,
+                          data: Receivables.value.toString(),
+                          label: 'Valor',
+                        ),
                         BodyWidget(
-                            width: context.percentWidth(.18),
-                            label: Receivables.destiny),
+                          width: 300,
+                          data: Receivables.seller.name,
+                          label: 'Vendedor',
+                        ),
                         BodyWidget(
-                            width: context.percentWidth(.15),
-                            label: DateFormat('dd/MM/yy')
-                                .format(Receivables.dateEntry)),
+                          width: 300,
+                          data: Receivables.destiny,
+                          label: 'Destino',
+                        ),
                         BodyWidget(
-                            width: context.percentWidth(.15),
-                            label: DateFormat('dd/MM/yy')
-                                .format(Receivables.dateDue)),
+                          width: 300,
+                          data: DateFormat('dd/MM/yy')
+                              .format(Receivables.dateEntry),
+                          label: 'Data Entrada',
+                        ),
                         BodyWidget(
-                            width: context.percentWidth(.15),
-                            label:
-                                "${(Receivables.dateDue.difference(Receivables.dateEntry).inDays)} dias"),
+                          width: 350,
+                          data: DateFormat('dd/MM/yy')
+                              .format(Receivables.dateDue),
+                          label: 'Data Vencimento',
+                        ),
+                        BodyWidget(
+                          width: 300,
+                          data:
+                              "${(Receivables.dateDue.difference(Receivables.dateEntry).inDays)} dias",
+                          label: 'Prazo',
+                        ),
                       ],
                     ),
                   ),

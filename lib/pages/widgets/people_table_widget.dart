@@ -68,25 +68,24 @@ class PeopleTableWidget extends StatelessWidget {
                       children: [
                         BodyWidget(
                           width: context.percentWidth(.15),
-                          label: people.nick,
-                          fontWeight: FontWeight.bold,
+                          data: people.nick,
                         ),
                         BodyWidget(
                             width: context.percentWidth(.15),
-                            label: people.name),
+                            data: people.name),
                         BodyWidget(
                             width: context.percentWidth(.18),
-                            label: people.cnpj),
+                            data: people.cnpj),
                         BodyWidget(
                           width: context.percentWidth(.1),
-                          label: people.ie,
+                          data: people.ie,
                         ),
                         BodyWidget(
                             width: context.percentWidth(.12),
-                            label: people.phone1),
+                            data: people.phone1),
                         BodyWidget(
                             width: context.percentWidth(.12),
-                            label: people.phone2),
+                            data: people.phone2),
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
