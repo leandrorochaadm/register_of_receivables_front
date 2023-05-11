@@ -31,43 +31,6 @@ class ReceivableFormPage extends StatefulWidget {
   final MaskTextInputFormatter dateFormatter =
       MaskTextInputFormatter(mask: '##/##/##');
 
-  @override
-  State<ReceivableFormPage> createState() => _ReceivableFormPageState();
-}
-
-class _ReceivableFormPageState
-    extends BaseState<ReceivableFormPage, ReceivableFormController> {
-  @override
-  void dispose() {
-    widget.formKey.currentState?.dispose();
-    widget.idEC.dispose();
-    widget.valueEC.dispose();
-    widget.numDocEC.dispose();
-    widget.dateDueEC.dispose();
-    widget.dateEntryEC.dispose();
-    widget.destinyEC.dispose();
-    widget.addressEC.dispose();
-    super.dispose();
-  }
-
-  @override
-  void onReady() {
-    final receivable =
-        ModalRoute.of(context)!.settings.arguments as ReceivableModel;
-    widget.idEC.text = receivable.id.toString();
-    widget.dateEntryEC.text = receivable.dateEntry.toString();
-    widget.dateDueEC.text = receivable.dateDue.toString();
-    widget.dateReceivingEC.text = receivable.dateReceiving.toString();
-    widget.numDocEC.text = receivable.numDoc;
-    widget.valueEC.text = receivable.value.toString();
-    widget.destinyEC.text = receivable.destiny;
-
-    setState(() {
-      // widget.isClientEC.text = receivable.isClient.toString();
-      // widget.isSellerEC.text = receivable.isSeller.toString();
-    });
-  }
-
   List<PeopleModel> listClients = <PeopleModel>[
     PeopleModel.empty(),
     const PeopleModel(
@@ -100,12 +63,55 @@ class _ReceivableFormPageState
         address: 'address',
         obs: 'obs'),
   ];
+
   List<String> listType = <String>[
     'Selecione',
     TypeReceivable.Boleto.name,
     TypeReceivable.Cheque.name,
     TypeReceivable.Promissoria.name,
   ];
+
+  @override
+  State<ReceivableFormPage> createState() => _ReceivableFormPageState();
+}
+
+class _ReceivableFormPageState
+    extends BaseState<ReceivableFormPage, ReceivableFormController> {
+  late PeopleModel _selectedSeller;
+  late PeopleModel _selectedClient;
+  late String _selectedType;
+
+  @override
+  void dispose() {
+    widget.formKey.currentState?.dispose();
+    widget.idEC.dispose();
+    widget.valueEC.dispose();
+    widget.numDocEC.dispose();
+    widget.dateDueEC.dispose();
+    widget.dateEntryEC.dispose();
+    widget.destinyEC.dispose();
+    widget.addressEC.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onReady() {
+    final receivable =
+        ModalRoute.of(context)!.settings.arguments as ReceivableModel;
+    widget.idEC.text = receivable.id.toString();
+    widget.dateEntryEC.text = receivable.dateEntry.toString();
+    widget.dateDueEC.text = receivable.dateDue.toString();
+    widget.dateReceivingEC.text = receivable.dateReceiving.toString();
+    widget.numDocEC.text = receivable.numDoc;
+    widget.valueEC.text = receivable.value.toString();
+    widget.destinyEC.text = receivable.destiny;
+
+    setState(() {
+      _selectedSeller = receivable.seller;
+      _selectedClient = receivable.client;
+      _selectedType = receivable.type.name;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,10 +131,6 @@ class _ReceivableFormPageState
     int expiration = dateDue.difference(dateEntry).inDays;
 
     int overdue = DateTime.now().difference(dateDue).inDays;
-
-    late PeopleModel _selectedSeller = listSellers.first;
-    late PeopleModel _selectedClient = listClients.first;
-    late String _selectedType = listType.first;
 
     return BlocConsumer<ReceivableFormController, ReceivableFormState>(
         listener: (context, state) => state.status.matchAny(
@@ -244,7 +246,7 @@ class _ReceivableFormPageState
                             }
                             return null;
                           },
-                          items: listSellers.map((PeopleModel val) {
+                          items: widget.listSellers.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
                               child: Text("${val.name} (${val.nick})"),
@@ -272,7 +274,7 @@ class _ReceivableFormPageState
                             }
                             return null;
                           },
-                          items: listClients.map((PeopleModel val) {
+                          items: widget.listClients.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
                               child: Text("${val.name} (${val.nick})"),
@@ -282,7 +284,7 @@ class _ReceivableFormPageState
                       ),
                       SizedBox(
                         width: 200,
-                        child: DropdownButtonFormField(
+                        child: DropdownButtonFormField<String>(
                           decoration: const InputDecoration(
                             labelText: "Tipo",
                           ),
@@ -300,7 +302,7 @@ class _ReceivableFormPageState
                             }
                             return null;
                           },
-                          items: listType.map((String val) {
+                          items: widget.listType.map((String val) {
                             return DropdownMenuItem(
                               value: val,
                               child: Text(val),
