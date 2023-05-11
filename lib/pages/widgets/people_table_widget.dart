@@ -49,7 +49,7 @@ class PeopleTableWidget extends StatelessWidget {
                           label: 'Razão Social/Nome',
                         ),
                         BodyWidget(
-                          width: 350,
+                          width: 380,
                           data: people.cnpj,
                           label: 'CNPJ/CPF',
                         ),
@@ -59,12 +59,12 @@ class PeopleTableWidget extends StatelessWidget {
                           label: 'IE/RG',
                         ),
                         BodyWidget(
-                          width: 250,
+                          width: 275,
                           data: people.phone1,
                           label: 'Tel1',
                         ),
                         BodyWidget(
-                          width: 250,
+                          width: 275,
                           data: people.phone2,
                           label: 'Tel2',
                         ),
