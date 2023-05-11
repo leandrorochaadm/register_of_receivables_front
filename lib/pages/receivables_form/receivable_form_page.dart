@@ -68,12 +68,12 @@ class _ReceivableFormPageState
     });
   }
 
-  List<PeopleModel> listPeople = <PeopleModel>[
+  List<PeopleModel> listClients = <PeopleModel>[
     PeopleModel.empty(),
     const PeopleModel(
         id: 1,
-        name: "Cliente 1",
-        nick: "Cliente 1",
+        name: "Cliente Nome",
+        nick: "Cliente Fantasia",
         cnpj: "1",
         ie: '1',
         isClient: 1,
@@ -83,6 +83,9 @@ class _ReceivableFormPageState
         phone3: 'phone3',
         address: 'address',
         obs: 'obs'),
+  ];
+  List<PeopleModel> listSellers = <PeopleModel>[
+    PeopleModel.empty(),
     const PeopleModel(
         id: 1,
         name: "Vendedor 1",
@@ -123,9 +126,9 @@ class _ReceivableFormPageState
 
     int overdue = DateTime.now().difference(dateDue).inDays;
 
-    late PeopleModel _selectedValue = listPeople.first;
-    late PeopleModel _selectedSeller = listPeople.first;
-    late PeopleModel _selectedClient = listPeople.first;
+    late PeopleModel _selectedValue = listClients.first;
+    late PeopleModel _selectedSeller = listClients.first;
+    late PeopleModel _selectedClient = listClients.first;
     late String _selectedType = listType.first;
 
     return BlocConsumer<ReceivableFormController, ReceivableFormState>(
@@ -247,7 +250,7 @@ class _ReceivableFormPageState
                             }
                             return null;
                           },
-                          items: listPeople.map((PeopleModel val) {
+                          items: listSellers.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
                               child: Text("${val.name} (${val.nick})"),
@@ -280,7 +283,7 @@ class _ReceivableFormPageState
                             }
                             return null;
                           },
-                          items: listPeople.map((PeopleModel val) {
+                          items: listClients.map((PeopleModel val) {
                             return DropdownMenuItem(
                               value: val,
                               child: Text("${val.name} (${val.nick})"),

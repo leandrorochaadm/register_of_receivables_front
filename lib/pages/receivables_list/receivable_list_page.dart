@@ -66,8 +66,8 @@ class _ReceivablesListPageState
                 dateReceiving: DateTime(2024),
                 client: const PeopleModel(
                     id: 1,
-                    name: "Cliente 1",
-                    nick: "Cliente 1",
+                    name: "Cliente Nome",
+                    nick: "Cliente Fantasia",
                     cnpj: "1",
                     ie: '1',
                     isClient: 1,
