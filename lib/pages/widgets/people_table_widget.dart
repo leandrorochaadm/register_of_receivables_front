@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:register_of_receivables_front/ui/helper/size_extesions.dart';
 
 import '../../data/models/models.dart';
 import 'widgets.dart';
@@ -17,98 +16,82 @@ class PeopleTableWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(12)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              HeaderWidget(
-                width: context.percentWidth(.15),
-                label: 'Nome Fantasia',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.15),
-                label: 'Razão Social',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.18),
-                label: 'CNPJ',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.1),
-                label: 'IE',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.12),
-                label: 'Telefone1',
-              ),
-              HeaderWidget(
-                width: context.percentWidth(.12),
-                label: 'Telefone2',
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          const Divider(color: Colors.grey),
-          const SizedBox(height: 8),
           ListView.separated(
-            separatorBuilder: (context, index) =>
-                const Divider(color: Colors.grey),
+            separatorBuilder: (context, index) => const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Divider(color: Colors.grey),
+            ),
             itemCount: list.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final people = list[index];
-              return Container(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: Column(
-                  children: [
-                    Row(
+              return Row(
+                children: [
+                  Expanded(
+                    child: Wrap(
+                      runSpacing: 16,
                       children: [
                         BodyWidget(
-                          width: context.percentWidth(.15),
+                          width: 300,
                           data: people.nick,
+                          label: 'Fantasia',
                         ),
                         BodyWidget(
-                            width: context.percentWidth(.15),
-                            data: people.name),
+                          width: 600,
+                          data: people.name,
+                          label: 'Razão Social/Nome',
+                        ),
                         BodyWidget(
-                            width: context.percentWidth(.18),
-                            data: people.cnpj),
+                          width: 350,
+                          data: people.cnpj,
+                          label: 'CNPJ/CPF',
+                        ),
                         BodyWidget(
-                          width: context.percentWidth(.1),
+                          width: 250,
                           data: people.ie,
+                          label: 'IE/RG',
                         ),
                         BodyWidget(
-                            width: context.percentWidth(.12),
-                            data: people.phone1),
-                        BodyWidget(
-                            width: context.percentWidth(.12),
-                            data: people.phone2),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.payments_outlined,
-                            color: Colors.green[300],
-                          ),
-                          tooltip: "Ver contas a receber",
+                          width: 250,
+                          data: people.phone1,
+                          label: 'Tel1',
                         ),
-                        const SizedBox(width: 12),
-                        IconButton(
-                          onPressed: () => Navigator.pushNamed(
-                              context, "/people_form",
-                              arguments: people),
-                          icon: const Icon(
-                            Icons.edit,
-                            color: Colors.grey,
-                          ),
-                          tooltip: 'Editar cadastro',
+                        BodyWidget(
+                          width: 250,
+                          data: people.phone2,
+                          label: 'Tel2',
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 12),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.payments_outlined,
+                      color: Colors.green[300],
+                    ),
+                    tooltip: "Ver contas a receber",
+                  ),
+                  const SizedBox(width: 12),
+                  IconButton(
+                    onPressed: () => Navigator.pushNamed(
+                        context, "/people_form",
+                        arguments: people),
+                    icon: const Icon(
+                      Icons.edit,
+                      color: Colors.grey,
+                    ),
+                    tooltip: 'Editar cadastro',
+                  ),
+                ],
               );
             },
           ),
