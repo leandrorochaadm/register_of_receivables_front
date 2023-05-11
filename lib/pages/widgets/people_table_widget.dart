@@ -39,7 +39,7 @@ class PeopleTableWidget extends StatelessWidget {
                       runSpacing: 16,
                       children: [
                         BodyWidget(
-                          width: 300,
+                          width: 600,
                           data: people.nick,
                           label: 'Fantasia',
                         ),

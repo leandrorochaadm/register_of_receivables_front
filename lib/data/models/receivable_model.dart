@@ -32,7 +32,7 @@ class ReceivableModel extends Equatable {
         client = PeopleModel.empty(),
         dateDue = DateTime.now(),
         dateEntry = DateTime.now(),
-        dateReceiving = DateTime.now(),
+        dateReceiving = null,
         destiny = '',
         numDoc = '',
         seller = PeopleModel.empty(),
