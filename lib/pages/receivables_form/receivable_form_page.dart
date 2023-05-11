@@ -69,6 +69,12 @@ class _ReceivableFormPageState
   }
 
   List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+  List<String> listType = <String>[
+    'Selecione',
+    TypeReceivable.Boleto.name,
+    TypeReceivable.Cheque.name,
+    TypeReceivable.Promissoria.name,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +96,9 @@ class _ReceivableFormPageState
     int overdue = DateTime.now().difference(dateDue).inDays;
 
     late String _selectedValue = list.first;
+    late String _selectedSeller = list.first;
+    late String _selectedClient = list.first;
+    late String _selectedType = listType.first;
 
     return BlocConsumer<ReceivableFormController, ReceivableFormState>(
         listener: (context, state) => state.status.matchAny(
@@ -194,6 +203,7 @@ class _ReceivableFormPageState
                           ),
                           hint: const Text('Escolha o vendedor'),
                           isExpanded: true,
+                          value: _selectedSeller,
                           onChanged: (value) {
                             setState(() {
                               _selectedValue = value!;
@@ -226,6 +236,7 @@ class _ReceivableFormPageState
                             labelText: "Cliente",
                           ),
                           hint: const Text('Escolha o cliente'),
+                          value: _selectedClient,
                           isExpanded: true,
                           onChanged: (value) {
                             setState(() {
@@ -259,6 +270,7 @@ class _ReceivableFormPageState
                             labelText: "Tipo",
                           ),
                           hint: const Text('Escolha o tipo'),
+                          value: _selectedType,
                           isExpanded: true,
                           onChanged: (value) {
                             setState(() {
@@ -267,17 +279,16 @@ class _ReceivableFormPageState
                           },
                           onSaved: (value) {
                             setState(() {
-                              _selectedValue = value!;
+                              _selectedType = value!;
                             });
                           },
                           validator: (String? value) {
-                            if (value != null) {
-                              return null;
-                            } else {
+                            if (value == 'Selecione' || value == null) {
                               return "Tipo é obrigatório";
                             }
+                            return null;
                           },
-                          items: list.map((String val) {
+                          items: listType.map((String val) {
                             return DropdownMenuItem(
                               value: val,
                               child: Text(val),
