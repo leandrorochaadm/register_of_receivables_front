@@ -126,8 +126,7 @@ class _ReceivableFormPageState
 
     int overdue = DateTime.now().difference(dateDue).inDays;
 
-    late PeopleModel _selectedValue = listClients.first;
-    late PeopleModel _selectedSeller = listClients.first;
+    late PeopleModel _selectedSeller = listSellers.first;
     late PeopleModel _selectedClient = listClients.first;
     late String _selectedType = listType.first;
 
@@ -236,12 +235,7 @@ class _ReceivableFormPageState
                           value: _selectedSeller,
                           onChanged: (value) {
                             setState(() {
-                              _selectedValue = value!;
-                            });
-                          },
-                          onSaved: (value) {
-                            setState(() {
-                              _selectedValue = value!;
+                              _selectedSeller = value!;
                             });
                           },
                           validator: (PeopleModel? value) {
@@ -269,12 +263,7 @@ class _ReceivableFormPageState
                           isExpanded: true,
                           onChanged: (value) {
                             setState(() {
-                              _selectedValue = value!;
-                            });
-                          },
-                          onSaved: (value) {
-                            setState(() {
-                              _selectedValue = value!;
+                              _selectedClient = value!;
                             });
                           },
                           validator: (PeopleModel? value) {
@@ -301,11 +290,6 @@ class _ReceivableFormPageState
                           value: _selectedType,
                           isExpanded: true,
                           onChanged: (value) {
-                            setState(() {
-                              _selectedType = value!;
-                            });
-                          },
-                          onSaved: (value) {
                             setState(() {
                               _selectedType = value!;
                             });
