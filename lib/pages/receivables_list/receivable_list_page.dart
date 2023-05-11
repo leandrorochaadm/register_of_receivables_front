@@ -43,6 +43,16 @@ class _ReceivablesListPageState
           title: "Listagem de contas a receber",
           widgets: [
             Tooltip(
+              message: 'Voltar para a tela lista de pessoas',
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                style:
+                    ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
+                child: const Icon(Icons.exit_to_app),
+              ),
+            ),
+            const SizedBox(width: 32),
+            Tooltip(
               message: 'Cadastrar nova conta',
               child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(
