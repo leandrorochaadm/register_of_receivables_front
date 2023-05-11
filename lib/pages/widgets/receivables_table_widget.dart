@@ -31,6 +31,8 @@ class ReceivablesTableWidget extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final Receivables = list[index];
+              int overdue =
+                  DateTime.now().difference(Receivables.dateDue).inDays;
               return Row(
                 children: [
                   Expanded(
@@ -82,10 +84,18 @@ class ReceivablesTableWidget extends StatelessWidget {
                           label: 'Data Vencimento',
                         ),
                         BodyWidget(
-                          width: 300,
+                          width: 200,
                           data:
                               "${(Receivables.dateDue.difference(Receivables.dateEntry).inDays)} dias",
                           label: 'Prazo',
+                        ),
+                        Visibility(
+                          visible: overdue > 0,
+                          child: BodyWidget(
+                            width: 220,
+                            data: "$overdue dias",
+                            label: 'Vencido há',
+                          ),
                         ),
                       ],
                     ),

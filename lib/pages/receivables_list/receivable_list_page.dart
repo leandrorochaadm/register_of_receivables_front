@@ -98,7 +98,7 @@ class _ReceivablesListPageState
                 id: 2,
                 type: TypeReceivable.Boleto,
                 dateEntry: DateTime(2023),
-                dateDue: DateTime(2023, 8),
+                dateDue: DateTime(2023, 3),
                 dateReceiving: DateTime(2024),
                 client: const PeopleModel(
                   id: 1,
