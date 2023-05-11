@@ -90,7 +90,17 @@ class ReceivablesTableWidget extends StatelessWidget {
                           label: 'Prazo',
                         ),
                         Visibility(
-                          visible: overdue > 0,
+                          visible: Receivables.dateReceiving != null,
+                          child: BodyWidget(
+                            width: 300,
+                            data: DateFormat('dd/MM/yy').format(
+                                Receivables.dateReceiving ?? DateTime.now()),
+                            label: 'Pago em',
+                          ),
+                        ),
+                        Visibility(
+                          visible:
+                              overdue > 0 && Receivables.dateReceiving == null,
                           child: BodyWidget(
                             width: 220,
                             data: "$overdue dias",

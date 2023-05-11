@@ -6,7 +6,7 @@ class ReceivableModel extends Equatable {
   final TypeReceivable type;
   final DateTime dateEntry;
   final DateTime dateDue;
-  final DateTime dateReceiving;
+  final DateTime? dateReceiving;
   final PeopleModel client;
   final String numDoc;
   final double value;
@@ -18,7 +18,7 @@ class ReceivableModel extends Equatable {
     required this.type,
     required this.dateEntry,
     required this.dateDue,
-    required this.dateReceiving,
+    this.dateReceiving,
     required this.client,
     required this.numDoc,
     required this.value,
@@ -44,7 +44,6 @@ class ReceivableModel extends Equatable {
         type,
         dateEntry,
         dateDue,
-        dateReceiving,
         client,
         numDoc,
         value,

@@ -62,8 +62,8 @@ class _ReceivablesListPageState
                 id: 1,
                 type: TypeReceivable.Cheque,
                 dateEntry: DateTime(2023),
-                dateDue: DateTime(2024),
-                dateReceiving: DateTime(2024),
+                dateDue: DateTime(2023, 2),
+                dateReceiving: DateTime(2023, 3),
                 client: const PeopleModel(
                     id: 1,
                     name: "Cliente Nome",
@@ -99,7 +99,7 @@ class _ReceivablesListPageState
                 type: TypeReceivable.Boleto,
                 dateEntry: DateTime(2023),
                 dateDue: DateTime(2023, 3),
-                dateReceiving: DateTime(2024),
+                // dateReceiving: DateTime(2024),
                 client: const PeopleModel(
                   id: 1,
                   name: "Cliente Nome",
