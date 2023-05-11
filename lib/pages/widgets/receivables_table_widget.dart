@@ -87,7 +87,7 @@ class ReceivablesTableWidget extends StatelessWidget {
                         ),
                         BodyWidget(
                             width: context.percentWidth(.25),
-                            label: Receivables.client),
+                            label: Receivables.client.name),
                         BodyWidget(
                           width: context.percentWidth(.12),
                           label: Receivables.numDoc,
@@ -97,7 +97,7 @@ class ReceivablesTableWidget extends StatelessWidget {
                             label: Receivables.value.toString()),
                         BodyWidget(
                             width: context.percentWidth(.12),
-                            label: Receivables.seller),
+                            label: Receivables.seller.name),
                         BodyWidget(
                             width: context.percentWidth(.18),
                             label: Receivables.destiny),
