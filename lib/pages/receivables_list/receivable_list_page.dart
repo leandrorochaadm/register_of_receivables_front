@@ -67,6 +67,19 @@ class _ReceivablesListPageState
             ),
           ],
           body: ReceivablesTableWidget(list: state.receivables),
+          footer: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                "Total a receber é: R\$ ${state.sum.toStringAsFixed(2)}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.blue[900],
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
