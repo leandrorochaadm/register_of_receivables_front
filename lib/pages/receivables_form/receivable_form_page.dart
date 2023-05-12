@@ -102,7 +102,9 @@ class _ReceivableFormPageState
     widget.idEC.text = receivable.id.toString();
     widget.dateEntryEC.text = receivable.dateEntry.toString();
     widget.dateDueEC.text = receivable.dateDue.toString();
-    widget.dateReceivingEC.text = receivable.dateReceiving.toString();
+    if (receivable.dateReceiving != null) {
+      widget.dateReceivingEC.text = receivable.dateReceiving.toString();
+    }
     widget.numDocEC.text = receivable.numDoc;
     widget.valueEC.text = receivable.value.toString();
     widget.destinyEC.text = receivable.destiny;
@@ -126,7 +128,8 @@ class _ReceivableFormPageState
     if (widget.dateDueEC.text.isNotEmpty) {
       dateDue = DateTime.parse(widget.dateDueEC.text);
     }
-    if (widget.dateReceivingEC.text.isNotEmpty) {
+    if (widget.dateReceivingEC.text.isNotEmpty &&
+        widget.dateReceivingEC.text != '') {
       dateReceiving = DateTime.parse(widget.dateReceivingEC.text);
     }
     int expiration = dateDue.difference(dateEntry).inDays;
