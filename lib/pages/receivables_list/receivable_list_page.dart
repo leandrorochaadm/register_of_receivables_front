@@ -19,7 +19,7 @@ class _ReceivablesListPageState
     extends BaseState<ReceivablesListPage, ReceivablesListController> {
   @override
   void onReady() {
-    // controller.loadPeoples();
+    controller.loadReceivables();
   }
 
   @override
@@ -66,83 +66,7 @@ class _ReceivablesListPageState
               ),
             ),
           ],
-          children: [
-            ReceivablesTableWidget(list: [
-              ReceivableModel(
-                id: 1,
-                type: TypeReceivable.Cheque,
-                dateEntry: DateTime(2023),
-                dateDue: DateTime(2023, 2),
-                dateReceiving: DateTime(2023, 3),
-                client: const PeopleModel(
-                    id: 1,
-                    name: "Cliente Nome",
-                    nick: "Cliente Fantasia",
-                    cnpj: "1",
-                    ie: '1',
-                    isClient: 1,
-                    isSeller: 0,
-                    phone1: 'phone1',
-                    phone2: 'phone2',
-                    phone3: 'phone3',
-                    address: 'address',
-                    obs: 'obs'),
-                numDoc: '123456',
-                value: 15000,
-                destiny: 'banco Amazônia',
-                seller: const PeopleModel(
-                    id: 1,
-                    name: "Vendedor 1",
-                    nick: "Vendedor 1",
-                    cnpj: "1",
-                    ie: '1',
-                    isClient: 0,
-                    isSeller: 1,
-                    phone1: 'phone1',
-                    phone2: 'phone2',
-                    phone3: 'phone3',
-                    address: 'address',
-                    obs: 'obs'),
-              ),
-              ReceivableModel(
-                id: 2,
-                type: TypeReceivable.Boleto,
-                dateEntry: DateTime(2023),
-                dateDue: DateTime(2023, 3),
-                // dateReceiving: DateTime(2024),
-                client: const PeopleModel(
-                  id: 1,
-                  name: "Cliente Nome",
-                  nick: "Cliente Fantasia",
-                  cnpj: "1",
-                  ie: '1',
-                  isClient: 1,
-                  isSeller: 0,
-                  phone1: 'phone1',
-                  phone2: 'phone2',
-                  phone3: 'phone3',
-                  address: 'address',
-                  obs: 'obs',
-                ),
-                numDoc: '123456',
-                value: 15000,
-                destiny: 'Nutridani',
-                seller: const PeopleModel(
-                    id: 1,
-                    name: "Vendedor 1",
-                    nick: "Vendedor 1",
-                    cnpj: "1",
-                    ie: '1',
-                    isClient: 0,
-                    isSeller: 1,
-                    phone1: 'phone1',
-                    phone2: 'phone2',
-                    phone3: 'phone3',
-                    address: 'address',
-                    obs: 'obs'),
-              ),
-            ])
-          ],
+          children: [ReceivablesTableWidget(list: state.receivables)],
         );
       },
     );

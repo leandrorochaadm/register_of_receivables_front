@@ -66,20 +66,22 @@ class ReceivableModel extends Equatable {
     };
   }
 
-  factory ReceivableModel.fromMap(Map<String, dynamic> map) {
+  factory ReceivableModel.fromJson(Map<String, dynamic> map) {
     var client = PeopleModel.fromJson(map['client']);
     var seller = PeopleModel.fromJson(map['seller']);
 
     return ReceivableModel(
       id: map['id'] as int,
-      type: map['type'] as TypeReceivable,
+      type: map['type'] == TypeReceivable.Boleto.name
+          ? TypeReceivable.Boleto
+          : TypeReceivable.Cheque,
       dateEntry: DateTime.fromMillisecondsSinceEpoch(map['dateEntry']),
       dateDue: DateTime.fromMillisecondsSinceEpoch(map['dateDue']),
       dateReceiving: DateTime.fromMillisecondsSinceEpoch(map['dateReceiving']),
       client: client,
       seller: seller,
       numDoc: map['numDoc'] as String,
-      value: map['value'] as double,
+      value: double.parse(map['value'].toString()),
       destiny: map['destiny'] as String,
     );
   }
