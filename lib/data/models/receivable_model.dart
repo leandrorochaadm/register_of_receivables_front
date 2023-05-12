@@ -50,6 +50,39 @@ class ReceivableModel extends Equatable {
         destiny,
         seller,
       ];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': this.id,
+      'type': this.type.name,
+      'dateEntry': this.dateEntry.millisecondsSinceEpoch,
+      'dateDue': this.dateDue.millisecondsSinceEpoch,
+      'dateReceiving': this.dateReceiving?.millisecondsSinceEpoch ?? null,
+      'clientId': this.client.id,
+      'numDoc': this.numDoc,
+      'value': this.value,
+      'destiny': this.destiny,
+      'sellerId': this.seller.id,
+    };
+  }
+
+  factory ReceivableModel.fromMap(Map<String, dynamic> map) {
+    var client = PeopleModel.fromJson(map['client']);
+    var seller = PeopleModel.fromJson(map['seller']);
+
+    return ReceivableModel(
+      id: map['id'] as int,
+      type: map['type'] as TypeReceivable,
+      dateEntry: DateTime.fromMillisecondsSinceEpoch(map['dateEntry']),
+      dateDue: DateTime.fromMillisecondsSinceEpoch(map['dateDue']),
+      dateReceiving: DateTime.fromMillisecondsSinceEpoch(map['dateReceiving']),
+      client: client,
+      seller: seller,
+      numDoc: map['numDoc'] as String,
+      value: map['value'] as double,
+      destiny: map['destiny'] as String,
+    );
+  }
 }
 
 enum TypeReceivable {

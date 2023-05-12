@@ -89,6 +89,7 @@ class _ReceivableFormPageState
     widget.numDocEC.dispose();
     widget.dateDueEC.dispose();
     widget.dateEntryEC.dispose();
+    widget.dateReceivingEC.dispose();
     widget.destinyEC.dispose();
     widget.addressEC.dispose();
     super.dispose();
@@ -196,18 +197,16 @@ class _ReceivableFormPageState
                   if (valid) {
                     widget.formKey.currentState?.save();
                     await controller.registerOrUpdate(
-                      widget.idEC.text,
-                      widget.valueEC.text,
-                      widget.numDocEC.text,
-                      widget.destinyEC.text,
-                      widget.dateEntryEC.text,
-                      widget.isPaidEC.text,
-                      widget.isSellerEC.text,
-                      widget.dateDueEC.text,
-                      widget.phone2EC.text,
-                      widget.phone3EC.text,
-                      widget.addressEC.text,
-                      widget.obsEC.text,
+                      id: int.parse(widget.idEC.text),
+                      value: double.parse(widget.valueEC.text),
+                      type: _selectedType,
+                      client: _selectedClient,
+                      seller: _selectedSeller,
+                      dateDue: dateDue,
+                      dateEntry: dateEntry,
+                      dateReceiving: dateReceiving,
+                      destiny: widget.destinyEC.text,
+                      numDoc: widget.numDocEC.text,
                     );
                   }
                 },
