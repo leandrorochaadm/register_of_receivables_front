@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class BasePageWidget extends StatefulWidget {
-  final List<Widget> children;
+  final Widget body;
+  final Widget? footer;
   final String title;
   final FloatingActionButton? floatingActionButton;
-  final List<Widget>? widgets;
+  final List<Widget>? header;
 
   const BasePageWidget({
     Key? key,
     required this.title,
-    required this.children,
+    required this.body,
     this.floatingActionButton,
-    this.widgets,
+    this.header,
+    this.footer,
   }) : super(key: key);
 
   @override
@@ -40,22 +42,30 @@ class _BasePageWidgetState extends State<BasePageWidget> {
                   ),
                 ),
                 Row(
-                  children: [...?widget.widgets],
+                  children: [...?widget.header],
                 )
               ],
             ),
             const SizedBox(height: 22),
-            Container(
-              // margin: const EdgeInsets.all(24),
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(12)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: widget.children,
+            Expanded(
+              child: Container(
+                // margin: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12)),
+                child: Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: widget.body,
+                ),
               ),
             ),
+            const SizedBox(height: 22),
+            widget.footer ?? const SizedBox.shrink(),
           ],
         ),
       ),

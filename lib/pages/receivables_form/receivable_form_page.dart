@@ -169,7 +169,7 @@ class _ReceivableFormPageState
         builder: (context, state) {
           return BasePageWidget(
             title: "Cadastro de recebíveis",
-            widgets: [
+            header: [
               Tooltip(
                 message: 'Voltar para a tela lista de recebíveis',
                 child: ElevatedButton(
@@ -215,233 +215,229 @@ class _ReceivableFormPageState
                 child: const Icon(Icons.save),
               )
             ],
-            children: [
-              Form(
-                key: widget.formKey,
-                child: SizedBox(
-                  // width: 1300,
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    runAlignment: WrapAlignment.spaceBetween,
-                    spacing: 50,
-                    runSpacing: 50,
-                    children: [
-                      SizedBox(
-                        width: 250,
-                        child: DropdownButtonFormField<PeopleModel>(
-                          decoration:
-                              const InputDecoration(labelText: "Vendedor"),
-                          hint: const Text('Escolha o vendedor'),
-                          isExpanded: true,
-                          value: _selectedSeller,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedSeller = value!;
-                            });
-                          },
-                          validator: (PeopleModel? value) {
-                            if (value == null || value == PeopleModel.empty()) {
-                              return "Vendedor é obrigatório";
+            body: Form(
+              key: widget.formKey,
+              child: SizedBox(
+                // width: 1300,
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  runAlignment: WrapAlignment.spaceBetween,
+                  spacing: 50,
+                  runSpacing: 50,
+                  children: [
+                    SizedBox(
+                      width: 250,
+                      child: DropdownButtonFormField<PeopleModel>(
+                        decoration:
+                            const InputDecoration(labelText: "Vendedor"),
+                        hint: const Text('Escolha o vendedor'),
+                        isExpanded: true,
+                        value: _selectedSeller,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedSeller = value!;
+                          });
+                        },
+                        validator: (PeopleModel? value) {
+                          if (value == null || value == PeopleModel.empty()) {
+                            return "Vendedor é obrigatório";
+                          }
+                          return null;
+                        },
+                        items: widget.listSellers.map((PeopleModel val) {
+                          return DropdownMenuItem(
+                            value: val,
+                            child: Text("${val.name} (${val.nick})"),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 400,
+                      child: DropdownButtonFormField<PeopleModel>(
+                        decoration: const InputDecoration(
+                          labelText: "Cliente",
+                        ),
+                        hint: const Text('Escolha o cliente'),
+                        value: _selectedClient,
+                        isExpanded: true,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedClient = value!;
+                          });
+                        },
+                        validator: (PeopleModel? value) {
+                          if (value == null || value == PeopleModel.empty()) {
+                            return "Cliente é obrigatório";
+                          }
+                          return null;
+                        },
+                        items: widget.listClients.map((PeopleModel val) {
+                          return DropdownMenuItem(
+                            value: val,
+                            child: Text("${val.name} (${val.nick})"),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 200,
+                      child: DropdownButtonFormField<String>(
+                        decoration: const InputDecoration(
+                          labelText: "Tipo",
+                        ),
+                        hint: const Text('Escolha o tipo'),
+                        value: _selectedType,
+                        isExpanded: true,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedType = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == 'Selecione' || value == null) {
+                            return "Tipo é obrigatório";
+                          }
+                          return null;
+                        },
+                        items: widget.listType.map((String val) {
+                          return DropdownMenuItem(
+                            value: val,
+                            child: Text(val),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                        controller: widget.numDocEC,
+                        decoration: const InputDecoration(
+                          labelText: "Numero",
+                          hintText: "Digite o número do cheque ou boleto",
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                        controller: widget.valueEC,
+                        validator: Validatorless.required('Valor obrigatório'),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
+                        decoration: const InputDecoration(
+                          labelText: "Valor",
+                          hintText: "Digite o valor",
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                        controller: widget.destinyEC,
+                        decoration: const InputDecoration(
+                          labelText: "Destino",
+                          hintText: "Digite o destino",
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 200,
+                      child: DateTimePicker(
+                        controller: widget.dateEntryEC,
+                        dateMask: 'EEE dd/MM/yy',
+                        firstDate: DateTime(2022),
+                        lastDate: dateDue,
+                        icon: const Icon(Icons.event),
+                        dateLabelText: 'Entrada',
+                        errorInvalidText: "Entrada inválida",
+                        errorFormatText: 'Entrada inválida',
+                        // locale: const Locale('pt', 'BR'),
+                        onChanged: (_) => setState(() {}),
+                        validator: (val) {
+                          if (val != null && val != '' && val!.isNotEmpty) {
+                            final date = DateFormat('yyyy-MM-dd').parse(val);
+                            if (date.day > 0) {
+                              return null;
                             }
-                            return null;
-                          },
-                          items: widget.listSellers.map((PeopleModel val) {
-                            return DropdownMenuItem(
-                              value: val,
-                              child: Text("${val.name} (${val.nick})"),
-                            );
-                          }).toList(),
-                        ),
+                            return "Entrada inválida";
+                          }
+                          return "Entrada obrigatória";
+                        },
+                        onSaved: (val) => print(val),
                       ),
-                      SizedBox(
-                        width: 400,
-                        child: DropdownButtonFormField<PeopleModel>(
-                          decoration: const InputDecoration(
-                            labelText: "Cliente",
-                          ),
-                          hint: const Text('Escolha o cliente'),
-                          value: _selectedClient,
-                          isExpanded: true,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedClient = value!;
-                            });
-                          },
-                          validator: (PeopleModel? value) {
-                            if (value == null || value == PeopleModel.empty()) {
-                              return "Cliente é obrigatório";
+                    ),
+                    SizedBox(
+                      width: 183.3,
+                      child: DateTimePicker(
+                        controller: widget.dateDueEC,
+                        dateMask: 'EEE dd/MM/yy',
+                        firstDate: dateEntry,
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
+                        icon: const Icon(Icons.event),
+                        dateLabelText: 'Vencimento',
+                        errorInvalidText: "Vencimento inválido",
+                        errorFormatText: 'Vencimento inválido',
+                        // locale: const Locale('pt', 'BR'),
+                        onChanged: (_) => setState(() {}),
+                        validator: (val) {
+                          if (val != null && val != '' && val!.isNotEmpty) {
+                            final date = DateFormat('yyyy-MM-dd').parse(val);
+                            if (date.day > 0) {
+                              return null;
                             }
-                            return null;
-                          },
-                          items: widget.listClients.map((PeopleModel val) {
-                            return DropdownMenuItem(
-                              value: val,
-                              child: Text("${val.name} (${val.nick})"),
-                            );
-                          }).toList(),
-                        ),
+                            return "Vencimento inválido";
+                          }
+                          return "Vencimento obrigatório";
+                        },
+                        onSaved: (val) => print(val),
                       ),
-                      SizedBox(
-                        width: 200,
-                        child: DropdownButtonFormField<String>(
-                          decoration: const InputDecoration(
-                            labelText: "Tipo",
-                          ),
-                          hint: const Text('Escolha o tipo'),
-                          value: _selectedType,
-                          isExpanded: true,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedType = value!;
-                            });
-                          },
-                          validator: (String? value) {
-                            if (value == 'Selecione' || value == null) {
-                              return "Tipo é obrigatório";
+                    ),
+                    SizedBox(
+                      width: 183.3,
+                      child: DateTimePicker(
+                        controller: widget.dateReceivingEC,
+                        dateMask: 'EEE dd/MM/yy',
+                        firstDate: dateEntry,
+                        lastDate: DateTime.now(),
+                        icon: const Icon(Icons.event),
+                        dateLabelText: 'Recebimento',
+                        errorInvalidText: "Recebimento inválido",
+                        errorFormatText: 'Recebimento inválido',
+                        // locale: const Locale('pt', 'BR'),
+                        onChanged: (_) => setState(() {}),
+                        validator: (val) {
+                          if (val != null && val != '' && val!.isNotEmpty) {
+                            final date = DateFormat('yyyy-MM-dd').parse(val);
+                            if (date.day > 0) {
+                              return null;
                             }
-                            return null;
-                          },
-                          items: widget.listType.map((String val) {
-                            return DropdownMenuItem(
-                              value: val,
-                              child: Text(val),
-                            );
-                          }).toList(),
-                        ),
+                            return "Recebimento inválido";
+                          }
+                          return "Recebimento obrigatório";
+                        },
+                        onSaved: (val) => print(val),
                       ),
-                      SizedBox(
-                        width: 300,
-                        child: TextFormField(
-                          controller: widget.numDocEC,
-                          decoration: const InputDecoration(
-                            labelText: "Numero",
-                            hintText: "Digite o número do cheque ou boleto",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 300,
-                        child: TextFormField(
-                          controller: widget.valueEC,
-                          validator:
-                              Validatorless.required('Valor obrigatório'),
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true),
-                          decoration: const InputDecoration(
-                            labelText: "Valor",
-                            hintText: "Digite o valor",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 300,
-                        child: TextFormField(
-                          controller: widget.destinyEC,
-                          decoration: const InputDecoration(
-                            labelText: "Destino",
-                            hintText: "Digite o destino",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: DateTimePicker(
-                          controller: widget.dateEntryEC,
-                          dateMask: 'EEE dd/MM/yy',
-                          firstDate: DateTime(2022),
-                          lastDate: dateDue,
-                          icon: const Icon(Icons.event),
-                          dateLabelText: 'Entrada',
-                          errorInvalidText: "Entrada inválida",
-                          errorFormatText: 'Entrada inválida',
-                          // locale: const Locale('pt', 'BR'),
-                          onChanged: (_) => setState(() {}),
-                          validator: (val) {
-                            if (val != null && val != '' && val!.isNotEmpty) {
-                              final date = DateFormat('yyyy-MM-dd').parse(val);
-                              if (date.day > 0) {
-                                return null;
-                              }
-                              return "Entrada inválida";
-                            }
-                            return "Entrada obrigatória";
-                          },
-                          onSaved: (val) => print(val),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 183.3,
-                        child: DateTimePicker(
-                          controller: widget.dateDueEC,
-                          dateMask: 'EEE dd/MM/yy',
-                          firstDate: dateEntry,
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 365)),
-                          icon: const Icon(Icons.event),
-                          dateLabelText: 'Vencimento',
-                          errorInvalidText: "Vencimento inválido",
-                          errorFormatText: 'Vencimento inválido',
-                          // locale: const Locale('pt', 'BR'),
-                          onChanged: (_) => setState(() {}),
-                          validator: (val) {
-                            if (val != null && val != '' && val!.isNotEmpty) {
-                              final date = DateFormat('yyyy-MM-dd').parse(val);
-                              if (date.day > 0) {
-                                return null;
-                              }
-                              return "Vencimento inválido";
-                            }
-                            return "Vencimento obrigatório";
-                          },
-                          onSaved: (val) => print(val),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 183.3,
-                        child: DateTimePicker(
-                          controller: widget.dateReceivingEC,
-                          dateMask: 'EEE dd/MM/yy',
-                          firstDate: dateEntry,
-                          lastDate: DateTime.now(),
-                          icon: const Icon(Icons.event),
-                          dateLabelText: 'Recebimento',
-                          errorInvalidText: "Recebimento inválido",
-                          errorFormatText: 'Recebimento inválido',
-                          // locale: const Locale('pt', 'BR'),
-                          onChanged: (_) => setState(() {}),
-                          validator: (val) {
-                            if (val != null && val != '' && val!.isNotEmpty) {
-                              final date = DateFormat('yyyy-MM-dd').parse(val);
-                              if (date.day > 0) {
-                                return null;
-                              }
-                              return "Recebimento inválido";
-                            }
-                            return "Recebimento obrigatório";
-                          },
-                          onSaved: (val) => print(val),
-                        ),
-                      ),
-                      Visibility(
-                        visible: expiration > 0 &&
-                            widget.dateEntryEC.text.isNotEmpty &&
-                            widget.dateDueEC.text.isNotEmpty,
-                        child: Text(
-                            "Prazo de:\n$expiration ${expiration > 1 ? 'dias' : 'dia'}"),
-                      ),
-                      Visibility(
-                        visible:
-                            widget.dateReceivingEC.text.isEmpty && overdue > 0,
-                        child: Text(
-                            "Vencido há:\n$overdue ${overdue > 1 ? 'dias' : 'dia'}"),
-                      ),
-                      Text(
-                          "Situação: \n${widget.dateReceivingEC.text.isNotEmpty ? 'Está pago' : 'Não está pago'}")
-                    ],
-                  ),
+                    ),
+                    Visibility(
+                      visible: expiration > 0 &&
+                          widget.dateEntryEC.text.isNotEmpty &&
+                          widget.dateDueEC.text.isNotEmpty,
+                      child: Text(
+                          "Prazo de:\n$expiration ${expiration > 1 ? 'dias' : 'dia'}"),
+                    ),
+                    Visibility(
+                      visible:
+                          widget.dateReceivingEC.text.isEmpty && overdue > 0,
+                      child: Text(
+                          "Vencido há:\n$overdue ${overdue > 1 ? 'dias' : 'dia'}"),
+                    ),
+                    Text(
+                        "Situação: \n${widget.dateReceivingEC.text.isNotEmpty ? 'Está pago' : 'Não está pago'}")
+                  ],
                 ),
-              )
-            ],
+              ),
+            ),
           );
         });
   }

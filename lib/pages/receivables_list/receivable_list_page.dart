@@ -41,7 +41,7 @@ class _ReceivablesListPageState
       builder: (context, state) {
         return BasePageWidget(
           title: "Listagem de contas a receber",
-          widgets: [
+          header: [
             Tooltip(
               message: 'Voltar para a tela lista de pessoas',
               child: ElevatedButton(
@@ -66,7 +66,7 @@ class _ReceivablesListPageState
               ),
             ),
           ],
-          children: [ReceivablesTableWidget(list: state.receivables)],
+          body: ReceivablesTableWidget(list: state.receivables),
         );
       },
     );

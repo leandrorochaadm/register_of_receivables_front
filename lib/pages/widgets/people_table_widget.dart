@@ -13,91 +13,77 @@ class PeopleTableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+    return ListView.separated(
+      separatorBuilder: (context, index) => const Padding(
+        padding: EdgeInsets.symmetric(vertical: 16),
+        child: Divider(color: Colors.grey),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListView.separated(
-            separatorBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Divider(color: Colors.grey),
-            ),
-            itemCount: list.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final people = list[index];
-              return Row(
+      itemCount: list.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        final people = list[index];
+        return Row(
+          children: [
+            Expanded(
+              child: Wrap(
+                runSpacing: 16,
                 children: [
-                  Expanded(
-                    child: Wrap(
-                      runSpacing: 16,
-                      children: [
-                        BodyWidget(
-                          width: 600,
-                          data: people.nick,
-                          label: 'Fantasia',
-                        ),
-                        BodyWidget(
-                          width: 600,
-                          data: people.name,
-                          label: 'Razão Social/Nome',
-                        ),
-                        BodyWidget(
-                          width: 380,
-                          data: people.cnpj,
-                          label: 'CNPJ/CPF',
-                        ),
-                        BodyWidget(
-                          width: 250,
-                          data: people.ie,
-                          label: 'IE/RG',
-                        ),
-                        BodyWidget(
-                          width: 275,
-                          data: people.phone1,
-                          label: 'Tel1',
-                        ),
-                        BodyWidget(
-                          width: 275,
-                          data: people.phone2,
-                          label: 'Tel2',
-                        ),
-                      ],
-                    ),
+                  BodyWidget(
+                    width: 600,
+                    data: people.nick,
+                    label: 'Fantasia',
                   ),
-                  const SizedBox(width: 12),
-                  IconButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, '/receivables_list'),
-                    icon: Icon(
-                      Icons.payments_outlined,
-                      color: Colors.green[300],
-                    ),
-                    tooltip: "Ver contas a receber",
+                  BodyWidget(
+                    width: 600,
+                    data: people.name,
+                    label: 'Razão Social/Nome',
                   ),
-                  const SizedBox(width: 12),
-                  IconButton(
-                    onPressed: () => Navigator.pushNamed(
-                        context, "/people_form",
-                        arguments: people),
-                    icon: const Icon(
-                      Icons.edit,
-                      color: Colors.grey,
-                    ),
-                    tooltip: 'Editar cadastro',
+                  BodyWidget(
+                    width: 380,
+                    data: people.cnpj,
+                    label: 'CNPJ/CPF',
+                  ),
+                  BodyWidget(
+                    width: 250,
+                    data: people.ie,
+                    label: 'IE/RG',
+                  ),
+                  BodyWidget(
+                    width: 275,
+                    data: people.phone1,
+                    label: 'Tel1',
+                  ),
+                  BodyWidget(
+                    width: 275,
+                    data: people.phone2,
+                    label: 'Tel2',
                   ),
                 ],
-              );
-            },
-          ),
-        ],
-      ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            IconButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/receivables_list'),
+              icon: Icon(
+                Icons.payments_outlined,
+                color: Colors.green[300],
+              ),
+              tooltip: "Ver contas a receber",
+            ),
+            const SizedBox(width: 12),
+            IconButton(
+              onPressed: () => Navigator.pushNamed(context, "/people_form",
+                  arguments: people),
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.grey,
+              ),
+              tooltip: 'Editar cadastro',
+            ),
+          ],
+        );
+      },
     );
   }
 }

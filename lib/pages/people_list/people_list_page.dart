@@ -40,7 +40,7 @@ class _PeopleListPageState
       builder: (context, state) {
         return BasePageWidget(
           title: "Listagem de Clientes e Vendedores",
-          widgets: [
+          header: [
             Tooltip(
               message: 'Cadastrar nova pessoa',
               child: ElevatedButton(
@@ -52,7 +52,7 @@ class _PeopleListPageState
               ),
             ),
           ],
-          children: [PeopleTableWidget(list: state.peoples)],
+          body: PeopleTableWidget(list: state.peoples),
         );
       },
     );
