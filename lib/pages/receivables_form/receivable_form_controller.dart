@@ -10,12 +10,12 @@ import 'receivable_form_state.dart';
 class ReceivableFormController extends Cubit<ReceivableFormState> {
   final PostReceivable postReceivable;
   final PutReceivable putReceivable;
-  // final DeleteReceivable deleteReceivable;
+  final DeleteReceivable deleteReceivable;
 
   ReceivableFormController({
     required this.postReceivable,
     required this.putReceivable,
-    // required this.deleteReceivable,
+    required this.deleteReceivable,
   }) : super(ReceivableFormState.initial());
 
   load(ReceivableModel receivable) {
@@ -74,7 +74,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
     try {
       emit(state.copyWith(status: ReceivableFormStateStatus.register));
 
-      // await deleteReceivable.deleteReceivable(id);
+      await deleteReceivable.deleteReceivable(id);
 
       emit(state.copyWith(status: ReceivableFormStateStatus.deletedSuccess));
     } on RepositoryException catch (e, s) {

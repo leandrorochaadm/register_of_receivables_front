@@ -1,4 +1,5 @@
 export 'delete_people.dart';
+export 'delete_receivable.dart';
 export 'get_people.dart';
 export 'post_people.dart';
 export 'post_receivable.dart';
