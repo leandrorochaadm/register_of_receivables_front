@@ -9,12 +9,12 @@ import 'receivable_form_state.dart';
 
 class ReceivableFormController extends Cubit<ReceivableFormState> {
   final PostReceivable postReceivable;
-  // final PutReceivable putReceivable;
+  final PutReceivable putReceivable;
   // final DeleteReceivable deleteReceivable;
 
   ReceivableFormController({
     required this.postReceivable,
-    // required this.putReceivable,
+    required this.putReceivable,
     // required this.deleteReceivable,
   }) : super(ReceivableFormState.initial());
 
@@ -39,7 +39,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
   }) async {
     try {
       emit(state.copyWith(status: ReceivableFormStateStatus.register));
-      final Receivable = ReceivableModel(
+      final receivable = ReceivableModel(
         numDoc: numDoc,
         dateEntry: dateEntry,
         seller: seller,
@@ -54,9 +54,9 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
         dateReceiving: dateReceiving,
       );
       if (id == '0') {
-        await postReceivable.createReceivable(Receivable);
+        await postReceivable.createReceivable(receivable);
       } else {
-        // await putReceivable.updateReceivable(Receivable);
+        await putReceivable.updateReceivable(receivable);
       }
 
       emit(state.copyWith(status: ReceivableFormStateStatus.success));
