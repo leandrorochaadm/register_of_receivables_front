@@ -21,10 +21,10 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
         sum: receivables.sum,
       ));
     } catch (e, s) {
-      log('Erro ao buscar os clientes e vendedores', error: e, stackTrace: s);
+      log('Erro ao buscar os recebiveis', error: e, stackTrace: s);
       emit(state.copyWith(
         status: ReceivablesStateStatus.error,
-        errorMessage: 'Erro ao buscar os clientes e vendedores',
+        errorMessage: 'Erro ao buscar os recebiveis',
       ));
     }
   }

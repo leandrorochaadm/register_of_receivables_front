@@ -15,7 +15,7 @@ class ApiPostReceivables implements PostReceivable {
   @override
   Future<void> createReceivable(ReceivableModel receivable) async {
     try {
-      await dio.post('/receivable', data: receivable.toJson());
+      await dio.post('/receivables', data: receivable.toJson());
     } on DioError catch (e, s) {
       log("Erro ao criar recebevel", error: e, stackTrace: s);
       throw RepositoryException(

@@ -15,7 +15,7 @@ class ApiPutReceivables implements PutReceivable {
   @override
   Future<void> updateReceivable(ReceivableModel receivable) async {
     try {
-      await dio.put('/receivable/${receivable.id}', data: receivable.toJson());
+      await dio.put('/receivables/${receivable.id}', data: receivable.toJson());
     } on DioError catch (e, s) {
       log("Erro ao atualizar recebivel", error: e, stackTrace: s);
       throw RepositoryException(

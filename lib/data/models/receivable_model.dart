@@ -58,11 +58,11 @@ class ReceivableModel extends Equatable {
       'dateEntry': this.dateEntry.millisecondsSinceEpoch,
       'dateDue': this.dateDue.millisecondsSinceEpoch,
       'dateReceiving': this.dateReceiving?.millisecondsSinceEpoch ?? null,
-      'clientId': this.client.id,
+      'clientId': this.client.toJson(),
       'numDoc': this.numDoc,
       'value': this.value,
       'destiny': this.destiny,
-      'sellerId': this.seller.id,
+      'sellerId': this.seller.toJson(),
     };
   }
 
