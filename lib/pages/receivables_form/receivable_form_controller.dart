@@ -11,18 +11,30 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
   final PostReceivable postReceivable;
   final PutReceivable putReceivable;
   final DeleteReceivable deleteReceivable;
+  final GetPeoplesClients getPeoplesClients;
 
   ReceivableFormController({
     required this.postReceivable,
     required this.putReceivable,
     required this.deleteReceivable,
+    required this.getPeoplesClients,
   }) : super(ReceivableFormState.initial());
 
-  load(ReceivableModel receivable) {
-    emit(state.copyWith(
-      receivable: receivable,
-      status: ReceivableFormStateStatus.loaded,
-    ));
+  load() async {
+    emit(state.copyWith(status: ReceivableFormStateStatus.loading));
+    try {
+      final clients = await getPeoplesClients.findAllPeoplesClients();
+      emit(state.copyWith(
+        status: ReceivableFormStateStatus.loaded,
+        clients: [PeopleModel.empty(), ...clients],
+      ));
+    } catch (e, s) {
+      log('Erro ao buscar os clientes', error: e, stackTrace: s);
+      emit(state.copyWith(
+        status: ReceivableFormStateStatus.error,
+        errorMessage: 'Erro ao buscar os clientes',
+      ));
+    }
   }
 
   Future<void> registerOrUpdate({
@@ -53,7 +65,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
         destiny: destiny,
         dateReceiving: dateReceiving,
       );
-      if (id == '0') {
+      if (id == 0) {
         await postReceivable.createReceivable(receivable);
       } else {
         await putReceivable.updateReceivable(receivable);

@@ -53,7 +53,7 @@ class _ReceivablesListPageState
             ),
             const SizedBox(width: 32),
             Tooltip(
-              message: 'Cadastrar nova conta',
+              message: 'Cadastrar novo recebével',
               child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(
                   context,

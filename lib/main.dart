@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Cadastro de Recebíveis',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
-        initialRoute: '/people_list',
+        initialRoute: '/receivables_list',
         routes: {
           '/people_list': (context) => PeopleListRouter.page,
           '/people_form': (context) => PeopleFormRouter.page,

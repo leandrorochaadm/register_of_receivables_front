@@ -9,6 +9,7 @@ part of 'receivable_form_state.dart';
 extension ReceivableFormStateStatusMatch on ReceivableFormStateStatus {
   T match<T>(
       {required T Function() initial,
+      required T Function() loading,
       required T Function() loaded,
       required T Function() register,
       required T Function() success,
@@ -17,6 +18,10 @@ extension ReceivableFormStateStatusMatch on ReceivableFormStateStatus {
     final v = this;
     if (v == ReceivableFormStateStatus.initial) {
       return initial();
+    }
+
+    if (v == ReceivableFormStateStatus.loading) {
+      return loading();
     }
 
     if (v == ReceivableFormStateStatus.loaded) {
@@ -46,6 +51,7 @@ extension ReceivableFormStateStatusMatch on ReceivableFormStateStatus {
   T matchAny<T>(
       {required T Function() any,
       T Function()? initial,
+      T Function()? loading,
       T Function()? loaded,
       T Function()? register,
       T Function()? success,
@@ -54,6 +60,10 @@ extension ReceivableFormStateStatusMatch on ReceivableFormStateStatus {
     final v = this;
     if (v == ReceivableFormStateStatus.initial && initial != null) {
       return initial();
+    }
+
+    if (v == ReceivableFormStateStatus.loading && loading != null) {
+      return loading();
     }
 
     if (v == ReceivableFormStateStatus.loaded && loaded != null) {

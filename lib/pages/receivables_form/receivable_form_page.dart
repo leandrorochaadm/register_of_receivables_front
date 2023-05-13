@@ -77,9 +77,9 @@ class ReceivableFormPage extends StatefulWidget {
 
 class _ReceivableFormPageState
     extends BaseState<ReceivableFormPage, ReceivableFormController> {
-  late PeopleModel _selectedSeller;
-  late PeopleModel _selectedClient;
-  late String _selectedType;
+  PeopleModel _selectedSeller = PeopleModel.empty();
+  PeopleModel _selectedClient = PeopleModel.empty();
+  String _selectedType = 'Selecione';
 
   @override
   void dispose() {
@@ -99,6 +99,7 @@ class _ReceivableFormPageState
   void onReady() {
     final receivable =
         ModalRoute.of(context)!.settings.arguments as ReceivableModel;
+    controller.load();
     widget.idEC.text = receivable.id.toString();
     widget.dateEntryEC.text = receivable.dateEntry.toString();
     widget.dateDueEC.text = receivable.dateDue.toString();
@@ -145,7 +146,7 @@ class _ReceivableFormPageState
 
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  '/receivable_list',
+                  '/receivables_list',
                   ModalRoute.withName('/'),
                 );
               },
@@ -155,7 +156,7 @@ class _ReceivableFormPageState
 
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  '/receivable_list',
+                  '/receivables_list',
                   ModalRoute.withName('/'),
                 );
               },
@@ -167,6 +168,7 @@ class _ReceivableFormPageState
         buildWhen: (previous, current) => current.status.matchAny(
               any: () => false,
               initial: () => true,
+              loading: () => true,
               loaded: () => true,
             ),
         builder: (context, state) {
@@ -221,7 +223,6 @@ class _ReceivableFormPageState
             body: Form(
               key: widget.formKey,
               child: SizedBox(
-                // width: 1300,
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   runAlignment: WrapAlignment.spaceBetween,
@@ -275,7 +276,7 @@ class _ReceivableFormPageState
                           }
                           return null;
                         },
-                        items: widget.listClients.map((PeopleModel val) {
+                        items: state.clients.map((PeopleModel val) {
                           return DropdownMenuItem(
                             value: val,
                             child: Text("${val.name} (${val.nick})"),
