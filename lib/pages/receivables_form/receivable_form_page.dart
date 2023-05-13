@@ -110,11 +110,9 @@ class _ReceivableFormPageState
     widget.valueEC.text = receivable.value.toString();
     widget.destinyEC.text = receivable.destiny;
 
-    setState(() {
-      _selectedSeller = receivable.seller;
-      _selectedClient = receivable.client;
-      _selectedType = receivable.type.name;
-    });
+    _selectedSeller = receivable.seller;
+    _selectedClient = receivable.client;
+    _selectedType = receivable.type.name;
   }
 
   @override

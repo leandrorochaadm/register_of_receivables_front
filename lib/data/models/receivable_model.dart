@@ -53,16 +53,16 @@ class ReceivableModel extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'type': this.type.name,
-      'dateEntry': this.dateEntry.millisecondsSinceEpoch,
-      'dateDue': this.dateDue.millisecondsSinceEpoch,
-      'dateReceiving': this.dateReceiving?.millisecondsSinceEpoch ?? null,
-      'clientId': this.client.toJson(),
-      'numDoc': this.numDoc,
-      'value': this.value,
-      'destiny': this.destiny,
-      'sellerId': this.seller.toJson(),
+      'id': id,
+      'type': type.name,
+      'dateEntry': dateEntry.millisecondsSinceEpoch,
+      'dateDue': dateDue.millisecondsSinceEpoch,
+      'dateReceiving': dateReceiving?.millisecondsSinceEpoch,
+      'client': client.toJson(),
+      'numDoc': numDoc,
+      'value': value,
+      'destiny': destiny,
+      'seller': seller.toJson(),
     };
   }
 
