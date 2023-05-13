@@ -49,7 +49,7 @@ class ReceivablesTableWidget extends StatelessWidget {
                     width: 750,
                     data:
                         "${Receivables.client.name} (${Receivables.client.nick})",
-                    label: 'Razão Social',
+                    label: 'Cliente',
                   ),
                   BodyWidget(
                     width: 200,
@@ -62,9 +62,9 @@ class ReceivablesTableWidget extends StatelessWidget {
                     label: 'Valor',
                   ),
                   BodyWidget(
-                    width: 300,
+                    width: 400,
                     data: Receivables.seller.name,
-                    label: 'Vendedor',
+                    label: 'Vendedor(a)',
                   ),
                   BodyWidget(
                     width: 300,
