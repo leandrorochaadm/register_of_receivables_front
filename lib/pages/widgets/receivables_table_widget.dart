@@ -14,6 +14,14 @@ class ReceivablesTableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (list.isEmpty) {
+      return const Center(
+        child: Text(
+          'Nenhum recebível cadastrado, clique no botão (+) para cadastrar',
+          style: TextStyle(color: Colors.red, fontSize: 24),
+        ),
+      );
+    }
     return ListView.separated(
       separatorBuilder: (context, index) => const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
@@ -24,6 +32,7 @@ class ReceivablesTableWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final Receivables = list[index];
         int overdue = DateTime.now().difference(Receivables.dateDue).inDays;
+
         return Row(
           children: [
             Expanded(
