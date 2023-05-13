@@ -24,7 +24,7 @@ class ReceivablesModel extends Equatable {
 
     return ReceivablesModel(
       receivables: receivables,
-      sum: map['sum'] as double,
+      sum: double.parse(map['sum'].toString()),
     );
   }
 
