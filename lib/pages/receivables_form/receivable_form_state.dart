@@ -21,19 +21,22 @@ class ReceivableFormState extends Equatable {
   final ReceivableModel receivable;
   final String? errorMessage;
   final List<PeopleModel> clients;
+  final List<PeopleModel> sellers;
 
   const ReceivableFormState({
     required this.status,
     required this.receivable,
     this.errorMessage,
     required this.clients,
+    required this.sellers,
   });
 
   ReceivableFormState.initial()
       : status = ReceivableFormStateStatus.initial,
         receivable = ReceivableModel.empty(),
         errorMessage = null,
-        clients = [];
+        clients = [],
+        sellers = [];
 
   @override
   List<Object?> get props => [status, receivable, errorMessage];
@@ -43,12 +46,14 @@ class ReceivableFormState extends Equatable {
     ReceivableModel? receivable,
     String? errorMessage,
     List<PeopleModel>? clients,
+    List<PeopleModel>? sellers,
   }) {
     return ReceivableFormState(
       status: status ?? this.status,
       receivable: receivable ?? this.receivable,
       errorMessage: errorMessage ?? this.errorMessage,
       clients: clients ?? this.clients,
+      sellers: sellers ?? this.sellers,
     );
   }
 }

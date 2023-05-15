@@ -12,27 +12,32 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
   final PutReceivable putReceivable;
   final DeleteReceivable deleteReceivable;
   final GetPeoplesClients getPeoplesClients;
+  final GetPeoplesSellers getPeoplesSellers;
 
   ReceivableFormController({
     required this.postReceivable,
     required this.putReceivable,
     required this.deleteReceivable,
     required this.getPeoplesClients,
+    required this.getPeoplesSellers,
   }) : super(ReceivableFormState.initial());
 
   load() async {
     emit(state.copyWith(status: ReceivableFormStateStatus.loading));
     try {
       final clients = await getPeoplesClients.findAllPeoplesClients();
+      final sellers = await getPeoplesSellers.findAllPeoplesSellers();
       emit(state.copyWith(
         status: ReceivableFormStateStatus.loaded,
         clients: [PeopleModel.empty(), ...clients],
+        sellers: [PeopleModel.empty(), ...sellers],
       ));
     } catch (e, s) {
-      log('Erro ao buscar os clientes', error: e, stackTrace: s);
+      log('Erro ao buscar opções de clientes ou vendedores',
+          error: e, stackTrace: s);
       emit(state.copyWith(
         status: ReceivableFormStateStatus.error,
-        errorMessage: 'Erro ao buscar os clientes',
+        errorMessage: 'Erro ao buscar opções de clientes ou vendedores',
       ));
     }
   }

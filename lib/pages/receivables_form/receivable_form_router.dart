@@ -26,9 +26,14 @@ class ReceivableFormRouter {
             create: (context) =>
                 ApiGetPeoplesClients(dio: context.read<CustomDio>()),
           ),
+          Provider<GetPeoplesSellers>(
+            create: (context) =>
+                ApiGetPeoplesSellers(dio: context.read<CustomDio>()),
+          ),
           Provider(
               create: (context) => ReceivableFormController(
                     getPeoplesClients: context.read<GetPeoplesClients>(),
+                    getPeoplesSellers: context.read<GetPeoplesSellers>(),
                     postReceivable: context.read<PostReceivable>(),
                     putReceivable: context.read<PutReceivable>(),
                     deleteReceivable: context.read<DeleteReceivable>(),

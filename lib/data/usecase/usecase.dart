@@ -1,6 +1,7 @@
 export 'api_delete_receivable.dart';
 export 'api_get_peoples.dart';
 export 'api_get_peoples_clients.dart';
+export 'api_get_peoples_sellers.dart';
 export 'api_get_receivable.dart';
 export 'api_post_peoples.dart';
 export 'api_post_receivable.dart';

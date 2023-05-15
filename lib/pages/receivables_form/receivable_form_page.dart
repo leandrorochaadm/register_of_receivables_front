@@ -31,39 +31,6 @@ class ReceivableFormPage extends StatefulWidget {
   final MaskTextInputFormatter dateFormatter =
       MaskTextInputFormatter(mask: '##/##/##');
 
-  List<PeopleModel> listClients = <PeopleModel>[
-    PeopleModel.empty(),
-    const PeopleModel(
-        id: 1,
-        name: "Cliente Nome",
-        nick: "Cliente Fantasia",
-        cnpj: "1",
-        ie: '1',
-        isClient: 1,
-        isSeller: 0,
-        phone1: 'phone1',
-        phone2: 'phone2',
-        phone3: 'phone3',
-        address: 'address',
-        obs: 'obs'),
-  ];
-  List<PeopleModel> listSellers = <PeopleModel>[
-    PeopleModel.empty(),
-    const PeopleModel(
-        id: 1,
-        name: "Vendedor 1",
-        nick: "Vendedor 1",
-        cnpj: "1",
-        ie: '1',
-        isClient: 0,
-        isSeller: 1,
-        phone1: 'phone1',
-        phone2: 'phone2',
-        phone3: 'phone3',
-        address: 'address',
-        obs: 'obs'),
-  ];
-
   List<String> listType = <String>[
     'Selecione',
     TypeReceivable.Boleto.name,
@@ -246,7 +213,7 @@ class _ReceivableFormPageState
                           }
                           return null;
                         },
-                        items: widget.listSellers.map((PeopleModel val) {
+                        items: state.sellers.map((PeopleModel val) {
                           return DropdownMenuItem(
                             value: val,
                             child: Text("${val.name} (${val.nick})"),
