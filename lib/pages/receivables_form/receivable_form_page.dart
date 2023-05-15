@@ -84,23 +84,18 @@ class _ReceivableFormPageState
 
   @override
   Widget build(BuildContext context) {
-    DateTime dateEntry = DateTime.now();
-    DateTime dateDue = DateTime.now();
-    DateTime? dateReceiving;
+    int expiration = 0;
+    int overdue = 0;
 
-    if (widget.dateEntryEC.text.isNotEmpty) {
-      dateEntry = DateTime.parse(widget.dateEntryEC.text);
-    }
-    if (widget.dateDueEC.text.isNotEmpty) {
-      dateDue = DateTime.parse(widget.dateDueEC.text);
-    }
-    if (widget.dateReceivingEC.text.isNotEmpty &&
-        widget.dateReceivingEC.text != '') {
-      dateReceiving = DateTime.parse(widget.dateReceivingEC.text);
-    }
-    int expiration = dateDue.difference(dateEntry).inDays;
+    if (widget.dateEntryEC.text.isNotEmpty &&
+        widget.dateDueEC.text.isNotEmpty) {
+      DateTime dateEntry = DateTime.parse(widget.dateEntryEC.text);
+      DateTime dateDue = DateTime.parse(widget.dateDueEC.text);
+      expiration = dateDue.difference(dateEntry).inDays;
+      expiration = dateDue.difference(dateEntry).inDays;
 
-    int overdue = DateTime.now().difference(dateDue).inDays;
+      overdue = DateTime.now().difference(dateDue).inDays;
+    }
 
     return BlocConsumer<ReceivableFormController, ReceivableFormState>(
         listener: (context, state) => state.status.matchAny(
@@ -172,9 +167,11 @@ class _ReceivableFormPageState
                       type: _selectedType,
                       client: _selectedClient,
                       seller: _selectedSeller,
-                      dateDue: dateDue,
-                      dateEntry: dateEntry,
-                      dateReceiving: dateReceiving,
+                      dateDue: DateTime.parse(widget.dateDueEC.text),
+                      dateEntry: DateTime.parse(widget.dateEntryEC.text),
+                      dateReceiving: widget.dateReceivingEC.text != ''
+                          ? DateTime.parse(widget.dateReceivingEC.text)
+                          : null,
                       destiny: widget.destinyEC.text,
                       numDoc: widget.numDocEC.text,
                     );
@@ -315,8 +312,9 @@ class _ReceivableFormPageState
                       child: DateTimePicker(
                         controller: widget.dateEntryEC,
                         dateMask: 'EEE dd/MM/yy',
-                        firstDate: DateTime(2022),
-                        lastDate: dateDue,
+                        firstDate:
+                            DateTime.now().subtract(const Duration(days: 365)),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
                         icon: const Icon(Icons.event),
                         dateLabelText: 'Entrada',
                         errorInvalidText: "Entrada inválida",
@@ -341,7 +339,8 @@ class _ReceivableFormPageState
                       child: DateTimePicker(
                         controller: widget.dateDueEC,
                         dateMask: 'EEE dd/MM/yy',
-                        firstDate: dateEntry,
+                        firstDate:
+                            DateTime.now().subtract(const Duration(days: 365)),
                         lastDate: DateTime.now().add(const Duration(days: 365)),
                         icon: const Icon(Icons.event),
                         dateLabelText: 'Vencimento',
@@ -367,8 +366,9 @@ class _ReceivableFormPageState
                       child: DateTimePicker(
                         controller: widget.dateReceivingEC,
                         dateMask: 'EEE dd/MM/yy',
-                        firstDate: dateEntry,
-                        lastDate: DateTime.now(),
+                        firstDate:
+                            DateTime.now().subtract(const Duration(days: 365)),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
                         icon: const Icon(Icons.event),
                         dateLabelText: 'Recebimento',
                         errorInvalidText: "Recebimento inválido",
