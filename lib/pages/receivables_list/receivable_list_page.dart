@@ -43,7 +43,7 @@ class _ReceivablesListPageState
           title: "Listagem de contas a receber",
           header: [
             Tooltip(
-              message: 'Voltar para a tela lista de pessoas',
+              message: 'Voltar para a tela anterior',
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style:

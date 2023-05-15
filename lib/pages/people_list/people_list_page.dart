@@ -42,6 +42,16 @@ class _PeopleListPageState
           title: "Listagem de Clientes e Vendedores",
           header: [
             Tooltip(
+              message: 'Voltar para a tela anterior',
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                style:
+                    ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
+                child: const Icon(Icons.exit_to_app),
+              ),
+            ),
+            const SizedBox(width: 32),
+            Tooltip(
               message: 'Cadastrar nova pessoa',
               child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, '/people_form',
