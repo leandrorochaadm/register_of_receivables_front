@@ -77,7 +77,9 @@ class ReceivableModel extends Equatable {
           : TypeReceivable.Cheque,
       dateEntry: DateTime.fromMillisecondsSinceEpoch(map['dateEntry']),
       dateDue: DateTime.fromMillisecondsSinceEpoch(map['dateDue']),
-      dateReceiving: DateTime.fromMillisecondsSinceEpoch(map['dateReceiving']),
+      dateReceiving: map['dateReceiving'] != 0
+          ? DateTime.fromMillisecondsSinceEpoch(map['dateReceiving'])
+          : null,
       client: client,
       seller: seller,
       numDoc: map['numDoc'] as String,

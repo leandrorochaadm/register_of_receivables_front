@@ -86,7 +86,7 @@ class _ReceivableFormPageState
   Widget build(BuildContext context) {
     DateTime dateEntry = DateTime.now();
     DateTime dateDue = DateTime.now();
-    DateTime dateReceiving = DateTime.now();
+    DateTime? dateReceiving;
 
     if (widget.dateEntryEC.text.isNotEmpty) {
       dateEntry = DateTime.parse(widget.dateEntryEC.text);
@@ -376,14 +376,14 @@ class _ReceivableFormPageState
                         // locale: const Locale('pt', 'BR'),
                         onChanged: (_) => setState(() {}),
                         validator: (val) {
-                          if (val != null && val != '' && val!.isNotEmpty) {
+                          if (val != null && val != '') {
                             final date = DateFormat('yyyy-MM-dd').parse(val);
                             if (date.day > 0) {
                               return null;
                             }
                             return "Recebimento inválido";
                           }
-                          return "Recebimento obrigatório";
+                          return null;
                         },
                         onSaved: (val) => print(val),
                       ),

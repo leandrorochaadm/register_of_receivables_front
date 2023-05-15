@@ -48,7 +48,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
     required String numDoc,
     required DateTime dateDue,
     required DateTime dateEntry,
-    required DateTime dateReceiving,
+    DateTime? dateReceiving,
     required String destiny,
     required PeopleModel seller,
     required PeopleModel client,

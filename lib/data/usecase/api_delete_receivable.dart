@@ -13,7 +13,7 @@ class ApiDeleteReceivables implements DeleteReceivable {
   @override
   Future<void> deleteReceivable(String id) async {
     try {
-      await dio.delete('/receivable/$id');
+      await dio.delete('/receivables/$id');
     } on DioError catch (e, s) {
       log("Erro ao excluir recebivel", error: e, stackTrace: s);
       throw RepositoryException(
