@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:register_of_receivables_front/pages/home/home_page.dart';
 
 import 'core/core.dart';
 import 'pages/pages.dart';
@@ -17,8 +18,9 @@ class MyApp extends StatelessWidget {
         title: 'Cadastro de Recebíveis',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
-        initialRoute: '/receivables_list',
+        initialRoute: '/home',
         routes: {
+          '/home': (context) => const HomePage(),
           '/people_list': (context) => PeopleListRouter.page,
           '/people_form': (context) => PeopleFormRouter.page,
           '/receivables_list': (context) => ReceivablesListRouter.page,
