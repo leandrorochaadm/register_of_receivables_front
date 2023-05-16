@@ -31,10 +31,12 @@ class _ReceivablesListPageState
   }
 
   void _findReceivables() {
-    controller.loadReceivables(
-      dateStart: widget.dateStartEC.text,
-      dateEnd: widget.dateEndEC.text,
-    );
+    if (widget.dateStartEC.text != '' && widget.dateEndEC.text != '') {
+      controller.loadReceivables(
+        dateStart: widget.dateStartEC.text,
+        dateEnd: widget.dateEndEC.text,
+      );
+    }
   }
 
   @override
@@ -58,79 +60,106 @@ class _ReceivablesListPageState
           title: "Listagem de contas a receber",
           header: [
             const SizedBox(width: 18),
-            SizedBox(
-              width: 210,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: DateTimePicker(
-                      controller: widget.dateStartEC,
-                      dateMask: 'EEE dd/MM/yy',
-                      firstDate:
-                          DateTime.now().subtract(const Duration(days: 365)),
-                      lastDate: DateTime.now().add(const Duration(days: 365)),
-                      icon: const Icon(Icons.event),
-                      dateLabelText: 'Data Inicial',
-                      errorInvalidText: "Inicial inválida",
-                      errorFormatText: 'Inicial inválida',
-                      onChanged: (_) => _findReceivables(),
-                      validator: (val) {
-                        if (val != null && val != '' && val!.isNotEmpty) {
-                          final date = DateFormat('yyyy-MM-dd').parse(val);
-                          if (date.day > 0) {
-                            return null;
-                          }
-                          return "Inicial inválida";
-                        }
-                        return "Inicial obrigatória";
-                      },
-                      onSaved: (val) => print(val),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => setState(() {
-                      widget.dateStartEC.text = '';
-                    }),
-                    icon: const Icon(Icons.clear),
-                  ),
-                ],
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.blue[900]!),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
-            ),
-            const SizedBox(width: 18),
-            SizedBox(
-              width: 210,
-              child: Row(
+              child: Column(
                 children: [
-                  Expanded(
-                    child: DateTimePicker(
-                      controller: widget.dateEndEC,
-                      dateMask: 'EEE dd/MM/yy',
-                      firstDate:
-                          DateTime.now().subtract(const Duration(days: 365)),
-                      lastDate: DateTime.now().add(const Duration(days: 365)),
-                      icon: const Icon(Icons.event),
-                      dateLabelText: 'Data Final',
-                      errorInvalidText: "Final inválida",
-                      errorFormatText: 'Final inválida',
-                      onChanged: (_) => _findReceivables(),
-                      validator: (val) {
-                        if (val != null && val != '' && val!.isNotEmpty) {
-                          final date = DateFormat('yyyy-MM-dd').parse(val);
-                          if (date.day > 0) {
-                            return null;
-                          }
-                          return "Final inválida";
-                        }
-                        return "Final obrigatória";
-                      },
-                      onSaved: (val) => print(val),
-                    ),
+                  Text(
+                    'Pesquisa dos recebíveis:',
+                    style: TextStyle(color: Colors.blue[900]),
                   ),
-                  IconButton(
-                    onPressed: () => setState(() {
-                      widget.dateEndEC.text = '';
-                    }),
-                    icon: const Icon(Icons.clear),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 225,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: DateTimePicker(
+                                controller: widget.dateStartEC,
+                                dateMask: 'EEE dd/MM/yy',
+                                firstDate: DateTime.now()
+                                    .subtract(const Duration(days: 365)),
+                                lastDate: DateTime.now()
+                                    .add(const Duration(days: 365)),
+                                icon: const Icon(Icons.event),
+                                dateLabelText: 'Vencimento Inicial',
+                                errorInvalidText: "Inicial inválida",
+                                errorFormatText: 'Inicial inválida',
+                                onChanged: (_) => _findReceivables(),
+                                validator: (val) {
+                                  if (val != null &&
+                                      val != '' &&
+                                      val!.isNotEmpty) {
+                                    final date =
+                                        DateFormat('yyyy-MM-dd').parse(val);
+                                    if (date.day > 0) {
+                                      return null;
+                                    }
+                                    return "Inicial inválida";
+                                  }
+                                  return "Inicial obrigatória";
+                                },
+                                onSaved: (val) => print(val),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => setState(() {
+                                widget.dateStartEC.text = '';
+                              }),
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 18),
+                      SizedBox(
+                        width: 225,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: DateTimePicker(
+                                controller: widget.dateEndEC,
+                                dateMask: 'EEE dd/MM/yy',
+                                firstDate: DateTime.now()
+                                    .subtract(const Duration(days: 365)),
+                                lastDate: DateTime.now()
+                                    .add(const Duration(days: 365)),
+                                icon: const Icon(Icons.event),
+                                dateLabelText: 'Vencimento Final',
+                                errorInvalidText: "Final inválida",
+                                errorFormatText: 'Final inválida',
+                                onChanged: (_) => _findReceivables(),
+                                validator: (val) {
+                                  if (val != null &&
+                                      val != '' &&
+                                      val!.isNotEmpty) {
+                                    final date =
+                                        DateFormat('yyyy-MM-dd').parse(val);
+                                    if (date.day > 0) {
+                                      return null;
+                                    }
+                                    return "Final inválida";
+                                  }
+                                  return "Final obrigatória";
+                                },
+                                onSaved: (val) => print(val),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => setState(() {
+                                widget.dateEndEC.text = '';
+                              }),
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
