@@ -31,12 +31,14 @@ class _ReceivablesListPageState
   }
 
   void _findReceivables() {
-    if (widget.dateStartEC.text != '' && widget.dateEndEC.text != '') {
-      controller.loadReceivables(
-        dateStart: widget.dateStartEC.text,
-        dateEnd: widget.dateEndEC.text,
-      );
-    }
+    controller.loadReceivables(
+      dateStart: widget.dateStartEC.text == ''
+          ? DateTime.now().subtract(const Duration(days: 365)).toString()
+          : widget.dateStartEC.text,
+      dateEnd: widget.dateEndEC.text == ''
+          ? DateTime.now().add(const Duration(days: 365)).toString()
+          : widget.dateEndEC.text,
+    );
   }
 
   @override
@@ -110,6 +112,7 @@ class _ReceivablesListPageState
                             IconButton(
                               onPressed: () => setState(() {
                                 widget.dateStartEC.text = '';
+                                _findReceivables();
                               }),
                               icon: const Icon(Icons.clear),
                             ),
@@ -153,6 +156,7 @@ class _ReceivablesListPageState
                             IconButton(
                               onPressed: () => setState(() {
                                 widget.dateEndEC.text = '';
+                                _findReceivables();
                               }),
                               icon: const Icon(Icons.clear),
                             ),
