@@ -308,84 +308,131 @@ class _ReceivableFormPageState
                       ),
                     ),
                     SizedBox(
-                      width: 200,
-                      child: DateTimePicker(
-                        controller: widget.dateEntryEC,
-                        dateMask: 'EEE dd/MM/yy',
-                        firstDate:
-                            DateTime.now().subtract(const Duration(days: 365)),
-                        lastDate: DateTime.now().add(const Duration(days: 365)),
-                        icon: const Icon(Icons.event),
-                        dateLabelText: 'Entrada',
-                        errorInvalidText: "Entrada inválida",
-                        errorFormatText: 'Entrada inválida',
-                        // locale: const Locale('pt', 'BR'),
-                        onChanged: (_) => setState(() {}),
-                        validator: (val) {
-                          if (val != null && val != '' && val!.isNotEmpty) {
-                            final date = DateFormat('yyyy-MM-dd').parse(val);
-                            if (date.day > 0) {
-                              return null;
-                            }
-                            return "Entrada inválida";
-                          }
-                          return "Entrada obrigatória";
-                        },
-                        onSaved: (val) => print(val),
+                      width: 210,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: DateTimePicker(
+                              controller: widget.dateEntryEC,
+                              dateMask: 'EEE dd/MM/yy',
+                              firstDate: DateTime.now()
+                                  .subtract(const Duration(days: 365)),
+                              lastDate:
+                                  DateTime.now().add(const Duration(days: 365)),
+                              icon: const Icon(Icons.event),
+                              dateLabelText: 'Entrada',
+                              errorInvalidText: "Entrada inválida",
+                              errorFormatText: 'Entrada inválida',
+                              // locale: const Locale('pt', 'BR'),
+                              onChanged: (_) => setState(() {}),
+                              validator: (val) {
+                                if (val != null &&
+                                    val != '' &&
+                                    val!.isNotEmpty) {
+                                  final date =
+                                      DateFormat('yyyy-MM-dd').parse(val);
+                                  if (date.day > 0) {
+                                    return null;
+                                  }
+                                  return "Entrada inválida";
+                                }
+                                return "Entrada obrigatória";
+                              },
+
+                              onSaved: (val) => print(val),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => setState(() {
+                              widget.dateEntryEC.text = '';
+                            }),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(
-                      width: 183.3,
-                      child: DateTimePicker(
-                        controller: widget.dateDueEC,
-                        dateMask: 'EEE dd/MM/yy',
-                        firstDate:
-                            DateTime.now().subtract(const Duration(days: 365)),
-                        lastDate: DateTime.now().add(const Duration(days: 365)),
-                        icon: const Icon(Icons.event),
-                        dateLabelText: 'Vencimento',
-                        errorInvalidText: "Vencimento inválido",
-                        errorFormatText: 'Vencimento inválido',
-                        // locale: const Locale('pt', 'BR'),
-                        onChanged: (_) => setState(() {}),
-                        validator: (val) {
-                          if (val != null && val != '' && val!.isNotEmpty) {
-                            final date = DateFormat('yyyy-MM-dd').parse(val);
-                            if (date.day > 0) {
-                              return null;
-                            }
-                            return "Vencimento inválido";
-                          }
-                          return "Vencimento obrigatório";
-                        },
-                        onSaved: (val) => print(val),
+                      width: 210,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: DateTimePicker(
+                              controller: widget.dateDueEC,
+                              dateMask: 'EEE dd/MM/yy',
+                              firstDate: DateTime.now()
+                                  .subtract(const Duration(days: 365)),
+                              lastDate:
+                                  DateTime.now().add(const Duration(days: 365)),
+                              icon: const Icon(Icons.event),
+                              dateLabelText: 'Vencimento',
+                              errorInvalidText: "Vencimento inválido",
+                              errorFormatText: 'Vencimento inválido',
+                              // locale: const Locale('pt', 'BR'),
+                              onChanged: (_) => setState(() {}),
+                              validator: (val) {
+                                if (val != null &&
+                                    val != '' &&
+                                    val!.isNotEmpty) {
+                                  final date =
+                                      DateFormat('yyyy-MM-dd').parse(val);
+                                  if (date.day > 0) {
+                                    return null;
+                                  }
+                                  return "Vencimento inválido";
+                                }
+                                return "Vencimento obrigatório";
+                              },
+                              onSaved: (val) => print(val),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => setState(() {
+                              widget.dateDueEC.text = '';
+                            }),
+                            icon: const Icon(Icons.clear),
+                          )
+                        ],
                       ),
                     ),
                     SizedBox(
-                      width: 183.3,
-                      child: DateTimePicker(
-                        controller: widget.dateReceivingEC,
-                        dateMask: 'EEE dd/MM/yy',
-                        firstDate:
-                            DateTime.now().subtract(const Duration(days: 365)),
-                        lastDate: DateTime.now().add(const Duration(days: 365)),
-                        icon: const Icon(Icons.event),
-                        dateLabelText: 'Recebimento',
-                        errorInvalidText: "Recebimento inválido",
-                        errorFormatText: 'Recebimento inválido',
-                        // locale: const Locale('pt', 'BR'),
-                        onChanged: (_) => setState(() {}),
-                        validator: (val) {
-                          if (val != null && val != '') {
-                            final date = DateFormat('yyyy-MM-dd').parse(val);
-                            if (date.day > 0) {
-                              return null;
-                            }
-                            return "Recebimento inválido";
-                          }
-                          return null;
-                        },
-                        onSaved: (val) => print(val),
+                      width: 210,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: DateTimePicker(
+                              controller: widget.dateReceivingEC,
+                              dateMask: 'EEE dd/MM/yy',
+                              firstDate: DateTime.now()
+                                  .subtract(const Duration(days: 365)),
+                              lastDate:
+                                  DateTime.now().add(const Duration(days: 365)),
+                              icon: const Icon(Icons.event),
+                              dateLabelText: 'Recebimento',
+                              errorInvalidText: "Recebimento inválido",
+                              errorFormatText: 'Recebimento inválido',
+                              // locale: const Locale('pt', 'BR'),
+                              onChanged: (_) => setState(() {}),
+                              validator: (val) {
+                                if (val != null && val != '') {
+                                  final date =
+                                      DateFormat('yyyy-MM-dd').parse(val);
+                                  if (date.day > 0) {
+                                    return null;
+                                  }
+                                  return "Recebimento inválido";
+                                }
+                                return null;
+                              },
+                              onSaved: (val) => print(val),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => setState(() {
+                              widget.dateDueEC.text = '';
+                            }),
+                            icon: const Icon(Icons.clear),
+                          ),
+                        ],
                       ),
                     ),
                     Visibility(
