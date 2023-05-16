@@ -27,6 +27,7 @@ class ReceivableFormPage extends StatefulWidget {
   final obsEC = TextEditingController();
   final isPaidEC = TextEditingController();
   final isSellerEC = TextEditingController();
+  final valueFN = FocusNode();
 
   final MaskTextInputFormatter dateFormatter =
       MaskTextInputFormatter(mask: '##/##/##');
@@ -80,6 +81,13 @@ class _ReceivableFormPageState
     _selectedSeller = receivable.seller;
     _selectedClient = receivable.client;
     _selectedType = receivable.type.name;
+
+    widget.valueFN.addListener(() {
+      if (widget.valueFN.hasFocus) {
+        widget.valueEC.selection = TextSelection(
+            baseOffset: 0, extentOffset: widget.valueEC.text.length);
+      }
+    });
   }
 
   @override
@@ -279,7 +287,7 @@ class _ReceivableFormPageState
                       child: TextFormField(
                         controller: widget.numDocEC,
                         decoration: const InputDecoration(
-                          labelText: "Numero",
+                          labelText: "Número",
                           hintText: "Digite o número do cheque ou boleto",
                         ),
                       ),
@@ -288,6 +296,10 @@ class _ReceivableFormPageState
                       width: 300,
                       child: TextFormField(
                         controller: widget.valueEC,
+                        focusNode: widget.valueFN,
+                        onTap: () => widget.valueEC.selection = TextSelection(
+                            baseOffset: 0,
+                            extentOffset: widget.valueEC.value.text.length),
                         validator: Validatorless.required('Valor obrigatório'),
                         keyboardType: const TextInputType.numberWithOptions(
                             decimal: true),
