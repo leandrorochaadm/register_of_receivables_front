@@ -340,7 +340,7 @@ class _ReceivableFormPageState
                               validator: (val) {
                                 if (val != null &&
                                     val != '' &&
-                                    val!.isNotEmpty) {
+                                    val.isNotEmpty) {
                                   final date =
                                       DateFormat('yyyy-MM-dd').parse(val);
                                   if (date.day > 0) {
@@ -384,7 +384,7 @@ class _ReceivableFormPageState
                               validator: (val) {
                                 if (val != null &&
                                     val != '' &&
-                                    val!.isNotEmpty) {
+                                    val.isNotEmpty) {
                                   final date =
                                       DateFormat('yyyy-MM-dd').parse(val);
                                   if (date.day > 0) {

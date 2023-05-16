@@ -1,5 +1,7 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:register_of_receivables_front/data/models/models.dart';
 import 'package:register_of_receivables_front/pages/widgets/receivables_table_widget.dart';
 
@@ -9,7 +11,10 @@ import 'receivables_list_controller.dart';
 import 'receivables_list_state.dart';
 
 class ReceivablesListPage extends StatefulWidget {
-  const ReceivablesListPage({Key? key}) : super(key: key);
+  ReceivablesListPage({Key? key}) : super(key: key);
+
+  final dateStartEC = TextEditingController();
+  final dateEndEC = TextEditingController();
 
   @override
   State<ReceivablesListPage> createState() => _ReceivablesListPageState();
@@ -19,7 +24,17 @@ class _ReceivablesListPageState
     extends BaseState<ReceivablesListPage, ReceivablesListController> {
   @override
   void onReady() {
-    controller.loadReceivables();
+    widget.dateStartEC.text =
+        DateTime.now().subtract(const Duration(days: 90)).toString();
+    widget.dateEndEC.text = DateTime.now().toString();
+    _findReceivables();
+  }
+
+  void _findReceivables() {
+    controller.loadReceivables(
+      dateStart: widget.dateStartEC.text,
+      dateEnd: widget.dateEndEC.text,
+    );
   }
 
   @override
@@ -42,6 +57,85 @@ class _ReceivablesListPageState
         return BasePageWidget(
           title: "Listagem de contas a receber",
           header: [
+            const SizedBox(width: 18),
+            SizedBox(
+              width: 210,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: DateTimePicker(
+                      controller: widget.dateStartEC,
+                      dateMask: 'EEE dd/MM/yy',
+                      firstDate:
+                          DateTime.now().subtract(const Duration(days: 365)),
+                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                      icon: const Icon(Icons.event),
+                      dateLabelText: 'Data Inicial',
+                      errorInvalidText: "Inicial inválida",
+                      errorFormatText: 'Inicial inválida',
+                      onChanged: (_) => _findReceivables(),
+                      validator: (val) {
+                        if (val != null && val != '' && val!.isNotEmpty) {
+                          final date = DateFormat('yyyy-MM-dd').parse(val);
+                          if (date.day > 0) {
+                            return null;
+                          }
+                          return "Inicial inválida";
+                        }
+                        return "Inicial obrigatória";
+                      },
+                      onSaved: (val) => print(val),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => setState(() {
+                      widget.dateStartEC.text = '';
+                    }),
+                    icon: const Icon(Icons.clear),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 18),
+            SizedBox(
+              width: 210,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: DateTimePicker(
+                      controller: widget.dateEndEC,
+                      dateMask: 'EEE dd/MM/yy',
+                      firstDate:
+                          DateTime.now().subtract(const Duration(days: 365)),
+                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                      icon: const Icon(Icons.event),
+                      dateLabelText: 'Data Final',
+                      errorInvalidText: "Final inválida",
+                      errorFormatText: 'Final inválida',
+                      onChanged: (_) => _findReceivables(),
+                      validator: (val) {
+                        if (val != null && val != '' && val!.isNotEmpty) {
+                          final date = DateFormat('yyyy-MM-dd').parse(val);
+                          if (date.day > 0) {
+                            return null;
+                          }
+                          return "Final inválida";
+                        }
+                        return "Final obrigatória";
+                      },
+                      onSaved: (val) => print(val),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => setState(() {
+                      widget.dateEndEC.text = '';
+                    }),
+                    icon: const Icon(Icons.clear),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 18),
             Tooltip(
               message: 'Voltar para a tela anterior',
               child: ElevatedButton(

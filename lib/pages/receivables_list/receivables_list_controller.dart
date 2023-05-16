@@ -10,11 +10,17 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
   ReceivablesListController({required this.getReceivable})
       : super(const ReceivablesListState.initial());
 
-  Future<void> loadReceivables() async {
+  Future<void> loadReceivables(
+      {required String dateStart, required String dateEnd}) async {
     emit(state.copyWith(status: ReceivablesStateStatus.loading));
+    final dateStartNum = DateTime.parse(dateStart).millisecondsSinceEpoch;
+    final dateEndNum = DateTime.parse(dateEnd).millisecondsSinceEpoch;
 
     try {
-      final receivables = await getReceivable.findAllReceivables();
+      final receivables = await getReceivable.findAllReceivables(
+        dateStart: dateStartNum,
+        dateEnd: dateEndNum,
+      );
       emit(state.copyWith(
         status: ReceivablesStateStatus.loaded,
         receivables: receivables.receivables,

@@ -20,6 +20,6 @@ class ReceivablesListRouter {
               create: (context) => ReceivablesListController(
                   getReceivable: context.read<GetReceivable>())),
         ],
-        child: const ReceivablesListPage(),
+        child: ReceivablesListPage(),
       );
 }

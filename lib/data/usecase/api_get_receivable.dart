@@ -12,9 +12,13 @@ class ApiGetReceivables implements GetReceivable {
   ApiGetReceivables({required this.dio});
 
   @override
-  Future<ReceivablesModel> findAllReceivables() async {
+  Future<ReceivablesModel> findAllReceivables({
+    required int dateStart,
+    required int dateEnd,
+  }) async {
     try {
-      final response = await dio.get('/receivables');
+      final response =
+          await dio.get("/receivables?dateStart=$dateStart&dateEnd=$dateEnd");
 
       return ReceivablesModel.fromJson(response.data ?? []);
     } on DioError catch (e, s) {
