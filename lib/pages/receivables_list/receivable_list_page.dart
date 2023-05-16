@@ -62,112 +62,7 @@ class _ReceivablesListPageState
           title: "Listagem de contas a receber",
           header: [
             const SizedBox(width: 18),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.blue[900]!),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'Pesquisa dos recebíveis:',
-                    style: TextStyle(color: Colors.blue[900]),
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 225,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: DateTimePicker(
-                                controller: widget.dateStartEC,
-                                dateMask: 'EEE dd/MM/yy',
-                                firstDate: DateTime.now()
-                                    .subtract(const Duration(days: 365)),
-                                lastDate: DateTime.now()
-                                    .add(const Duration(days: 365)),
-                                icon: const Icon(Icons.event),
-                                dateLabelText: 'Vencimento Inicial',
-                                errorInvalidText: "Inicial inválida",
-                                errorFormatText: 'Inicial inválida',
-                                onChanged: (_) => _findReceivables(),
-                                validator: (val) {
-                                  if (val != null &&
-                                      val != '' &&
-                                      val!.isNotEmpty) {
-                                    final date =
-                                        DateFormat('yyyy-MM-dd').parse(val);
-                                    if (date.day > 0) {
-                                      return null;
-                                    }
-                                    return "Inicial inválida";
-                                  }
-                                  return "Inicial obrigatória";
-                                },
-                                onSaved: (val) => print(val),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () => setState(() {
-                                widget.dateStartEC.text = '';
-                                _findReceivables();
-                              }),
-                              icon: const Icon(Icons.clear),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 18),
-                      SizedBox(
-                        width: 225,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: DateTimePicker(
-                                controller: widget.dateEndEC,
-                                dateMask: 'EEE dd/MM/yy',
-                                firstDate: DateTime.now()
-                                    .subtract(const Duration(days: 365)),
-                                lastDate: DateTime.now()
-                                    .add(const Duration(days: 365)),
-                                icon: const Icon(Icons.event),
-                                dateLabelText: 'Vencimento Final',
-                                errorInvalidText: "Final inválida",
-                                errorFormatText: 'Final inválida',
-                                onChanged: (_) => _findReceivables(),
-                                validator: (val) {
-                                  if (val != null &&
-                                      val != '' &&
-                                      val!.isNotEmpty) {
-                                    final date =
-                                        DateFormat('yyyy-MM-dd').parse(val);
-                                    if (date.day > 0) {
-                                      return null;
-                                    }
-                                    return "Final inválida";
-                                  }
-                                  return "Final obrigatória";
-                                },
-                                onSaved: (val) => print(val),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () => setState(() {
-                                widget.dateEndEC.text = '';
-                                _findReceivables();
-                              }),
-                              icon: const Icon(Icons.clear),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            _findReceivable(),
             const SizedBox(width: 18),
             Tooltip(
               message: 'Voltar para a tela anterior',
@@ -209,6 +104,107 @@ class _ReceivablesListPageState
           ),
         );
       },
+    );
+  }
+
+  Container _findReceivable() {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        border: Border.all(width: 1, color: Colors.blue[900]!),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
+      child: Column(
+        children: [
+          Text(
+            'Pesquisa dos recebíveis:',
+            style: TextStyle(color: Colors.blue[900]),
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 225,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DateTimePicker(
+                        controller: widget.dateStartEC,
+                        dateMask: 'EEE dd/MM/yy',
+                        firstDate:
+                            DateTime.now().subtract(const Duration(days: 365)),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
+                        icon: const Icon(Icons.event),
+                        dateLabelText: 'Vencimento Inicial',
+                        errorInvalidText: "Inicial inválida",
+                        errorFormatText: 'Inicial inválida',
+                        onChanged: (_) => _findReceivables(),
+                        validator: (val) {
+                          if (val != null && val != '' && val!.isNotEmpty) {
+                            final date = DateFormat('yyyy-MM-dd').parse(val);
+                            if (date.day > 0) {
+                              return null;
+                            }
+                            return "Inicial inválida";
+                          }
+                          return "Inicial obrigatória";
+                        },
+                        onSaved: (val) => print(val),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => setState(() {
+                        widget.dateStartEC.text = '';
+                        _findReceivables();
+                      }),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 18),
+              SizedBox(
+                width: 225,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DateTimePicker(
+                        controller: widget.dateEndEC,
+                        dateMask: 'EEE dd/MM/yy',
+                        firstDate:
+                            DateTime.now().subtract(const Duration(days: 365)),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
+                        icon: const Icon(Icons.event),
+                        dateLabelText: 'Vencimento Final',
+                        errorInvalidText: "Final inválida",
+                        errorFormatText: 'Final inválida',
+                        onChanged: (_) => _findReceivables(),
+                        validator: (val) {
+                          if (val != null && val != '' && val!.isNotEmpty) {
+                            final date = DateFormat('yyyy-MM-dd').parse(val);
+                            if (date.day > 0) {
+                              return null;
+                            }
+                            return "Final inválida";
+                          }
+                          return "Final obrigatória";
+                        },
+                        onSaved: (val) => print(val),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => setState(() {
+                        widget.dateEndEC.text = '';
+                        _findReceivables();
+                      }),
+                      icon: const Icon(Icons.clear),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
