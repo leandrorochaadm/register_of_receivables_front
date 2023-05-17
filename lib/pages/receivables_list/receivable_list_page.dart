@@ -22,6 +22,63 @@ class ReceivablesListPage extends StatefulWidget {
 
 class _ReceivablesListPageState
     extends BaseState<ReceivablesListPage, ReceivablesListController> {
+  static final List<PeopleModel> _kOptions = <PeopleModel>[
+    PeopleModel.empty(),
+    const PeopleModel(
+      id: 1,
+      name: "Cliente Nome",
+      nick: "Cliente Fantasia",
+      cnpj: "1",
+      ie: '1',
+      isClient: 1,
+      isSeller: 0,
+      phone1: 'phone1',
+      phone2: 'phone2',
+      phone3: 'phone3',
+      address: 'address',
+      obs: 'obs',
+    ),
+    const PeopleModel(
+        id: 1,
+        name: "Vendedor 1",
+        nick: "Vendedor 1",
+        cnpj: "1",
+        ie: '1',
+        isClient: 0,
+        isSeller: 1,
+        phone1: 'phone1',
+        phone2: 'phone2',
+        phone3: 'phone3',
+        address: 'address',
+        obs: 'obs'),
+    const PeopleModel(
+        id: 1,
+        name: "Vendedor 1",
+        nick: "Vendedor 1",
+        cnpj: "1",
+        ie: '1',
+        isClient: 0,
+        isSeller: 1,
+        phone1: 'phone1',
+        phone2: 'phone2',
+        phone3: 'phone3',
+        address: 'address',
+        obs: 'obs'),
+    const PeopleModel(
+        id: 1,
+        name: "Cliente Nome",
+        nick: "Cliente Fantasia",
+        cnpj: "1",
+        ie: '1',
+        isClient: 1,
+        isSeller: 0,
+        phone1: 'phone1',
+        phone2: 'phone2',
+        phone3: 'phone3',
+        address: 'address',
+        obs: 'obs'),
+  ];
+
   @override
   void onReady() {
     widget.dateStartEC.text =
@@ -59,7 +116,7 @@ class _ReceivablesListPageState
       ),
       builder: (context, state) {
         return BasePageWidget(
-          title: "Listagem de contas a receber",
+          title: "Listagem de\ncontas a receber",
           header: [
             const SizedBox(width: 18),
             _findReceivable(),
@@ -122,6 +179,33 @@ class _ReceivablesListPageState
           ),
           Row(
             children: [
+              SizedBox(
+                width: 250,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Cliente:'),
+                    Autocomplete<PeopleModel>(
+                      optionsBuilder: (TextEditingValue textEditingValue) {
+                        if (textEditingValue.text == '') {
+                          return const Iterable<PeopleModel>.empty();
+                        }
+                        return _kOptions.where((PeopleModel option) {
+                          return option
+                              .toString()
+                              .toLowerCase()
+                              .contains(textEditingValue.text.toLowerCase());
+                        });
+                      },
+                      onSelected: (PeopleModel selection) {
+                        debugPrint(
+                            'You just selected $selection id:${selection.id}');
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 18),
               SizedBox(
                 width: 225,
                 child: Row(

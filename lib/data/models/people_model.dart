@@ -107,4 +107,9 @@ class PeopleModel extends Equatable {
 
   @override
   List<Object?> get props => [id, name, cnpj];
+
+  @override
+  String toString() {
+    return "$name ($nick)";
+  }
 }
