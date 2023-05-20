@@ -1,5 +1,7 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../ui/ui.dart';
 import '../widgets/visited_clients_table_widget.dart';
@@ -8,7 +10,9 @@ import 'visited_client_controller.dart';
 import 'visited_client_state.dart';
 
 class VisitedClientPage extends StatefulWidget {
-  const VisitedClientPage({Key? key}) : super(key: key);
+  VisitedClientPage({Key? key}) : super(key: key);
+  final dateEndEC = TextEditingController();
+  DateTime date = DateTime.now().subtract(const Duration(days: 90));
 
   @override
   State<VisitedClientPage> createState() => _VisitedClientPageState();
@@ -18,7 +22,8 @@ class _VisitedClientPageState
     extends BaseState<VisitedClientPage, VisitedClientController> {
   @override
   void onReady() {
-    controller.loadClient();
+    widget.dateEndEC.text = widget.date.toString();
+    controller.loadClient(date: widget.dateEndEC.text);
   }
 
   @override
@@ -41,8 +46,49 @@ class _VisitedClientPageState
         return BasePageWidget(
           title: "Listagem de clientes visitados",
           header: [
+            Text(state.visitedClients.length.toString()),
             const SizedBox(width: 18),
-            // _findReceivable(state.clients),
+            SizedBox(
+              width: 225,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: DateTimePicker(
+                      controller: widget.dateEndEC,
+                      dateMask: 'EEE dd/MM/yy',
+                      firstDate:
+                          DateTime.now().subtract(const Duration(days: 365)),
+                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                      icon: const Icon(Icons.event),
+                      dateLabelText: 'Data Inicial',
+                      errorInvalidText: "Inicial inválida",
+                      errorFormatText: 'Inicial inválida',
+                      onChanged: (value) {
+                        controller.loadClient(date: value);
+                      },
+                      validator: (val) {
+                        if (val != null && val != '' && val!.isNotEmpty) {
+                          final date = DateFormat('yyyy-MM-dd').parse(val);
+                          if (date.day > 0) {
+                            return null;
+                          }
+                          return "Inicial inválida";
+                        }
+                        return "Inicial obrigatória";
+                      },
+                      onSaved: (val) => print(val),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => setState(() {
+                      widget.dateEndEC.text = '';
+                      controller.loadClient(date: widget.date.toString());
+                    }),
+                    icon: const Icon(Icons.clear),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(width: 18),
             Tooltip(
               message: 'Voltar para a tela anterior',

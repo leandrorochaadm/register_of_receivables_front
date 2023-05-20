@@ -12,9 +12,10 @@ class ApiGetVisitedClients implements GetVisitedClients {
   ApiGetVisitedClients({required this.dio});
 
   @override
-  Future<List<VisitedClientModel>> findAll() async {
+  Future<List<VisitedClientModel>> findAll({required DateTime dateTime}) async {
+    final dateNum = dateTime.millisecondsSinceEpoch;
     try {
-      final response = await dio.get('/visitedClients');
+      final response = await dio.get('/visitedClients?dateEnd=$dateNum');
       var list = <VisitedClientModel>[];
       for (final VisitedClient in response.data as List) {
         list.add(VisitedClientModel.fromJson(VisitedClient));

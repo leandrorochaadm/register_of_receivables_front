@@ -19,6 +19,6 @@ class VisitedClientsRouter {
               create: (context) =>
                   VisitedClientController(context.read<GetVisitedClients>())),
         ],
-        child: const VisitedClientPage(),
+        child: VisitedClientPage(),
       );
 }

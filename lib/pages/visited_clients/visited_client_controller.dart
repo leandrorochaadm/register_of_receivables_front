@@ -10,10 +10,11 @@ class VisitedClientController extends Cubit<VisitedClientState> {
   VisitedClientController(this.getVisitedClients)
       : super(const VisitedClientState.initial());
 
-  loadClient() async {
+  loadClient({required String date}) async {
     emit(state.copyWith(status: VisitedClientStateStatus.loading));
+    final dateTime = DateTime.parse(date);
     try {
-      final clients = await getVisitedClients.findAll();
+      final clients = await getVisitedClients.findAll(dateTime: dateTime);
       emit(state.copyWith(
         status: VisitedClientStateStatus.loaded,
         visitedClients: clients,
