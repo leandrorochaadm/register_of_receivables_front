@@ -12,13 +12,18 @@ class ReceivablesListRouter {
 
   static Widget get page => MultiProvider(
         providers: [
-          Provider(create: (context) => Container()),
+          Provider<GetPeoplesClients>(
+            create: (context) =>
+                ApiGetPeoplesClients(dio: context.read<CustomDio>()),
+          ),
           Provider<GetReceivable>(
               create: (context) =>
                   ApiGetReceivables(dio: context.read<CustomDio>())),
           Provider(
               create: (context) => ReceivablesListController(
-                  getReceivable: context.read<GetReceivable>())),
+                    getReceivable: context.read<GetReceivable>(),
+                    getPeoplesClients: context.read<GetPeoplesClients>(),
+                  )),
         ],
         child: ReceivablesListPage(),
       );

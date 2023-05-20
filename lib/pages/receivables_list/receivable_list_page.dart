@@ -15,6 +15,7 @@ class ReceivablesListPage extends StatefulWidget {
 
   final dateStartEC = TextEditingController();
   final dateEndEC = TextEditingController();
+  late PeopleModel peopleSelected = PeopleModel.empty();
 
   @override
   State<ReceivablesListPage> createState() => _ReceivablesListPageState();
@@ -22,69 +23,13 @@ class ReceivablesListPage extends StatefulWidget {
 
 class _ReceivablesListPageState
     extends BaseState<ReceivablesListPage, ReceivablesListController> {
-  static final List<PeopleModel> _kOptions = <PeopleModel>[
-    PeopleModel.empty(),
-    const PeopleModel(
-      id: 1,
-      name: "Cliente Nome",
-      nick: "Cliente Fantasia",
-      cnpj: "1",
-      ie: '1',
-      isClient: 1,
-      isSeller: 0,
-      phone1: 'phone1',
-      phone2: 'phone2',
-      phone3: 'phone3',
-      address: 'address',
-      obs: 'obs',
-    ),
-    const PeopleModel(
-        id: 1,
-        name: "Vendedor 1",
-        nick: "Vendedor 1",
-        cnpj: "1",
-        ie: '1',
-        isClient: 0,
-        isSeller: 1,
-        phone1: 'phone1',
-        phone2: 'phone2',
-        phone3: 'phone3',
-        address: 'address',
-        obs: 'obs'),
-    const PeopleModel(
-        id: 1,
-        name: "Vendedor 1",
-        nick: "Vendedor 1",
-        cnpj: "1",
-        ie: '1',
-        isClient: 0,
-        isSeller: 1,
-        phone1: 'phone1',
-        phone2: 'phone2',
-        phone3: 'phone3',
-        address: 'address',
-        obs: 'obs'),
-    const PeopleModel(
-        id: 1,
-        name: "Cliente Nome",
-        nick: "Cliente Fantasia",
-        cnpj: "1",
-        ie: '1',
-        isClient: 1,
-        isSeller: 0,
-        phone1: 'phone1',
-        phone2: 'phone2',
-        phone3: 'phone3',
-        address: 'address',
-        obs: 'obs'),
-  ];
-
   @override
   void onReady() {
     widget.dateStartEC.text =
         DateTime.now().subtract(const Duration(days: 90)).toString();
     widget.dateEndEC.text = DateTime.now().toString();
     _findReceivables();
+    controller.loadClient();
   }
 
   void _findReceivables() {
@@ -95,6 +40,7 @@ class _ReceivablesListPageState
       dateEnd: widget.dateEndEC.text == ''
           ? DateTime.now().add(const Duration(days: 365)).toString()
           : widget.dateEndEC.text,
+      people: widget.peopleSelected,
     );
   }
 
@@ -119,7 +65,7 @@ class _ReceivablesListPageState
           title: "Listagem de\ncontas a receber",
           header: [
             const SizedBox(width: 18),
-            _findReceivable(),
+            _findReceivable(state.clients),
             const SizedBox(width: 18),
             Tooltip(
               message: 'Voltar para a tela anterior',
@@ -164,7 +110,7 @@ class _ReceivablesListPageState
     );
   }
 
-  Container _findReceivable() {
+  Container _findReceivable(List<PeopleModel> listClient) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -190,7 +136,7 @@ class _ReceivablesListPageState
                         if (textEditingValue.text == '') {
                           return const Iterable<PeopleModel>.empty();
                         }
-                        return _kOptions.where((PeopleModel option) {
+                        return listClient.where((PeopleModel option) {
                           return option
                               .toString()
                               .toLowerCase()
@@ -198,8 +144,8 @@ class _ReceivablesListPageState
                         });
                       },
                       onSelected: (PeopleModel selection) {
-                        debugPrint(
-                            'You just selected $selection id:${selection.id}');
+                        widget.peopleSelected = selection;
+                        _findReceivables();
                       },
                     ),
                   ],

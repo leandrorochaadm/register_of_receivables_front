@@ -4,5 +4,6 @@ abstract class GetReceivable {
   Future<ReceivablesModel> findAllReceivables({
     required int dateStart,
     required int dateEnd,
+    required int peopleId,
   });
 }
