@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:register_of_receivables_front/domain/usecases/get_visited_clients.dart';
 
+import '../../core/core.dart';
+import '../../data/usecase/usecase.dart';
 import 'visited_client_controller.dart';
 import 'visited_clients_page.dart';
 
@@ -9,14 +12,12 @@ class VisitedClientsRouter {
 
   static Widget get page => MultiProvider(
         providers: [
-          /* Provider<GetPeoplesClients>(
-            create: (context) =>
-                ApiGetPeoplesClients(dio: context.read<CustomDio>()),
-          ),
-          Provider<GetReceivable>(
+          Provider<GetVisitedClients>(
               create: (context) =>
-                  ApiGetReceivables(dio: context.read<CustomDio>())),*/
-          Provider(create: (context) => VisitedClientController()),
+                  ApiGetVisitedClients(dio: context.read<CustomDio>())),
+          Provider(
+              create: (context) =>
+                  VisitedClientController(context.read<GetVisitedClients>())),
         ],
         child: const VisitedClientPage(),
       );

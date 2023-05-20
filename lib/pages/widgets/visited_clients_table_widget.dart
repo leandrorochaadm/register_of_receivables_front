@@ -40,36 +40,26 @@ class VisitedClientsTableWidget extends StatelessWidget {
                 spacing: 8,
                 children: [
                   BodyWidget(
-                    width: 200,
+                    width: 400,
                     data: DateFormat('dd/MM/yy').format(
                         DateTime.fromMillisecondsSinceEpoch(
                             VisitedClients.dateEntry)),
                     label: 'Data da última visita',
                   ),
                   BodyWidget(
-                    width: 750,
+                    width: 500,
                     data:
                         "${VisitedClients.clientName} (${VisitedClients.clientNick})",
                     label: 'Cliente',
                   ),
                   BodyWidget(
-                    width: 750,
+                    width: 500,
                     data:
                         "${VisitedClients.sellerName} (${VisitedClients.sellerNick})",
                     label: 'Vendedor',
                   ),
                 ],
               ),
-            ),
-            IconButton(
-              onPressed: () => Navigator.pushNamed(
-                  context, "/VisitedClient_form",
-                  arguments: VisitedClients),
-              icon: const Icon(
-                Icons.edit,
-                color: Colors.grey,
-              ),
-              tooltip: 'Editar cadastro',
             ),
           ],
         );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../ui/ui.dart';
+import '../widgets/visited_clients_table_widget.dart';
 import '../widgets/widgets.dart';
 import 'visited_client_controller.dart';
 import 'visited_client_state.dart';
@@ -15,6 +16,11 @@ class VisitedClientPage extends StatefulWidget {
 
 class _VisitedClientPageState
     extends BaseState<VisitedClientPage, VisitedClientController> {
+  @override
+  void onReady() {
+    controller.loadClient();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<VisitedClientController, VisitedClientState>(
@@ -33,7 +39,7 @@ class _VisitedClientPageState
       ),
       builder: (context, state) {
         return BasePageWidget(
-          title: "Listagem de\nclientes visitados",
+          title: "Listagem de clientes visitados",
           header: [
             const SizedBox(width: 18),
             // _findReceivable(state.clients),
@@ -48,10 +54,7 @@ class _VisitedClientPageState
               ),
             ),
           ],
-          body: Container(
-            child: Text(state.visitedClients.toString()),
-          ),
-          // body: VisitedClientsTableWidget(list: state.VisitedClients),
+          body: VisitedClientsTableWidget(list: state.visitedClients),
           footer: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

@@ -4,6 +4,7 @@ export 'get_people.dart';
 export 'get_people_clients.dart';
 export 'get_people_sellers.dart';
 export 'get_receivable.dart';
+export 'get_visited_clients.dart';
 export 'post_people.dart';
 export 'post_receivable.dart';
 export 'put_people.dart';
