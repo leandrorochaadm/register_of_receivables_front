@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
         title: 'Cadastro de Recebíveis',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
-        initialRoute: '/home',
+        initialRoute: '/visited_client',
         routes: {
           '/home': (context) => const HomePage(),
+          '/visited_client': (context) => VisitedClientsRouter.page,
           '/people_list': (context) => PeopleListRouter.page,
           '/people_form': (context) => PeopleFormRouter.page,
           '/receivables_list': (context) => ReceivablesListRouter.page,
