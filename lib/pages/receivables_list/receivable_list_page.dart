@@ -15,6 +15,8 @@ class ReceivablesListPage extends StatefulWidget {
 
   final dateStartEC = TextEditingController();
   final dateEndEC = TextEditingController();
+  final peopleEC = TextEditingController();
+  final peopleFN = FocusNode();
   late PeopleModel peopleSelected = PeopleModel.empty();
 
   @override
@@ -126,27 +128,88 @@ class _ReceivablesListPageState
           Row(
             children: [
               SizedBox(
-                width: 250,
+                width: 350,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Cliente:'),
-                    Autocomplete<PeopleModel>(
-                      optionsBuilder: (TextEditingValue textEditingValue) {
-                        if (textEditingValue.text == '') {
-                          return const Iterable<PeopleModel>.empty();
-                        }
-                        return listClient.where((PeopleModel option) {
-                          return option
-                              .toString()
-                              .toLowerCase()
-                              .contains(textEditingValue.text.toLowerCase());
-                        });
-                      },
-                      onSelected: (PeopleModel selection) {
-                        widget.peopleSelected = selection;
-                        _findReceivables();
-                      },
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RawAutocomplete<PeopleModel>(
+                            textEditingController: widget.peopleEC,
+                            focusNode: widget.peopleFN,
+                            optionsBuilder:
+                                (TextEditingValue textEditingValue) {
+                              return listClient.where((PeopleModel option) {
+                                return option.toString().toLowerCase().contains(
+                                    textEditingValue.text.toLowerCase());
+                              });
+                            },
+                            fieldViewBuilder: (
+                              BuildContext context,
+                              TextEditingController textEditingController,
+                              FocusNode focusNode,
+                              VoidCallback onFieldSubmitted,
+                            ) {
+                              return TextFormField(
+                                autofocus: true,
+                                controller: textEditingController,
+                                focusNode: focusNode,
+                                // onFieldSubmitted: (PeopleModel value) {
+                                //   onFieldSubmitted();
+                                // },
+                              );
+                            },
+                            optionsViewBuilder: (
+                              BuildContext context,
+                              AutocompleteOnSelected<PeopleModel> onSelected,
+                              Iterable<PeopleModel> options,
+                            ) {
+                              return Align(
+                                alignment: Alignment.topLeft,
+                                child: Material(
+                                  elevation: 4.0,
+                                  child: SizedBox(
+                                    height: 500.0,
+                                    width: 350,
+                                    child: ListView.builder(
+                                      padding: const EdgeInsets.all(8.0),
+                                      itemCount: options.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final PeopleModel option =
+                                            options.elementAt(index);
+                                        return GestureDetector(
+                                          onTap: () {
+                                            onSelected(option);
+                                            widget.peopleSelected = option;
+
+                                            _findReceivables();
+                                          },
+                                          child: ListTile(
+                                            title: Text(option.toString()),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => setState(() {
+                            widget.peopleSelected = PeopleModel.empty();
+                            widget.peopleEC.text = '';
+                            FocusScope.of(context)
+                                .requestFocus(widget.peopleFN);
+                            _findReceivables();
+                          }),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ],
                     ),
                   ],
                 ),
