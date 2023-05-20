@@ -43,8 +43,8 @@ class VisitedClientsTableWidget extends StatelessWidget {
                     width: 200,
                     data: DateFormat('dd/MM/yy').format(
                         DateTime.fromMillisecondsSinceEpoch(
-                            VisitedClients!.dateEntry!)),
-                    label: 'Data da visita',
+                            VisitedClients.dateEntry)),
+                    label: 'Data da última visita',
                   ),
                   BodyWidget(
                     width: 750,

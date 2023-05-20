@@ -1,38 +1,40 @@
-class VisitedClientModel {
-  num? dateEntry;
-  num? clientId;
-  String? clientName;
-  String? clientNick;
-  num? sellerId;
-  String? sellerName;
-  String? sellerNick;
+import 'package:equatable/equatable.dart';
 
-  VisitedClientModel({
-    this.dateEntry,
-    this.clientId,
-    this.clientName,
-    this.clientNick,
-    this.sellerId,
-    this.sellerName,
-    this.sellerNick,
+class VisitedClientModel extends Equatable {
+  final int dateEntry;
+  final int clientId;
+  final String clientName;
+  final String clientNick;
+  final int sellerId;
+  final String sellerName;
+  final String sellerNick;
+
+  const VisitedClientModel({
+    required this.dateEntry,
+    required this.clientId,
+    required this.clientName,
+    required this.clientNick,
+    required this.sellerId,
+    required this.sellerName,
+    required this.sellerNick,
   });
 
-  VisitedClientModel.fromJson(dynamic json) {
-    dateEntry = json['dateEntry'];
-    clientId = json['clientId'];
-    clientName = json['clientName'];
-    clientNick = json['clientNick'];
-    sellerId = json['sellerId'];
-    sellerName = json['sellerName'];
-    sellerNick = json['sellerNick'];
-  }
+  factory VisitedClientModel.fromJson(dynamic json) => VisitedClientModel(
+        dateEntry: json['dateEntry'],
+        clientId: json['clientId'],
+        clientName: json['clientName'],
+        clientNick: json['clientNick'],
+        sellerId: json['sellerId'],
+        sellerName: json['sellerName'],
+        sellerNick: json['sellerNick'],
+      );
 
   VisitedClientModel copyWith({
-    num? dateEntry,
-    num? clientId,
+    int? dateEntry,
+    int? clientId,
     String? clientName,
     String? clientNick,
-    num? sellerId,
+    int? sellerId,
     String? sellerName,
     String? sellerNick,
   }) =>
@@ -57,4 +59,7 @@ class VisitedClientModel {
     map['sellerNick'] = sellerNick;
     return map;
   }
+
+  @override
+  List<Object?> get props => [dateEntry, clientId, sellerId];
 }
