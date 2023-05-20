@@ -21,9 +21,21 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
     required PeopleModel people,
   }) async {
     emit(state.copyWith(status: ReceivablesStateStatus.loading));
-    final dateStartNum = DateTime.parse(dateStart).millisecondsSinceEpoch;
-    final dateEndNum = DateTime.parse(dateEnd).millisecondsSinceEpoch;
+
+    int dateStartNum = 0;
+    int dateEndNum = 0;
+
+    if (dateStart != "0") {
+      dateStartNum = DateTime.parse(dateStart).millisecondsSinceEpoch;
+    }
+    if (dateEnd != "0") {
+      dateEndNum = DateTime.parse(dateEnd).millisecondsSinceEpoch;
+    }
     final peopleId = people.id;
+
+    if (dateEndNum < dateStartNum) {
+      dateEndNum = dateStartNum;
+    }
 
     try {
       final receivables = await getReceivable.findAllReceivables(

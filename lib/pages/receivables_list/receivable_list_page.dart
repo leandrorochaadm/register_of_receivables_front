@@ -27,21 +27,17 @@ class _ReceivablesListPageState
     extends BaseState<ReceivablesListPage, ReceivablesListController> {
   @override
   void onReady() {
-    widget.dateStartEC.text =
-        DateTime.now().subtract(const Duration(days: 90)).toString();
-    widget.dateEndEC.text = DateTime.now().toString();
+    // widget.dateStartEC.text =
+    //     DateTime.now().subtract(const Duration(days: 90)).toString();
+    // widget.dateEndEC.text = DateTime.now().toString();
     _findReceivables();
     controller.loadClient();
   }
 
   void _findReceivables() {
     controller.loadReceivables(
-      dateStart: widget.dateStartEC.text == ''
-          ? DateTime.now().subtract(const Duration(days: 365)).toString()
-          : widget.dateStartEC.text,
-      dateEnd: widget.dateEndEC.text == ''
-          ? DateTime.now().add(const Duration(days: 365)).toString()
-          : widget.dateEndEC.text,
+      dateStart: widget.dateStartEC.text == '' ? "0" : widget.dateStartEC.text,
+      dateEnd: widget.dateEndEC.text == '' ? "0" : widget.dateEndEC.text,
       people: widget.peopleSelected,
     );
   }
@@ -230,7 +226,25 @@ class _ReceivablesListPageState
                         dateLabelText: 'Vencimento Inicial',
                         errorInvalidText: "Inicial inválida",
                         errorFormatText: 'Inicial inválida',
-                        onChanged: (_) => _findReceivables(),
+                        onChanged: (value) {
+                          if (widget.dateEndEC.text == "") {
+                            widget.dateEndEC.text = widget.dateStartEC.text;
+                          }
+
+                          final dateEndEC = widget.dateEndEC.text;
+                          if (dateEndEC != "") {
+                            final dateInitial =
+                                DateFormat('yyyy-MM-dd').parse(value);
+                            final dateFinal =
+                                DateFormat('yyyy-MM-dd').parse(dateEndEC);
+
+                            final isAfter = dateInitial.isAfter(dateFinal);
+                            if (isAfter) {
+                              widget.dateEndEC.text = widget.dateStartEC.text;
+                            }
+                          }
+                          _findReceivables();
+                        },
                         validator: (val) {
                           if (val != null && val != '' && val!.isNotEmpty) {
                             final date = DateFormat('yyyy-MM-dd').parse(val);
@@ -270,7 +284,25 @@ class _ReceivablesListPageState
                         dateLabelText: 'Vencimento Final',
                         errorInvalidText: "Final inválida",
                         errorFormatText: 'Final inválida',
-                        onChanged: (_) => _findReceivables(),
+                        onChanged: (value) {
+                          if (widget.dateStartEC.text == "") {
+                            widget.dateStartEC.text = widget.dateEndEC.text;
+                          }
+
+                          final dateStartEC = widget.dateStartEC.text;
+                          if (dateStartEC != "") {
+                            final dateInitial =
+                                DateFormat('yyyy-MM-dd').parse(dateStartEC);
+                            final dateFinal =
+                                DateFormat('yyyy-MM-dd').parse(value);
+
+                            final isAfter = dateInitial.isAfter(dateFinal);
+                            if (isAfter) {
+                              widget.dateStartEC.text = widget.dateEndEC.text;
+                            }
+                          }
+                          _findReceivables();
+                        },
                         validator: (val) {
                           if (val != null && val != '' && val!.isNotEmpty) {
                             final date = DateFormat('yyyy-MM-dd').parse(val);
