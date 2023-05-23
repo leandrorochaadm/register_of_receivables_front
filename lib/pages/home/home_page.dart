@@ -34,6 +34,18 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 48),
+          SizedBox(
+            width: context.percentWidth(.33),
+            height: 48,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/visited_client'),
+              child: const Text(
+                'Lista de não visitados clientes',
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+          ),
         ],
       ),
     );
