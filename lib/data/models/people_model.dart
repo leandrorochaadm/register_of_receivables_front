@@ -44,6 +44,21 @@ class PeopleModel extends Equatable {
         obs: '',
       );
 
+  factory PeopleModel.news() => const PeopleModel(
+        id: 0,
+        name: '',
+        nick: '',
+        cnpj: '',
+        ie: '',
+        isClient: 0,
+        isSeller: 0,
+        phone1: '',
+        phone2: '',
+        phone3: '',
+        address: '',
+        obs: '',
+      );
+
   PeopleModel copyWith({
     int? id,
     String? name,

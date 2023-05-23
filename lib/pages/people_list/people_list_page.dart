@@ -55,7 +55,7 @@ class _PeopleListPageState
               message: 'Cadastrar nova pessoa',
               child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, '/people_form',
-                    arguments: PeopleModel.empty()),
+                    arguments: PeopleModel.news()),
                 style:
                     ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
                 child: const Icon(Icons.add),
