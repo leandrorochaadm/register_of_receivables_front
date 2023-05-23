@@ -11,8 +11,9 @@ import 'visited_client_state.dart';
 
 class VisitedClientPage extends StatefulWidget {
   VisitedClientPage({Key? key}) : super(key: key);
-  final dateEndEC = TextEditingController();
-  DateTime date = DateTime.now().subtract(const Duration(days: 90));
+  DateTime dateDefault = DateTime.now().subtract(const Duration(days: 90));
+  final dateEndEC = TextEditingController(
+      text: DateTime.now().subtract(const Duration(days: 90)).toString());
   int daysSearch = 90;
 
   @override
@@ -23,8 +24,19 @@ class _VisitedClientPageState
     extends BaseState<VisitedClientPage, VisitedClientController> {
   @override
   void onReady() {
-    widget.dateEndEC.text = widget.date.toString();
-    controller.loadClient(date: widget.dateEndEC.text);
+    // widget.dateEndEC.text =
+    //     DateTime.now().subtract(const Duration(days: 90)).toString();
+    // controller.loadClient(date: widget.dateEndEC.text);
+    setDate(widget.dateEndEC.text);
+  }
+
+  void setDate(String date) {
+    setState(() {
+      controller.loadClient(date: date);
+      final dateTime = DateFormat('yyyy-MM-dd').parse(date);
+      widget.daysSearch = DateTime.now().difference(dateTime).inDays;
+      widget.dateEndEC.text = date;
+    });
   }
 
   @override
@@ -47,6 +59,9 @@ class _VisitedClientPageState
         return BasePageWidget(
           title: "Listagem de clientes não visitados",
           header: [
+            const SizedBox(width: 9),
+            Text("${widget.daysSearch} dias"),
+            const SizedBox(width: 9),
             SizedBox(
               width: 225,
               child: Row(
@@ -62,14 +77,7 @@ class _VisitedClientPageState
                       dateLabelText: 'Data Inicial',
                       errorInvalidText: "Inicial inválida",
                       errorFormatText: 'Inicial inválida',
-                      onChanged: (value) {
-                        controller.loadClient(date: value);
-                        setState(() {
-                          final date = DateFormat('yyyy-MM-dd').parse(value);
-                          widget.daysSearch =
-                              DateTime.now().difference(date).inDays;
-                        });
-                      },
+                      onChanged: (value) => setDate(value),
                       validator: (val) {
                         if (val != null && val != '' && val!.isNotEmpty) {
                           final date = DateFormat('yyyy-MM-dd').parse(val);
@@ -80,22 +88,16 @@ class _VisitedClientPageState
                         }
                         return "Inicial obrigatória";
                       },
-                      // onSaved: (val) => print(val),
                     ),
                   ),
                   IconButton(
-                    onPressed: () => setState(() {
-                      widget.dateEndEC.text = '';
-                      controller.loadClient(date: widget.date.toString());
-                    }),
+                    onPressed: () => setDate(widget.dateDefault.toString()),
                     icon: const Icon(Icons.clear),
+                    tooltip: 'Pesquisar data de 90 dias',
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 18),
-            Text("${widget.daysSearch} dias"),
-            const SizedBox(width: 18),
             Tooltip(
               message: 'Voltar para a tela anterior',
               child: ElevatedButton(
