@@ -34,6 +34,7 @@ class PeopleFormController extends Cubit<PeopleFormState> {
     String phone2,
     String phone3,
     String address,
+    PeopleSimplify seller,
     String obs,
   ) async {
     try {
@@ -50,6 +51,7 @@ class PeopleFormController extends Cubit<PeopleFormState> {
         phone2: phone2,
         phone3: phone3,
         address: address,
+        seller: seller,
         obs: obs,
       );
       if (id == '0') {

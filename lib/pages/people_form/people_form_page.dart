@@ -35,6 +35,8 @@ class PeopleFormPage extends StatefulWidget {
 
 class _PeopleFormPageState
     extends BaseState<PeopleFormPage, PeopleFormController> {
+  PeopleSimplify _selectedSeller = PeopleSimplify.empty();
+
   @override
   void dispose() {
     widget.formKey.currentState?.dispose();
@@ -65,6 +67,7 @@ class _PeopleFormPageState
     widget.cnpjEC.text = people.cnpj;
     widget.ieEC.text = people.ie;
     widget.addressEC.text = people.address;
+    // _selectedSeller = people.seller;
     widget.obsEC.text = people.obs;
 
     setState(() {
@@ -149,6 +152,7 @@ class _PeopleFormPageState
                       widget.phone2EC.text,
                       widget.phone3EC.text,
                       widget.addressEC.text,
+                      _selectedSeller,
                       widget.obsEC.text,
                     );
                   }
@@ -268,6 +272,34 @@ class _PeopleFormPageState
                           labelText: "Endereço",
                           hintText: "Digite o endereço",
                         ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: DropdownButtonFormField<PeopleSimplify>(
+                        decoration:
+                            const InputDecoration(labelText: "Vendedor"),
+                        hint: const Text('Escolha o vendedor'),
+                        isExpanded: true,
+                        value: _selectedSeller,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedSeller = value!;
+                          });
+                        },
+                        validator: (PeopleSimplify? value) {
+                          if (value == null ||
+                              value == PeopleSimplify.empty()) {
+                            return "Vendedor é obrigatório";
+                          }
+                          return null;
+                        },
+                        items: state.sellers.map((PeopleSimplify val) {
+                          return DropdownMenuItem(
+                            value: val,
+                            child: Text("${val.name} (${val.nick})"),
+                          );
+                        }).toList(),
                       ),
                     ),
                     SizedBox(

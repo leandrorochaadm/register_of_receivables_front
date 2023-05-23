@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'people_simplify_model.dart';
+
 class PeopleModel extends Equatable {
   const PeopleModel({
     required this.id,
@@ -14,6 +16,7 @@ class PeopleModel extends Equatable {
     required this.phone3,
     required this.address,
     required this.obs,
+    required this.seller,
   });
 
   final int id;
@@ -28,6 +31,7 @@ class PeopleModel extends Equatable {
   final String phone3;
   final String address;
   final String obs;
+  final PeopleSimplify? seller;
 
   factory PeopleModel.empty() => const PeopleModel(
         id: 0,
@@ -42,22 +46,27 @@ class PeopleModel extends Equatable {
         phone3: '',
         address: '',
         obs: '',
+        seller: PeopleSimplify(
+          id: 0,
+          name: 'Selecione',
+          nick: 'Pessoa/Empresa',
+        ),
       );
 
-  factory PeopleModel.news() => const PeopleModel(
-        id: 0,
-        name: '',
-        nick: '',
-        cnpj: '',
-        ie: '',
-        isClient: 0,
-        isSeller: 0,
-        phone1: '',
-        phone2: '',
-        phone3: '',
-        address: '',
-        obs: '',
-      );
+  factory PeopleModel.news() => PeopleModel(
+      id: 0,
+      name: '',
+      nick: '',
+      cnpj: '',
+      ie: '',
+      isClient: 0,
+      isSeller: 0,
+      phone1: '',
+      phone2: '',
+      phone3: '',
+      address: '',
+      obs: '',
+      seller: PeopleSimplify.empty());
 
   PeopleModel copyWith({
     int? id,
@@ -72,6 +81,7 @@ class PeopleModel extends Equatable {
     String? phone3,
     String? address,
     String? obs,
+    PeopleSimplify? seller,
   }) =>
       PeopleModel(
         id: id ?? this.id,
@@ -86,6 +96,7 @@ class PeopleModel extends Equatable {
         phone3: phone3 ?? this.phone3,
         address: address ?? this.address,
         obs: obs ?? this.obs,
+        seller: seller ?? this.seller,
       );
 
   Map<String, dynamic> toJson() {
@@ -102,6 +113,7 @@ class PeopleModel extends Equatable {
     map['phone3'] = phone3;
     map['address'] = address;
     map['obs'] = obs;
+    map['seller'] = seller;
     return map;
   }
 
@@ -118,10 +130,11 @@ class PeopleModel extends Equatable {
         phone3: json['phone3'] ?? '',
         address: json['address'] ?? '',
         obs: json['obs'] ?? '',
+        seller: json['seller'] ?? '',
       );
 
   @override
-  List<Object?> get props => [id, name, cnpj];
+  List<Object?> get props => [id, name, cnpj, seller];
 
   @override
   String toString() {
