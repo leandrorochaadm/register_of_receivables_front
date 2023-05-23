@@ -59,9 +59,6 @@ class _VisitedClientPageState
         return BasePageWidget(
           title: "Listagem de clientes não visitados",
           header: [
-            const SizedBox(width: 9),
-            Text("${widget.daysSearch} dias"),
-            const SizedBox(width: 9),
             SizedBox(
               width: 225,
               child: Row(
@@ -113,7 +110,7 @@ class _VisitedClientPageState
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "Total clientes nesse período: ${state.visitedClients.length}",
+                "Tem ${state.visitedClients.length} clientes sem visitar nos últimos ${widget.daysSearch} dias",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
