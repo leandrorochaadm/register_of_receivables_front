@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../data/models/models.dart';
 import 'widgets.dart';
@@ -40,22 +39,15 @@ class VisitedClientsTableWidget extends StatelessWidget {
                 spacing: 8,
                 children: [
                   BodyWidget(
-                    width: 400,
-                    data: DateFormat('dd/MM/yy').format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            VisitedClients.dateEntry)),
-                    label: 'Data da última visita',
-                  ),
-                  BodyWidget(
-                    width: 500,
+                    width: 700,
                     data:
-                        "${VisitedClients.clientName} (${VisitedClients.clientNick})",
+                        "${VisitedClients.clientName} (${VisitedClients.clientNick}) - ${VisitedClients.clientPhone}",
                     label: 'Cliente',
                   ),
                   BodyWidget(
-                    width: 500,
+                    width: 700,
                     data:
-                        "${VisitedClients.sellerName} (${VisitedClients.sellerNick})",
+                        "${VisitedClients.sellerName} (${VisitedClients.sellerNick}) - ${VisitedClients.sellerPhone}",
                     label: 'Vendedor',
                   ),
                 ],

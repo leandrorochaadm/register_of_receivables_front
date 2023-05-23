@@ -13,6 +13,7 @@ class VisitedClientPage extends StatefulWidget {
   VisitedClientPage({Key? key}) : super(key: key);
   final dateEndEC = TextEditingController();
   DateTime date = DateTime.now().subtract(const Duration(days: 90));
+  int daysSearch = 90;
 
   @override
   State<VisitedClientPage> createState() => _VisitedClientPageState();
@@ -44,10 +45,8 @@ class _VisitedClientPageState
       ),
       builder: (context, state) {
         return BasePageWidget(
-          title: "Listagem de clientes visitados",
+          title: "Listagem de clientes não visitados",
           header: [
-            Text(state.visitedClients.length.toString()),
-            const SizedBox(width: 18),
             SizedBox(
               width: 225,
               child: Row(
@@ -58,13 +57,18 @@ class _VisitedClientPageState
                       dateMask: 'EEE dd/MM/yy',
                       firstDate:
                           DateTime.now().subtract(const Duration(days: 365)),
-                      lastDate: DateTime.now().add(const Duration(days: 365)),
+                      lastDate: DateTime.now(),
                       icon: const Icon(Icons.event),
                       dateLabelText: 'Data Inicial',
                       errorInvalidText: "Inicial inválida",
                       errorFormatText: 'Inicial inválida',
                       onChanged: (value) {
                         controller.loadClient(date: value);
+                        setState(() {
+                          final date = DateFormat('yyyy-MM-dd').parse(value);
+                          widget.daysSearch =
+                              DateTime.now().difference(date).inDays;
+                        });
                       },
                       validator: (val) {
                         if (val != null && val != '' && val!.isNotEmpty) {
@@ -76,7 +80,7 @@ class _VisitedClientPageState
                         }
                         return "Inicial obrigatória";
                       },
-                      onSaved: (val) => print(val),
+                      // onSaved: (val) => print(val),
                     ),
                   ),
                   IconButton(
@@ -89,6 +93,8 @@ class _VisitedClientPageState
                 ],
               ),
             ),
+            const SizedBox(width: 18),
+            Text("${widget.daysSearch} dias"),
             const SizedBox(width: 18),
             Tooltip(
               message: 'Voltar para a tela anterior',
