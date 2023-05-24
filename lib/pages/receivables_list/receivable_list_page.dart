@@ -17,7 +17,7 @@ class ReceivablesListPage extends StatefulWidget {
   final dateEndEC = TextEditingController();
   final peopleEC = TextEditingController();
   final peopleFN = FocusNode();
-  late PeopleModel peopleSelected = PeopleModel.empty();
+  late PeopleSimplify peopleSelected = PeopleSimplify.empty();
 
   @override
   State<ReceivablesListPage> createState() => _ReceivablesListPageState();
@@ -108,7 +108,7 @@ class _ReceivablesListPageState
     );
   }
 
-  Container _findReceivable(List<PeopleModel> listClient) {
+  Container _findReceivable(List<PeopleSimplify> listClient) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -132,12 +132,12 @@ class _ReceivablesListPageState
                     Row(
                       children: [
                         Expanded(
-                          child: RawAutocomplete<PeopleModel>(
+                          child: RawAutocomplete<PeopleSimplify>(
                             textEditingController: widget.peopleEC,
                             focusNode: widget.peopleFN,
                             optionsBuilder:
                                 (TextEditingValue textEditingValue) {
-                              return listClient.where((PeopleModel option) {
+                              return listClient.where((PeopleSimplify option) {
                                 return option.toString().toLowerCase().contains(
                                     textEditingValue.text.toLowerCase());
                               });
@@ -159,8 +159,8 @@ class _ReceivablesListPageState
                             },
                             optionsViewBuilder: (
                               BuildContext context,
-                              AutocompleteOnSelected<PeopleModel> onSelected,
-                              Iterable<PeopleModel> options,
+                              AutocompleteOnSelected<PeopleSimplify> onSelected,
+                              Iterable<PeopleSimplify> options,
                             ) {
                               return Align(
                                 alignment: Alignment.topLeft,
@@ -174,7 +174,7 @@ class _ReceivablesListPageState
                                       itemCount: options.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        final PeopleModel option =
+                                        final PeopleSimplify option =
                                             options.elementAt(index);
                                         return GestureDetector(
                                           onTap: () {
@@ -197,7 +197,7 @@ class _ReceivablesListPageState
                         ),
                         IconButton(
                           onPressed: () => setState(() {
-                            widget.peopleSelected = PeopleModel.empty();
+                            widget.peopleSelected = PeopleSimplify.empty();
                             widget.peopleEC.text = '';
                             FocusScope.of(context)
                                 .requestFocus(widget.peopleFN);

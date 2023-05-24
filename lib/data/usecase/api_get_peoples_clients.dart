@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import '../../core/core.dart';
-import '../../data/models/people_model.dart';
 import '../../domain/usecases/usecases.dart';
+import '../models/models.dart';
 
 class ApiGetPeoplesClients implements GetPeoplesClients {
   final CustomDio dio;
@@ -12,12 +12,12 @@ class ApiGetPeoplesClients implements GetPeoplesClients {
   ApiGetPeoplesClients({required this.dio});
 
   @override
-  Future<List<PeopleModel>> findAllPeoplesClients() async {
+  Future<List<PeopleSimplify>> findAllPeoplesClients() async {
     try {
       final response = await dio.get('/users/clients');
-      var list = <PeopleModel>[];
+      var list = <PeopleSimplify>[];
       for (final people in response.data as List) {
-        list.add(PeopleModel.fromJson(people));
+        list.add(PeopleSimplify.fromJson(people));
       }
       return list;
     } on DioError catch (e, s) {

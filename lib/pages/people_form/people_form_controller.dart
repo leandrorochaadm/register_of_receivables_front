@@ -11,15 +11,31 @@ class PeopleFormController extends Cubit<PeopleFormState> {
   final PostPeople postPeople;
   final PutPeople putPeople;
   final DeletePeople deletePeople;
+  final GetPeoplesSellers getPeoplesSellers;
 
   PeopleFormController({
     required this.postPeople,
     required this.putPeople,
     required this.deletePeople,
+    required this.getPeoplesSellers,
   }) : super(PeopleFormState.initial());
 
-  load(PeopleModel people) {
-    emit(state.copyWith(people: people, status: PeopleFormStateStatus.loaded));
+  load(PeopleModel people) async {
+    emit(state.copyWith(status: PeopleFormStateStatus.loading));
+    try {
+      final sellers = await getPeoplesSellers.findAllPeoplesSellers();
+      emit(state.copyWith(
+        status: PeopleFormStateStatus.loaded,
+        sellers: [PeopleSimplify.empty(), ...sellers],
+        people: people,
+      ));
+    } catch (e, s) {
+      log('Erro ao buscar opções de vendedores', error: e, stackTrace: s);
+      emit(state.copyWith(
+        status: PeopleFormStateStatus.error,
+        errorMessage: 'Erro ao buscar opções de vendedores',
+      ));
+    }
   }
 
   Future<void> registerOrUpdate(

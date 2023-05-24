@@ -45,8 +45,8 @@ class ReceivableFormPage extends StatefulWidget {
 
 class _ReceivableFormPageState
     extends BaseState<ReceivableFormPage, ReceivableFormController> {
-  PeopleModel _selectedSeller = PeopleModel.empty();
-  PeopleModel _selectedClient = PeopleModel.empty();
+  PeopleSimplify _selectedSeller = PeopleSimplify.empty();
+  PeopleSimplify _selectedClient = PeopleSimplify.empty();
   String _selectedType = 'Selecione';
 
   @override
@@ -201,7 +201,7 @@ class _ReceivableFormPageState
                   children: [
                     SizedBox(
                       width: 250,
-                      child: DropdownButtonFormField<PeopleModel>(
+                      child: DropdownButtonFormField<PeopleSimplify>(
                         decoration:
                             const InputDecoration(labelText: "Vendedor"),
                         hint: const Text('Escolha o vendedor'),
@@ -212,13 +212,14 @@ class _ReceivableFormPageState
                             _selectedSeller = value!;
                           });
                         },
-                        validator: (PeopleModel? value) {
-                          if (value == null || value == PeopleModel.empty()) {
+                        validator: (PeopleSimplify? value) {
+                          if (value == null ||
+                              value == PeopleSimplify.empty()) {
                             return "Vendedor é obrigatório";
                           }
                           return null;
                         },
-                        items: state.sellers.map((PeopleModel val) {
+                        items: state.sellers.map((PeopleSimplify val) {
                           return DropdownMenuItem(
                             value: val,
                             child: Text("${val.name} (${val.nick})"),
@@ -228,7 +229,7 @@ class _ReceivableFormPageState
                     ),
                     SizedBox(
                       width: 400,
-                      child: DropdownButtonFormField<PeopleModel>(
+                      child: DropdownButtonFormField<PeopleSimplify>(
                         decoration: const InputDecoration(
                           labelText: "Cliente",
                         ),
@@ -240,13 +241,14 @@ class _ReceivableFormPageState
                             _selectedClient = value!;
                           });
                         },
-                        validator: (PeopleModel? value) {
-                          if (value == null || value == PeopleModel.empty()) {
+                        validator: (PeopleSimplify? value) {
+                          if (value == null ||
+                              value == PeopleSimplify.empty()) {
                             return "Cliente é obrigatório";
                           }
                           return null;
                         },
-                        items: state.clients.map((PeopleModel val) {
+                        items: state.clients.map((PeopleSimplify val) {
                           return DropdownMenuItem(
                             value: val,
                             child: Text("${val.name} (${val.nick})"),

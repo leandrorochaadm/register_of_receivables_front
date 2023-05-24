@@ -7,11 +7,11 @@ class ReceivableModel extends Equatable {
   final DateTime dateEntry;
   final DateTime dateDue;
   final DateTime? dateReceiving;
-  final PeopleModel client;
+  final PeopleSimplify client;
   final String numDoc;
   final double value;
   final String destiny;
-  final PeopleModel seller;
+  final PeopleSimplify seller;
 
   const ReceivableModel({
     required this.id,
@@ -29,13 +29,13 @@ class ReceivableModel extends Equatable {
   ReceivableModel.empty()
       : id = 0,
         value = 0,
-        client = PeopleModel.empty(),
+        client = PeopleSimplify.empty(),
         dateDue = DateTime.now(),
         dateEntry = DateTime.now(),
         dateReceiving = null,
         destiny = '',
         numDoc = '',
-        seller = PeopleModel.empty(),
+        seller = PeopleSimplify.empty(),
         type = TypeReceivable.Boleto;
 
   @override
@@ -67,8 +67,8 @@ class ReceivableModel extends Equatable {
   }
 
   factory ReceivableModel.fromJson(Map<String, dynamic> map) {
-    var client = PeopleModel.fromJson(map['client']);
-    var seller = PeopleModel.fromJson(map['seller']);
+    var client = PeopleSimplify.fromJson(map['client']);
+    var seller = PeopleSimplify.fromJson(map['seller']);
 
     return ReceivableModel(
       id: map['id'] as int,

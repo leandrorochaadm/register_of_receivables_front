@@ -20,8 +20,8 @@ class ReceivableFormState extends Equatable {
   final ReceivableFormStateStatus status;
   final ReceivableModel receivable;
   final String? errorMessage;
-  final List<PeopleModel> clients;
-  final List<PeopleModel> sellers;
+  final List<PeopleSimplify> clients;
+  final List<PeopleSimplify> sellers;
 
   const ReceivableFormState({
     required this.status,
@@ -45,8 +45,8 @@ class ReceivableFormState extends Equatable {
     ReceivableFormStateStatus? status,
     ReceivableModel? receivable,
     String? errorMessage,
-    List<PeopleModel>? clients,
-    List<PeopleModel>? sellers,
+    List<PeopleSimplify>? clients,
+    List<PeopleSimplify>? sellers,
   }) {
     return ReceivableFormState(
       status: status ?? this.status,

@@ -67,13 +67,15 @@ class _PeopleFormPageState
     widget.cnpjEC.text = people.cnpj;
     widget.ieEC.text = people.ie;
     widget.addressEC.text = people.address;
-    // _selectedSeller = people.seller;
+    _selectedSeller = people.seller;
     widget.obsEC.text = people.obs;
 
     setState(() {
       widget.isClientEC.text = people.isClient.toString();
       widget.isSellerEC.text = people.isSeller.toString();
     });
+
+    controller.load(people);
   }
 
   @override

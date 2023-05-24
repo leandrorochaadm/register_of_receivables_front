@@ -19,4 +19,18 @@ class PeopleSimplify extends Equatable {
 
   @override
   List<Object?> get props => [id, name, nick];
+
+  factory PeopleSimplify.fromJson(dynamic json) => PeopleSimplify(
+        id: json['id'] ?? 0,
+        name: json['name'] ?? '',
+        nick: json['nick'] ?? '',
+      );
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['name'] = name;
+    map['nick'] = nick;
+    return map;
+  }
 }

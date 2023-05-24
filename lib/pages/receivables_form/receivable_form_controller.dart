@@ -29,8 +29,8 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
       final sellers = await getPeoplesSellers.findAllPeoplesSellers();
       emit(state.copyWith(
         status: ReceivableFormStateStatus.loaded,
-        clients: [PeopleModel.empty(), ...clients],
-        sellers: [PeopleModel.empty(), ...sellers],
+        clients: [PeopleSimplify.empty(), ...clients],
+        sellers: [PeopleSimplify.empty(), ...sellers],
       ));
     } catch (e, s) {
       log('Erro ao buscar opções de clientes ou vendedores',
@@ -50,8 +50,8 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
     required DateTime dateEntry,
     DateTime? dateReceiving,
     required String destiny,
-    required PeopleModel seller,
-    required PeopleModel client,
+    required PeopleSimplify seller,
+    required PeopleSimplify client,
     required String type,
   }) async {
     try {

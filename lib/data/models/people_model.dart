@@ -31,7 +31,7 @@ class PeopleModel extends Equatable {
   final String phone3;
   final String address;
   final String obs;
-  final PeopleSimplify? seller;
+  final PeopleSimplify seller;
 
   factory PeopleModel.empty() => const PeopleModel(
         id: 0,
@@ -117,21 +117,24 @@ class PeopleModel extends Equatable {
     return map;
   }
 
-  factory PeopleModel.fromJson(dynamic json) => PeopleModel(
-        id: json['id'] ?? 0,
-        name: json['name'] ?? '',
-        nick: json['nick'] ?? '',
-        cnpj: json['cnpj'] ?? '',
-        ie: json['ie'] ?? '',
-        isClient: json['is_client'] ?? 0,
-        isSeller: json['is_seller'] ?? 0,
-        phone1: json['phone1'] ?? '',
-        phone2: json['phone2'] ?? '',
-        phone3: json['phone3'] ?? '',
-        address: json['address'] ?? '',
-        obs: json['obs'] ?? '',
-        seller: json['seller'] ?? '',
-      );
+  factory PeopleModel.fromJson(dynamic json) {
+    var seller = PeopleSimplify.fromJson(json['seller']);
+    return PeopleModel(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      nick: json['nick'] ?? '',
+      cnpj: json['cnpj'] ?? '',
+      ie: json['ie'] ?? '',
+      isClient: json['is_client'] ?? 0,
+      isSeller: json['is_seller'] ?? 0,
+      phone1: json['phone1'] ?? '',
+      phone2: json['phone2'] ?? '',
+      phone3: json['phone3'] ?? '',
+      address: json['address'] ?? '',
+      obs: json['obs'] ?? '',
+      seller: seller,
+    );
+  }
 
   @override
   List<Object?> get props => [id, name, cnpj, seller];

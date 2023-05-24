@@ -18,7 +18,7 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
   Future<void> loadReceivables({
     required String dateStart,
     required String dateEnd,
-    required PeopleModel people,
+    required PeopleSimplify people,
   }) async {
     emit(state.copyWith(status: ReceivablesStateStatus.loading));
 

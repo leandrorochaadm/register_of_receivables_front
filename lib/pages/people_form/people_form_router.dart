@@ -23,11 +23,16 @@ class PeopleFormRouter {
             create: (context) =>
                 ApiDeletePeoples(dio: context.read<CustomDio>()),
           ),
+          Provider<GetPeoplesSellers>(
+            create: (context) =>
+                ApiGetPeoplesSellers(dio: context.read<CustomDio>()),
+          ),
           Provider(
               create: (context) => PeopleFormController(
                     postPeople: context.read<PostPeople>(),
                     putPeople: context.read<PutPeople>(),
                     deletePeople: context.read<DeletePeople>(),
+                    getPeoplesSellers: context.read<GetPeoplesSellers>(),
                   )),
         ],
         child: PeopleFormPage(),

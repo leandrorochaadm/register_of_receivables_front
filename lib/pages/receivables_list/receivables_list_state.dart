@@ -18,7 +18,7 @@ class ReceivablesListState extends Equatable {
   final List<ReceivableModel> receivables;
   final double sum;
   final String? errorMessage;
-  final List<PeopleModel> clients;
+  final List<PeopleSimplify> clients;
 
   const ReceivablesListState({
     required this.status,
@@ -40,7 +40,7 @@ class ReceivablesListState extends Equatable {
     List<ReceivableModel>? receivables,
     double? sum,
     String? errorMessage,
-    List<PeopleModel>? clients,
+    List<PeopleSimplify>? clients,
   }) {
     return ReceivablesListState(
       status: status ?? this.status,
