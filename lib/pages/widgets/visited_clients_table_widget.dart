@@ -39,13 +39,13 @@ class VisitedClientsTableWidget extends StatelessWidget {
                 spacing: 8,
                 children: [
                   BodyWidget(
-                    width: 700,
+                    width: 800,
                     data:
                         "${VisitedClients.clientName} (${VisitedClients.clientNick}) - ${VisitedClients.clientPhone}",
                     label: 'Cliente',
                   ),
                   BodyWidget(
-                    width: 700,
+                    width: 800,
                     data:
                         "${VisitedClients.sellerName} (${VisitedClients.sellerNick}) - ${VisitedClients.sellerPhone}",
                     label: 'Vendedor',

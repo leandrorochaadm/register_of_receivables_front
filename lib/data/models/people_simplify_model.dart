@@ -33,4 +33,9 @@ class PeopleSimplify extends Equatable {
     map['nick'] = nick;
     return map;
   }
+
+  @override
+  String toString() {
+    return "$name ($nick)";
+  }
 }

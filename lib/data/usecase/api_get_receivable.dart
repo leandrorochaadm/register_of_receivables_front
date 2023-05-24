@@ -24,7 +24,7 @@ class ApiGetReceivables implements GetReceivable {
       return ReceivablesModel.fromJson(response.data ?? []);
     } on DioError catch (e, s) {
       log("Erro ao buscar recebiveis", error: e, stackTrace: s);
-      throw RepositoryException(message: "Erro ao buscar recebiveis2");
+      throw RepositoryException(message: "Erro ao buscar recebiveis");
     }
   }
 }
