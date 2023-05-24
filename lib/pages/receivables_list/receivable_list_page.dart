@@ -27,9 +27,10 @@ class _ReceivablesListPageState
     extends BaseState<ReceivablesListPage, ReceivablesListController> {
   @override
   void onReady() {
-    // widget.dateStartEC.text =
-    //     DateTime.now().subtract(const Duration(days: 90)).toString();
-    // widget.dateEndEC.text = DateTime.now().toString();
+    final peopleParams =
+        ModalRoute.of(context)!.settings.arguments as PeopleModel;
+    widget.peopleSelected = peopleParams.toPeopleSimplify();
+    widget.peopleEC.text = peopleParams.toString();
     _findReceivables();
     controller.loadClient();
   }

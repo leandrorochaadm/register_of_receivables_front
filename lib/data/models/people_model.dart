@@ -143,4 +143,6 @@ class PeopleModel extends Equatable {
   String toString() {
     return "$name ($nick)";
   }
+
+  toPeopleSimplify() => PeopleSimplify(id: id, name: name, nick: nick);
 }

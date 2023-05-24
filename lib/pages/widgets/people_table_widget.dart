@@ -63,8 +63,11 @@ class PeopleTableWidget extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             IconButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, '/receivables_list'),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/receivables_list',
+                arguments: people,
+              ),
               icon: Icon(
                 Icons.payments_outlined,
                 color: Colors.green[300],
