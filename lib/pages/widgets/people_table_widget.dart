@@ -66,7 +66,7 @@ class PeopleTableWidget extends StatelessWidget {
               onPressed: () => Navigator.pushNamed(
                 context,
                 '/receivables_list',
-                arguments: people,
+                arguments: people.toPeopleSimplify(),
               ),
               icon: Icon(
                 Icons.payments_outlined,

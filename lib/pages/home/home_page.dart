@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:register_of_receivables_front/data/models/models.dart';
 import 'package:register_of_receivables_front/ui/helper/size_extesions.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,8 +15,11 @@ class HomePage extends StatelessWidget {
             width: context.percentWidth(.33),
             height: 48,
             child: ElevatedButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, '/receivables_list'),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/receivables_list',
+                arguments: PeopleSimplify.empty(),
+              ),
               child: const Text(
                 'Lista de cheques e boletos',
                 style: TextStyle(fontSize: 24),

@@ -28,9 +28,11 @@ class _ReceivablesListPageState
   @override
   void onReady() {
     final peopleParams =
-        ModalRoute.of(context)!.settings.arguments as PeopleModel;
-    widget.peopleSelected = peopleParams.toPeopleSimplify();
-    widget.peopleEC.text = peopleParams.toString();
+        ModalRoute.of(context)!.settings.arguments as PeopleSimplify;
+    if (peopleParams.name.isNotEmpty) {
+      widget.peopleSelected = peopleParams;
+      widget.peopleEC.text = peopleParams.toString();
+    }
     _findReceivables();
     controller.loadClient();
   }
