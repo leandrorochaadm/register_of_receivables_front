@@ -7,16 +7,25 @@ import 'people_list_state.dart';
 
 class PeopleListController extends Cubit<PeopleListState> {
   final GetPeople getPeople;
-  PeopleListController({required this.getPeople})
-      : super(const PeopleListState.initial());
+  final GetPeoplesClients getPeoplesClients;
 
-  Future<void> loadPeoples() async {
+  PeopleListController({
+    required this.getPeople,
+    required this.getPeoplesClients,
+  }) : super(const PeopleListState.initial());
+
+  Future<void> loadPeoples(String name) async {
     emit(state.copyWith(status: PeopleListStateStatus.loading));
 
     try {
-      final peoples = await getPeople.findAllPeoples();
+      final peoples = await getPeople.findAllPeoples(name);
+      final clients = await getPeoplesClients.findAllPeoplesClients();
+
       emit(state.copyWith(
-          status: PeopleListStateStatus.loaded, peoples: peoples));
+        status: PeopleListStateStatus.loaded,
+        peoples: peoples,
+        clients: clients,
+      ));
     } catch (e, s) {
       log('Erro ao buscar os clientes e vendedores', error: e, stackTrace: s);
       emit(state.copyWith(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:register_of_receivables_front/data/usecase/api_get_peoples.dart';
+import 'package:register_of_receivables_front/data/usecase/api_get_peoples_clients.dart';
 import 'package:register_of_receivables_front/pages/people_list/people_list_controller.dart';
 import 'package:register_of_receivables_front/pages/people_list/people_list_page.dart';
 
@@ -15,10 +16,15 @@ class PeopleListRouter {
           Provider<GetPeople>(
               create: (context) =>
                   ApiGetPeoples(dio: context.read<CustomDio>())),
-          Provider(
+          Provider<GetPeoplesClients>(
               create: (context) =>
-                  PeopleListController(getPeople: context.read<GetPeople>()))
+                  ApiGetPeoplesClients(dio: context.read<CustomDio>())),
+          Provider(
+              create: (context) => PeopleListController(
+                    getPeople: context.read<GetPeople>(),
+                    getPeoplesClients: context.read<GetPeoplesClients>(),
+                  )),
         ],
-        child: const PeopleListPage(),
+        child: PeopleListPage(),
       );
 }

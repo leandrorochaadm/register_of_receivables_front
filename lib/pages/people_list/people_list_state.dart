@@ -18,34 +18,20 @@ class PeopleListState extends Equatable {
   final PeopleListStateStatus status;
   final List<PeopleModel> peoples;
   final String? errorMessage;
-
-  // final PeopleModel peopleEditing;
+  final List<PeopleSimplify> clients;
 
   const PeopleListState({
     required this.peoples,
     this.errorMessage,
     required this.status,
-    // required this.peopleEditing,
+    required this.clients,
   });
 
   const PeopleListState.initial()
       : status = PeopleListStateStatus.initial,
         peoples = const [],
-        errorMessage = null;
-/*        peopleEditing = const PeopleModel(
-          id: 0,
-          name: '',
-          nick: '',
-          cnpj: '',
-          ie: '',
-          isClient: 0,
-          isSeller: 0,
-          phone1: '',
-          phone2: '',
-          phone3: '',
-          address: '',
-          obs: '',
-        );*/
+        errorMessage = null,
+        clients = const [];
 
   @override
   List<Object?> get props => [
@@ -58,13 +44,13 @@ class PeopleListState extends Equatable {
     PeopleListStateStatus? status,
     List<PeopleModel>? peoples,
     String? errorMessage,
-    PeopleModel? peopleEditing,
+    List<PeopleSimplify>? clients,
   }) {
     return PeopleListState(
       status: status ?? this.status,
       peoples: peoples ?? this.peoples,
       errorMessage: errorMessage ?? this.errorMessage,
-      // peopleEditing: peopleEditing ?? this.peopleEditing,
+      clients: clients ?? this.clients,
     );
   }
 }

@@ -12,9 +12,9 @@ class ApiGetPeoples implements GetPeople {
   ApiGetPeoples({required this.dio});
 
   @override
-  Future<List<PeopleModel>> findAllPeoples() async {
+  Future<List<PeopleModel>> findAllPeoples(String name) async {
     try {
-      final response = await dio.get('/users');
+      final response = await dio.get('/users?name_or_nick=$name');
       var list = <PeopleModel>[];
       for (final people in response.data as List) {
         list.add(PeopleModel.fromJson(people));
