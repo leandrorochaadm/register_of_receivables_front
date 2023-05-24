@@ -115,6 +115,14 @@ class _PeopleListPageState
                 ),
               ],
             ),
+            IconButton(
+              onPressed: () {
+                controller.loadPeoples('');
+                widget.peopleEC.text = '';
+              },
+              icon: const Icon(Icons.clear),
+              tooltip: 'Limpar busca',
+            ),
             const SizedBox(width: 32),
             Tooltip(
               message: 'Voltar para a tela anterior',
