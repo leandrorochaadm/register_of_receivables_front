@@ -28,6 +28,9 @@ class ReceivableFormPage extends StatefulWidget {
   final isPaidEC = TextEditingController();
   final isSellerEC = TextEditingController();
   final valueFN = FocusNode();
+  final clientEC = TextEditingController();
+  final peopleFN = FocusNode();
+  PeopleSimplify selectedClient = PeopleSimplify.empty();
 
   final MaskTextInputFormatter dateFormatter =
       MaskTextInputFormatter(mask: '##/##/##');
@@ -46,7 +49,7 @@ class ReceivableFormPage extends StatefulWidget {
 class _ReceivableFormPageState
     extends BaseState<ReceivableFormPage, ReceivableFormController> {
   PeopleSimplify _selectedSeller = PeopleSimplify.empty();
-  PeopleSimplify _selectedClient = PeopleSimplify.empty();
+
   String _selectedType = 'Selecione';
 
   @override
@@ -79,7 +82,8 @@ class _ReceivableFormPageState
     widget.destinyEC.text = receivable.destiny;
 
     _selectedSeller = receivable.seller;
-    _selectedClient = receivable.client;
+    widget.selectedClient = receivable.client;
+    widget.clientEC.text = receivable.client.toString();
     _selectedType = receivable.type.name;
 
     widget.valueFN.addListener(() {
@@ -173,7 +177,7 @@ class _ReceivableFormPageState
                       id: int.parse(widget.idEC.text),
                       value: double.parse(widget.valueEC.text),
                       type: _selectedType,
-                      client: _selectedClient,
+                      client: widget.selectedClient,
                       seller: _selectedSeller,
                       dateDue: DateTime.parse(widget.dateDueEC.text),
                       dateEntry: DateTime.parse(widget.dateEntryEC.text),
@@ -227,34 +231,79 @@ class _ReceivableFormPageState
                         }).toList(),
                       ),
                     ),
-                    SizedBox(
-                      width: 400,
-                      child: DropdownButtonFormField<PeopleSimplify>(
-                        decoration: const InputDecoration(
-                          labelText: "Cliente",
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Cliente'),
+                        SizedBox(
+                          width: 400,
+                          child: RawAutocomplete<PeopleSimplify>(
+                            textEditingController: widget.clientEC,
+                            focusNode: widget.peopleFN,
+                            optionsBuilder:
+                                (TextEditingValue textEditingValue) {
+                              return state.clients
+                                  .where((PeopleSimplify option) {
+                                return option.toString().toLowerCase().contains(
+                                    textEditingValue.text.toLowerCase());
+                              });
+                            },
+                            fieldViewBuilder: (
+                              BuildContext context,
+                              TextEditingController textEditingController,
+                              FocusNode focusNode,
+                              VoidCallback onFieldSubmitted,
+                            ) {
+                              return TextFormField(
+                                controller: textEditingController,
+                                focusNode: focusNode,
+                                // onFieldSubmitted: (PeopleModel value) {
+                                //   onFieldSubmitted();
+                                // },
+                                onTap: () => widget.clientEC.selection =
+                                    TextSelection(
+                                        baseOffset: 0,
+                                        extentOffset:
+                                            widget.clientEC.value.text.length),
+                              );
+                            },
+                            optionsViewBuilder: (
+                              BuildContext context,
+                              AutocompleteOnSelected<PeopleSimplify> onSelected,
+                              Iterable<PeopleSimplify> options,
+                            ) {
+                              return Align(
+                                alignment: Alignment.topLeft,
+                                child: Material(
+                                  elevation: 4.0,
+                                  child: SizedBox(
+                                    height: 500.0,
+                                    width: 350,
+                                    child: ListView.builder(
+                                      padding: const EdgeInsets.all(8.0),
+                                      itemCount: options.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final PeopleSimplify option =
+                                            options.elementAt(index);
+                                        return GestureDetector(
+                                          onTap: () {
+                                            onSelected(option);
+                                            widget.selectedClient = option;
+                                          },
+                                          child: ListTile(
+                                            title: Text(option.toString()),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        hint: const Text('Escolha o cliente'),
-                        value: _selectedClient,
-                        isExpanded: true,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedClient = value!;
-                          });
-                        },
-                        validator: (PeopleSimplify? value) {
-                          if (value == null ||
-                              value == PeopleSimplify.empty()) {
-                            return "Cliente é obrigatório";
-                          }
-                          return null;
-                        },
-                        items: state.clients.map((PeopleSimplify val) {
-                          return DropdownMenuItem(
-                            value: val,
-                            child: Text("${val.name} (${val.nick})"),
-                          );
-                        }).toList(),
-                      ),
+                      ],
                     ),
                     SizedBox(
                       width: 200,
