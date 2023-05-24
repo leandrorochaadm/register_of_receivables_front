@@ -44,7 +44,7 @@ class PeopleTableWidget extends StatelessWidget {
                     label: 'CNPJ/CPF',
                   ),
                   BodyWidget(
-                    width: 250,
+                    width: 300,
                     data: people.ie,
                     label: 'IE/RG',
                   ),

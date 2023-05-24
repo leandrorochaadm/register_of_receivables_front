@@ -115,7 +115,7 @@ class _ReceivableFormPageState
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   '/receivables_list',
-                  ModalRoute.withName('/'),
+                  ModalRoute.withName('/home'),
                 );
               },
               deletedSuccess: () {
@@ -125,7 +125,7 @@ class _ReceivableFormPageState
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   '/receivables_list',
-                  ModalRoute.withName('/'),
+                  ModalRoute.withName('/home'),
                 );
               },
               error: () {

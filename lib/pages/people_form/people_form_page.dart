@@ -90,7 +90,7 @@ class _PeopleFormPageState
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   '/people_list',
-                  ModalRoute.withName('/'),
+                  ModalRoute.withName('/home'),
                 );
               },
               deletedSuccess: () {
@@ -100,7 +100,7 @@ class _PeopleFormPageState
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   '/people_list',
-                  ModalRoute.withName('/'),
+                  ModalRoute.withName('/home'),
                 );
               },
               error: () {
