@@ -196,325 +196,314 @@ class _ReceivableFormPageState
             ],
             body: Form(
               key: widget.formKey,
-              child: SizedBox(
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  runAlignment: WrapAlignment.spaceBetween,
-                  spacing: 50,
-                  runSpacing: 50,
-                  children: [
-                    SizedBox(
-                      width: 250,
-                      child: DropdownButtonFormField<PeopleSimplify>(
-                        decoration:
-                            const InputDecoration(labelText: "Vendedor"),
-                        hint: const Text('Escolha o vendedor'),
-                        isExpanded: true,
-                        value: _selectedSeller,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedSeller = value!;
-                          });
-                        },
-                        validator: (PeopleSimplify? value) {
-                          if (value == null ||
-                              value == PeopleSimplify.empty()) {
-                            return "Vendedor é obrigatório";
-                          }
-                          return null;
-                        },
-                        items: state.sellers.map((PeopleSimplify val) {
-                          return DropdownMenuItem(
-                            value: val,
-                            child: Text("${val.name} (${val.nick})"),
-                          );
-                        }).toList(),
-                      ),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runAlignment: WrapAlignment.start,
+                spacing: 50,
+                runSpacing: 50,
+                children: [
+                  SizedBox(
+                    width: 250,
+                    child: DropdownButtonFormField<PeopleSimplify>(
+                      decoration: const InputDecoration(labelText: "Vendedor"),
+                      hint: const Text('Escolha o vendedor'),
+                      isExpanded: true,
+                      value: _selectedSeller,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedSeller = value!;
+                        });
+                      },
+                      validator: (PeopleSimplify? value) {
+                        if (value == null || value == PeopleSimplify.empty()) {
+                          return "Vendedor é obrigatório";
+                        }
+                        return null;
+                      },
+                      items: state.sellers.map((PeopleSimplify val) {
+                        return DropdownMenuItem(
+                          value: val,
+                          child: Text("${val.name} (${val.nick})"),
+                        );
+                      }).toList(),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Cliente'),
-                        SizedBox(
-                          width: 400,
-                          child: RawAutocomplete<PeopleSimplify>(
-                            textEditingController: widget.clientEC,
-                            focusNode: widget.peopleFN,
-                            optionsBuilder:
-                                (TextEditingValue textEditingValue) {
-                              return state.clients
-                                  .where((PeopleSimplify option) {
-                                return option.toString().toLowerCase().contains(
-                                    textEditingValue.text.toLowerCase());
-                              });
-                            },
-                            fieldViewBuilder: (
-                              BuildContext context,
-                              TextEditingController textEditingController,
-                              FocusNode focusNode,
-                              VoidCallback onFieldSubmitted,
-                            ) {
-                              return TextFormField(
-                                controller: textEditingController,
-                                focusNode: focusNode,
-                                // onFieldSubmitted: (PeopleModel value) {
-                                //   onFieldSubmitted();
-                                // },
-                                onTap: () => widget.clientEC.selection =
-                                    TextSelection(
-                                        baseOffset: 0,
-                                        extentOffset:
-                                            widget.clientEC.value.text.length),
-                              );
-                            },
-                            optionsViewBuilder: (
-                              BuildContext context,
-                              AutocompleteOnSelected<PeopleSimplify> onSelected,
-                              Iterable<PeopleSimplify> options,
-                            ) {
-                              return Align(
-                                alignment: Alignment.topLeft,
-                                child: Material(
-                                  elevation: 4.0,
-                                  child: SizedBox(
-                                    height: 500.0,
-                                    width: 350,
-                                    child: ListView.builder(
-                                      padding: const EdgeInsets.all(8.0),
-                                      itemCount: options.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        final PeopleSimplify option =
-                                            options.elementAt(index);
-                                        return GestureDetector(
-                                          onTap: () {
-                                            onSelected(option);
-                                            widget.selectedClient = option;
-                                          },
-                                          child: ListTile(
-                                            title: Text(option.toString()),
-                                          ),
-                                        );
-                                      },
-                                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Cliente'),
+                      SizedBox(
+                        width: 400,
+                        child: RawAutocomplete<PeopleSimplify>(
+                          textEditingController: widget.clientEC,
+                          focusNode: widget.peopleFN,
+                          optionsBuilder: (TextEditingValue textEditingValue) {
+                            return state.clients.where((PeopleSimplify option) {
+                              return option.toString().toLowerCase().contains(
+                                  textEditingValue.text.toLowerCase());
+                            });
+                          },
+                          fieldViewBuilder: (
+                            BuildContext context,
+                            TextEditingController textEditingController,
+                            FocusNode focusNode,
+                            VoidCallback onFieldSubmitted,
+                          ) {
+                            return TextFormField(
+                              controller: textEditingController,
+                              focusNode: focusNode,
+                              // onFieldSubmitted: (PeopleModel value) {
+                              //   onFieldSubmitted();
+                              // },
+                              onTap: () => widget.clientEC.selection =
+                                  TextSelection(
+                                      baseOffset: 0,
+                                      extentOffset:
+                                          widget.clientEC.value.text.length),
+                            );
+                          },
+                          optionsViewBuilder: (
+                            BuildContext context,
+                            AutocompleteOnSelected<PeopleSimplify> onSelected,
+                            Iterable<PeopleSimplify> options,
+                          ) {
+                            return Align(
+                              alignment: Alignment.topLeft,
+                              child: Material(
+                                elevation: 4.0,
+                                child: SizedBox(
+                                  height: 500.0,
+                                  width: 350,
+                                  child: ListView.builder(
+                                    padding: const EdgeInsets.all(8.0),
+                                    itemCount: options.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      final PeopleSimplify option =
+                                          options.elementAt(index);
+                                      return GestureDetector(
+                                        onTap: () {
+                                          onSelected(option);
+                                          widget.selectedClient = option;
+                                        },
+                                        child: ListTile(
+                                          title: Text(option.toString()),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
-                              );
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 200,
+                    child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        labelText: "Tipo",
+                      ),
+                      hint: const Text('Escolha o tipo'),
+                      value: _selectedType,
+                      isExpanded: true,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedType = value!;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == 'Selecione' || value == null) {
+                          return "Tipo é obrigatório";
+                        }
+                        return null;
+                      },
+                      items: widget.listType.map((String val) {
+                        return DropdownMenuItem(
+                          value: val,
+                          child: Text(val),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 300,
+                    child: TextFormField(
+                      controller: widget.numDocEC,
+                      decoration: const InputDecoration(
+                        labelText: "Número",
+                        hintText: "Digite o número do cheque ou boleto",
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 300,
+                    child: TextFormField(
+                      controller: widget.valueEC,
+                      focusNode: widget.valueFN,
+                      onTap: () => widget.valueEC.selection = TextSelection(
+                          baseOffset: 0,
+                          extentOffset: widget.valueEC.value.text.length),
+                      validator: Validatorless.required('Valor obrigatório'),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        labelText: "Valor",
+                        hintText: "Digite o valor",
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 300,
+                    child: TextFormField(
+                      controller: widget.destinyEC,
+                      decoration: const InputDecoration(
+                        labelText: "Destino",
+                        hintText: "Digite o destino",
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 210,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: DateTimePicker(
+                            controller: widget.dateEntryEC,
+                            dateMask: 'EEE dd/MM/yy',
+                            firstDate: DateTime.now()
+                                .subtract(const Duration(days: 365)),
+                            lastDate:
+                                DateTime.now().add(const Duration(days: 365)),
+                            icon: const Icon(Icons.event),
+                            dateLabelText: 'Entrada',
+                            errorInvalidText: "Entrada inválida",
+                            errorFormatText: 'Entrada inválida',
+                            // locale: const Locale('pt', 'BR'),
+                            onChanged: (_) => setState(() {}),
+                            validator: (val) {
+                              if (val != null && val != '' && val.isNotEmpty) {
+                                final date =
+                                    DateFormat('yyyy-MM-dd').parse(val);
+                                if (date.day > 0) {
+                                  return null;
+                                }
+                                return "Entrada inválida";
+                              }
+                              return "Entrada obrigatória";
                             },
+
+                            onSaved: (val) => print(val),
                           ),
+                        ),
+                        IconButton(
+                          onPressed: () => setState(() {
+                            widget.dateEntryEC.text = '';
+                          }),
+                          icon: const Icon(Icons.clear),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      width: 200,
-                      child: DropdownButtonFormField<String>(
-                        decoration: const InputDecoration(
-                          labelText: "Tipo",
-                        ),
-                        hint: const Text('Escolha o tipo'),
-                        value: _selectedType,
-                        isExpanded: true,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedType = value!;
-                          });
-                        },
-                        validator: (String? value) {
-                          if (value == 'Selecione' || value == null) {
-                            return "Tipo é obrigatório";
-                          }
-                          return null;
-                        },
-                        items: widget.listType.map((String val) {
-                          return DropdownMenuItem(
-                            value: val,
-                            child: Text(val),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 300,
-                      child: TextFormField(
-                        controller: widget.numDocEC,
-                        decoration: const InputDecoration(
-                          labelText: "Número",
-                          hintText: "Digite o número do cheque ou boleto",
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 300,
-                      child: TextFormField(
-                        controller: widget.valueEC,
-                        focusNode: widget.valueFN,
-                        onTap: () => widget.valueEC.selection = TextSelection(
-                            baseOffset: 0,
-                            extentOffset: widget.valueEC.value.text.length),
-                        validator: Validatorless.required('Valor obrigatório'),
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        decoration: const InputDecoration(
-                          labelText: "Valor",
-                          hintText: "Digite o valor",
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 300,
-                      child: TextFormField(
-                        controller: widget.destinyEC,
-                        decoration: const InputDecoration(
-                          labelText: "Destino",
-                          hintText: "Digite o destino",
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 210,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: DateTimePicker(
-                              controller: widget.dateEntryEC,
-                              dateMask: 'EEE dd/MM/yy',
-                              firstDate: DateTime.now()
-                                  .subtract(const Duration(days: 365)),
-                              lastDate:
-                                  DateTime.now().add(const Duration(days: 365)),
-                              icon: const Icon(Icons.event),
-                              dateLabelText: 'Entrada',
-                              errorInvalidText: "Entrada inválida",
-                              errorFormatText: 'Entrada inválida',
-                              // locale: const Locale('pt', 'BR'),
-                              onChanged: (_) => setState(() {}),
-                              validator: (val) {
-                                if (val != null &&
-                                    val != '' &&
-                                    val.isNotEmpty) {
-                                  final date =
-                                      DateFormat('yyyy-MM-dd').parse(val);
-                                  if (date.day > 0) {
-                                    return null;
-                                  }
-                                  return "Entrada inválida";
+                  ),
+                  SizedBox(
+                    width: 210,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: DateTimePicker(
+                            controller: widget.dateDueEC,
+                            dateMask: 'EEE dd/MM/yy',
+                            firstDate: DateTime.now()
+                                .subtract(const Duration(days: 365)),
+                            lastDate:
+                                DateTime.now().add(const Duration(days: 365)),
+                            icon: const Icon(Icons.event),
+                            dateLabelText: 'Vencimento',
+                            errorInvalidText: "Vencimento inválido",
+                            errorFormatText: 'Vencimento inválido',
+                            // locale: const Locale('pt', 'BR'),
+                            onChanged: (_) => setState(() {}),
+                            validator: (val) {
+                              if (val != null && val != '' && val.isNotEmpty) {
+                                final date =
+                                    DateFormat('yyyy-MM-dd').parse(val);
+                                if (date.day > 0) {
+                                  return null;
                                 }
-                                return "Entrada obrigatória";
-                              },
-
-                              onSaved: (val) => print(val),
-                            ),
+                                return "Vencimento inválido";
+                              }
+                              return "Vencimento obrigatório";
+                            },
+                            onSaved: (val) => print(val),
                           ),
-                          IconButton(
-                            onPressed: () => setState(() {
-                              widget.dateEntryEC.text = '';
-                            }),
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ],
-                      ),
+                        ),
+                        IconButton(
+                          onPressed: () => setState(() {
+                            widget.dateDueEC.text = '';
+                          }),
+                          icon: const Icon(Icons.clear),
+                        )
+                      ],
                     ),
-                    SizedBox(
-                      width: 210,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: DateTimePicker(
-                              controller: widget.dateDueEC,
-                              dateMask: 'EEE dd/MM/yy',
-                              firstDate: DateTime.now()
-                                  .subtract(const Duration(days: 365)),
-                              lastDate:
-                                  DateTime.now().add(const Duration(days: 365)),
-                              icon: const Icon(Icons.event),
-                              dateLabelText: 'Vencimento',
-                              errorInvalidText: "Vencimento inválido",
-                              errorFormatText: 'Vencimento inválido',
-                              // locale: const Locale('pt', 'BR'),
-                              onChanged: (_) => setState(() {}),
-                              validator: (val) {
-                                if (val != null &&
-                                    val != '' &&
-                                    val.isNotEmpty) {
-                                  final date =
-                                      DateFormat('yyyy-MM-dd').parse(val);
-                                  if (date.day > 0) {
-                                    return null;
-                                  }
-                                  return "Vencimento inválido";
+                  ),
+                  SizedBox(
+                    width: 210,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: DateTimePicker(
+                            controller: widget.dateReceivingEC,
+                            dateMask: 'EEE dd/MM/yy',
+                            firstDate: DateTime.now()
+                                .subtract(const Duration(days: 365)),
+                            lastDate:
+                                DateTime.now().add(const Duration(days: 365)),
+                            icon: const Icon(Icons.event),
+                            dateLabelText: 'Recebimento',
+                            errorInvalidText: "Recebimento inválido",
+                            errorFormatText: 'Recebimento inválido',
+                            // locale: const Locale('pt', 'BR'),
+                            onChanged: (_) => setState(() {}),
+                            validator: (val) {
+                              if (val != null && val != '') {
+                                final date =
+                                    DateFormat('yyyy-MM-dd').parse(val);
+                                if (date.day > 0) {
+                                  return null;
                                 }
-                                return "Vencimento obrigatório";
-                              },
-                              onSaved: (val) => print(val),
-                            ),
+                                return "Recebimento inválido";
+                              }
+                              return null;
+                            },
+                            onSaved: (val) => print(val),
                           ),
-                          IconButton(
-                            onPressed: () => setState(() {
-                              widget.dateDueEC.text = '';
-                            }),
-                            icon: const Icon(Icons.clear),
-                          )
-                        ],
-                      ),
+                        ),
+                        IconButton(
+                          onPressed: () => setState(() {
+                            widget.dateDueEC.text = '';
+                          }),
+                          icon: const Icon(Icons.clear),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 210,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: DateTimePicker(
-                              controller: widget.dateReceivingEC,
-                              dateMask: 'EEE dd/MM/yy',
-                              firstDate: DateTime.now()
-                                  .subtract(const Duration(days: 365)),
-                              lastDate:
-                                  DateTime.now().add(const Duration(days: 365)),
-                              icon: const Icon(Icons.event),
-                              dateLabelText: 'Recebimento',
-                              errorInvalidText: "Recebimento inválido",
-                              errorFormatText: 'Recebimento inválido',
-                              // locale: const Locale('pt', 'BR'),
-                              onChanged: (_) => setState(() {}),
-                              validator: (val) {
-                                if (val != null && val != '') {
-                                  final date =
-                                      DateFormat('yyyy-MM-dd').parse(val);
-                                  if (date.day > 0) {
-                                    return null;
-                                  }
-                                  return "Recebimento inválido";
-                                }
-                                return null;
-                              },
-                              onSaved: (val) => print(val),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () => setState(() {
-                              widget.dateDueEC.text = '';
-                            }),
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Visibility(
-                      visible: expiration > 0 &&
-                          widget.dateEntryEC.text.isNotEmpty &&
-                          widget.dateDueEC.text.isNotEmpty,
-                      child: Text(
-                          "Prazo de:\n$expiration ${expiration > 1 ? 'dias' : 'dia'}"),
-                    ),
-                    Visibility(
-                      visible:
-                          widget.dateReceivingEC.text.isEmpty && overdue > 0,
-                      child: Text(
-                          "Vencido há:\n$overdue ${overdue > 1 ? 'dias' : 'dia'}"),
-                    ),
-                    Text(
-                        "Situação: \n${widget.dateReceivingEC.text.isNotEmpty ? 'Está pago' : 'Não está pago'}")
-                  ],
-                ),
+                  ),
+                  Visibility(
+                    visible: expiration > 0 &&
+                        widget.dateEntryEC.text.isNotEmpty &&
+                        widget.dateDueEC.text.isNotEmpty,
+                    child: Text(
+                        "Prazo de:\n$expiration ${expiration > 1 ? 'dias' : 'dia'}"),
+                  ),
+                  Visibility(
+                    visible: widget.dateReceivingEC.text.isEmpty && overdue > 0,
+                    child: Text(
+                        "Vencido há:\n$overdue ${overdue > 1 ? 'dias' : 'dia'}"),
+                  ),
+                  Text(
+                      "Situação: \n${widget.dateReceivingEC.text.isNotEmpty ? 'Está pago' : 'Não está pago'}")
+                ],
               ),
             ),
           );
