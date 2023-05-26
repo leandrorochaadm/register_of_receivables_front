@@ -49,8 +49,6 @@ class _BasePageWidgetState extends State<BasePageWidget> {
             const SizedBox(height: 22),
             Expanded(
               child: Container(
-                // margin: const EdgeInsets.all(24),
-                padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12)),
