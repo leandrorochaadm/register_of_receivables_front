@@ -332,24 +332,24 @@ class _PeopleFormPageState
                     ),
                   ),
                   SizedBox(
-                    height: 48,
-                    child: ElevatedButton(
-                      style: widget.isSellerEC.text == '1'
-                          ? ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green)
-                          : ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red),
-                      onPressed: () {
-                        setState(() {
-                          if (widget.isSellerEC.text == '1') {
-                            widget.isSellerEC.text = '0';
-                          } else {
-                            widget.isSellerEC.text = '1';
-                          }
-                        });
-                      },
-                      child: Text(
-                          "${widget.isSellerEC.text == '1' ? 'É' : 'Não é'} vendedor"),
+                    width: 100,
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          checkColor: Colors.white,
+                          value: widget.isSellerEC.text == '1',
+                          onChanged: (bool? value) {
+                            setState(() {
+                              if (value!) {
+                                widget.isSellerEC.text = '1';
+                              } else {
+                                widget.isSellerEC.text = '0';
+                              }
+                            });
+                          },
+                        ),
+                        const Text('Vendedor'),
+                      ],
                     ),
                   ),
                 ],
