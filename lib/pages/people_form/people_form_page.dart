@@ -22,6 +22,7 @@ class PeopleFormPage extends StatefulWidget {
   final ieEC = TextEditingController();
   final cnpjEC = TextEditingController();
   final addressEC = TextEditingController();
+  final emailEC = TextEditingController();
   final obsEC = TextEditingController();
   final isClientEC = TextEditingController();
   final isSellerEC = TextEditingController();
@@ -49,6 +50,7 @@ class _PeopleFormPageState
     widget.ieEC.dispose();
     widget.cnpjEC.dispose();
     widget.addressEC.dispose();
+    widget.emailEC.dispose();
     widget.obsEC.dispose();
     widget.isClientEC.dispose();
     widget.isSellerEC.dispose();
@@ -67,6 +69,7 @@ class _PeopleFormPageState
     widget.cnpjEC.text = people.cnpj;
     widget.ieEC.text = people.ie;
     widget.addressEC.text = people.address;
+    widget.emailEC.text = people.email;
     _selectedSeller = people.seller;
     widget.obsEC.text = people.obs;
 
@@ -154,6 +157,7 @@ class _PeopleFormPageState
                       widget.phone2EC.text,
                       widget.phone3EC.text,
                       widget.addressEC.text,
+                      widget.emailEC.text,
                       _selectedSeller,
                       widget.obsEC.text,
                     );
@@ -275,6 +279,16 @@ class _PeopleFormPageState
                     ),
                   ),
                   SizedBox(
+                    width: 550,
+                    child: TextFormField(
+                      controller: widget.emailEC,
+                      decoration: const InputDecoration(
+                        labelText: "Email",
+                        hintText: "Digite o email",
+                      ),
+                    ),
+                  ),
+                  SizedBox(
                     width: 250,
                     child: DropdownButtonFormField<PeopleSimplify>(
                       decoration: const InputDecoration(labelText: "Vendedor"),
@@ -298,16 +312,6 @@ class _PeopleFormPageState
                           child: Text("${val.name} (${val.nick})"),
                         );
                       }).toList(),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 650,
-                    child: TextFormField(
-                      controller: widget.obsEC,
-                      decoration: const InputDecoration(
-                        labelText: "Observações",
-                        hintText: "Digite observações",
-                      ),
                     ),
                   ),
                   SizedBox(
@@ -350,6 +354,16 @@ class _PeopleFormPageState
                         ),
                         const Text('Vendedor'),
                       ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 650,
+                    child: TextFormField(
+                      controller: widget.obsEC,
+                      decoration: const InputDecoration(
+                        labelText: "Observações",
+                        hintText: "Digite observações",
+                      ),
                     ),
                   ),
                 ],

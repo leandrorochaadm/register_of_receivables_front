@@ -15,6 +15,7 @@ class PeopleModel extends Equatable {
     required this.phone2,
     required this.phone3,
     required this.address,
+    required this.email,
     required this.obs,
     required this.seller,
   });
@@ -30,6 +31,7 @@ class PeopleModel extends Equatable {
   final String phone2;
   final String phone3;
   final String address;
+  final String email;
   final String obs;
   final PeopleSimplify seller;
 
@@ -45,6 +47,7 @@ class PeopleModel extends Equatable {
         phone2: '',
         phone3: '',
         address: '',
+        email: '',
         obs: '',
         seller: PeopleSimplify(
           id: 0,
@@ -65,6 +68,7 @@ class PeopleModel extends Equatable {
       phone2: '',
       phone3: '',
       address: '',
+      email: '',
       obs: '',
       seller: PeopleSimplify.empty());
 
@@ -80,6 +84,7 @@ class PeopleModel extends Equatable {
     String? phone2,
     String? phone3,
     String? address,
+    String? email,
     String? obs,
     PeopleSimplify? seller,
   }) =>
@@ -95,6 +100,7 @@ class PeopleModel extends Equatable {
         phone2: phone2 ?? this.phone2,
         phone3: phone3 ?? this.phone3,
         address: address ?? this.address,
+        email: email ?? this.email,
         obs: obs ?? this.obs,
         seller: seller ?? this.seller,
       );
@@ -112,6 +118,7 @@ class PeopleModel extends Equatable {
     map['phone2'] = phone2;
     map['phone3'] = phone3;
     map['address'] = address;
+    map['email'] = email;
     map['obs'] = obs;
     map['seller'] = seller;
     return map;
@@ -131,13 +138,29 @@ class PeopleModel extends Equatable {
       phone2: json['phone2'] ?? '',
       phone3: json['phone3'] ?? '',
       address: json['address'] ?? '',
+      email: json['email'] ?? '',
       obs: json['obs'] ?? '',
       seller: seller,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, cnpj, seller];
+  List<Object> get props => [
+        id,
+        name,
+        nick,
+        cnpj,
+        ie,
+        isClient,
+        isSeller,
+        phone1,
+        phone2,
+        phone3,
+        address,
+        email,
+        obs,
+        seller,
+      ];
 
   @override
   String toString() {
