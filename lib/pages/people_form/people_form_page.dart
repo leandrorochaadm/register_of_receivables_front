@@ -311,24 +311,24 @@ class _PeopleFormPageState
                     ),
                   ),
                   SizedBox(
-                    height: 48,
-                    child: ElevatedButton(
-                      style: widget.isClientEC.text == '1'
-                          ? ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green)
-                          : ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red),
-                      onPressed: () {
-                        setState(() {
-                          if (widget.isClientEC.text == '1') {
-                            widget.isClientEC.text = '0';
-                          } else {
-                            widget.isClientEC.text = '1';
-                          }
-                        });
-                      },
-                      child: Text(
-                          "${widget.isClientEC.text == '1' ? 'É' : 'Não é'} Cliente"),
+                    width: 80,
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          checkColor: Colors.white,
+                          value: widget.isClientEC.text == '1',
+                          onChanged: (bool? value) {
+                            setState(() {
+                              if (value!) {
+                                widget.isClientEC.text = '1';
+                              } else {
+                                widget.isClientEC.text = '0';
+                              }
+                            });
+                          },
+                        ),
+                        const Text('Cliente'),
+                      ],
                     ),
                   ),
                   SizedBox(
