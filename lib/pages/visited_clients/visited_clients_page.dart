@@ -11,10 +11,10 @@ import 'visited_client_state.dart';
 
 class VisitedClientPage extends StatefulWidget {
   VisitedClientPage({Key? key}) : super(key: key);
-  DateTime dateDefault = DateTime.now().subtract(const Duration(days: 90));
+  DateTime dateDefault = DateTime.now().subtract(const Duration(days: 30));
   final dateEndEC = TextEditingController(
-      text: DateTime.now().subtract(const Duration(days: 90)).toString());
-  int daysSearch = 90;
+      text: DateTime.now().subtract(const Duration(days: 30)).toString());
+  int daysSearch = 30;
 
   @override
   State<VisitedClientPage> createState() => _VisitedClientPageState();
@@ -24,9 +24,6 @@ class _VisitedClientPageState
     extends BaseState<VisitedClientPage, VisitedClientController> {
   @override
   void onReady() {
-    // widget.dateEndEC.text =
-    //     DateTime.now().subtract(const Duration(days: 90)).toString();
-    // controller.loadClient(date: widget.dateEndEC.text);
     setDate(widget.dateEndEC.text);
   }
 
@@ -90,7 +87,7 @@ class _VisitedClientPageState
                   IconButton(
                     onPressed: () => setDate(widget.dateDefault.toString()),
                     icon: const Icon(Icons.clear),
-                    tooltip: 'Pesquisar data de 90 dias',
+                    tooltip: 'Pesquisar data de 30 dias',
                   ),
                 ],
               ),
