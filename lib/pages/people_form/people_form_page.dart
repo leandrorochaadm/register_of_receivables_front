@@ -286,6 +286,7 @@ class _PeopleFormPageState
                         labelText: "Email",
                         hintText: "Digite o email",
                       ),
+                      validator: Validatorless.email('Email inválido'),
                     ),
                   ),
                   SizedBox(
