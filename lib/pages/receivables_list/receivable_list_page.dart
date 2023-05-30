@@ -27,8 +27,10 @@ class _ReceivablesListPageState
     extends BaseState<ReceivablesListPage, ReceivablesListController> {
   @override
   void onReady() {
-    final peopleParams =
-        ModalRoute.of(context)!.settings.arguments as PeopleSimplify;
+    final Object? objectParams = ModalRoute.of(context)!.settings.arguments;
+    final PeopleSimplify peopleParams = objectParams != null
+        ? objectParams as PeopleSimplify
+        : PeopleSimplify.empty();
     if (peopleParams.name.isNotEmpty) {
       widget.peopleSelected = peopleParams;
       widget.peopleEC.text = peopleParams.toString();
