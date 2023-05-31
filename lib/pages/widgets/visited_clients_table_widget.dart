@@ -16,8 +16,8 @@ class VisitedClientsTableWidget extends StatelessWidget {
     if (list.isEmpty) {
       return const Center(
         child: Text(
-          'Nenhum cliente não visitado nesse período',
-          style: TextStyle(color: Colors.red, fontSize: 24),
+          'Todos os cliente foram visitados nesse período',
+          style: TextStyle(color: Colors.green, fontSize: 24),
         ),
       );
     }
