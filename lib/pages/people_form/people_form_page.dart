@@ -26,6 +26,7 @@ class PeopleFormPage extends StatefulWidget {
   final obsEC = TextEditingController();
   final isClientEC = TextEditingController();
   final isSellerEC = TextEditingController();
+  final isActiveEC = TextEditingController();
 
   final MaskTextInputFormatter phoneFormatter =
       MaskTextInputFormatter(mask: '(##) #####-####');
@@ -54,6 +55,7 @@ class _PeopleFormPageState
     widget.obsEC.dispose();
     widget.isClientEC.dispose();
     widget.isSellerEC.dispose();
+    widget.isActiveEC.dispose();
     super.dispose();
   }
 
@@ -74,6 +76,7 @@ class _PeopleFormPageState
     widget.obsEC.text = people.obs;
 
     setState(() {
+      widget.isActiveEC.text = people.isActive.toString();
       widget.isClientEC.text = people.isClient.toString();
       widget.isSellerEC.text = people.isSeller.toString();
     });
@@ -354,6 +357,25 @@ class _PeopleFormPageState
                           },
                         ),
                         const Text('Vendedor'),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    child: Row(
+                      children: [
+                        Switch(
+                          value: widget.isActiveEC.text == '1',
+                          onChanged: (bool value) {
+                            setState(() {
+                              if (value) {
+                                widget.isActiveEC.text = '1';
+                              } else {
+                                widget.isActiveEC.text = '0';
+                              }
+                            });
+                          },
+                        ),
+                        const Text('Cliente Ativo'),
                       ],
                     ),
                   ),

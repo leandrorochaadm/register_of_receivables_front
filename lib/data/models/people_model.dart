@@ -18,6 +18,7 @@ class PeopleModel extends Equatable {
     required this.email,
     required this.obs,
     required this.seller,
+    this.isActive = 1,
   });
 
   final int id;
@@ -34,6 +35,7 @@ class PeopleModel extends Equatable {
   final String email;
   final String obs;
   final PeopleSimplify seller;
+  final int isActive;
 
   factory PeopleModel.empty() => const PeopleModel(
         id: 0,
@@ -49,6 +51,7 @@ class PeopleModel extends Equatable {
         address: '',
         email: '',
         obs: '',
+        isActive: 1,
         seller: PeopleSimplify(
           id: 0,
           name: 'Selecione',
@@ -70,6 +73,7 @@ class PeopleModel extends Equatable {
       address: '',
       email: '',
       obs: '',
+      isActive: 1,
       seller: PeopleSimplify.empty());
 
   PeopleModel copyWith({
@@ -87,6 +91,7 @@ class PeopleModel extends Equatable {
     String? email,
     String? obs,
     PeopleSimplify? seller,
+    int? isActive,
   }) =>
       PeopleModel(
         id: id ?? this.id,
@@ -103,6 +108,7 @@ class PeopleModel extends Equatable {
         email: email ?? this.email,
         obs: obs ?? this.obs,
         seller: seller ?? this.seller,
+        isActive: isActive ?? this.isActive,
       );
 
   Map<String, dynamic> toJson() {
@@ -121,6 +127,7 @@ class PeopleModel extends Equatable {
     map['email'] = email;
     map['obs'] = obs;
     map['seller'] = seller;
+    map['is_active'] = isActive;
     return map;
   }
 
@@ -141,6 +148,7 @@ class PeopleModel extends Equatable {
       email: json['email'] ?? '',
       obs: json['obs'] ?? '',
       seller: seller,
+      isActive: json['is_active'] ?? 0,
     );
   }
 
@@ -160,6 +168,7 @@ class PeopleModel extends Equatable {
         email,
         obs,
         seller,
+        isActive,
       ];
 
   @override
