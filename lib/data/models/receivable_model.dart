@@ -1,6 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:register_of_receivables_front/data/models/models.dart';
 
+enum TypeReceivable {
+  Boleto,
+  Cheque,
+  Promissoria,
+}
+
 class ReceivableModel extends Equatable {
   final int id;
   final TypeReceivable type;
@@ -87,10 +93,30 @@ class ReceivableModel extends Equatable {
       destiny: map['destiny'] as String,
     );
   }
-}
 
-enum TypeReceivable {
-  Boleto,
-  Cheque,
-  Promissoria,
+  ReceivableModel copyWith({
+    int? id,
+    TypeReceivable? type,
+    DateTime? dateEntry,
+    DateTime? dateDue,
+    DateTime? dateReceiving,
+    PeopleSimplify? client,
+    String? numDoc,
+    double? value,
+    String? destiny,
+    PeopleSimplify? seller,
+  }) {
+    return ReceivableModel(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      dateEntry: dateEntry ?? this.dateEntry,
+      dateDue: dateDue ?? this.dateDue,
+      dateReceiving: dateReceiving ?? this.dateReceiving,
+      client: client ?? this.client,
+      numDoc: numDoc ?? this.numDoc,
+      value: value ?? this.value,
+      destiny: destiny ?? this.destiny,
+      seller: seller ?? this.seller,
+    );
+  }
 }

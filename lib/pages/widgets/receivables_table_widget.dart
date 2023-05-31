@@ -30,7 +30,7 @@ class ReceivablesTableWidget extends StatelessWidget {
       itemCount: list.length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        final Receivables = list[index];
+        final ReceivableModel Receivables = list[index];
         int overdue = DateTime.now().difference(Receivables.dateDue).inDays;
 
         return Row(
@@ -115,6 +115,15 @@ class ReceivablesTableWidget extends StatelessWidget {
                 color: Colors.grey,
               ),
               tooltip: 'Editar cadastro',
+            ),
+            IconButton(
+              onPressed: () => Navigator.pushNamed(context, "/receivable_form",
+                  arguments: Receivables.copyWith(id: 0)),
+              icon: const Icon(
+                Icons.copy,
+                color: Colors.grey,
+              ),
+              tooltip: 'Clonar cadastro',
             ),
           ],
         );
