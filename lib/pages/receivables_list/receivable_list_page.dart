@@ -99,7 +99,7 @@ class _ReceivablesListPageState
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "Total a receber é: R\$ ${state.sum.toStringAsFixed(2)}",
+                "Somatório dessa pesquisa é: R\$ ${state.sum.toStringAsFixed(2)}",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
