@@ -146,6 +146,19 @@ class _PeopleListPageState
             ),
           ],
           body: PeopleTableWidget(list: state.peoples),
+          footer: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                "${state.peoples.length} ${state.peoples.length > 1 ? 'pessoas foram encontradas' : 'pessoa foi encontrada'}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.blue[900],
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
