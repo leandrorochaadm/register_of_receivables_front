@@ -293,7 +293,7 @@ class _PeopleFormPageState
                     ),
                   ),
                   SizedBox(
-                    width: 250,
+                    width: 350,
                     child: DropdownButtonFormField<PeopleSimplify>(
                       decoration: const InputDecoration(labelText: "Vendedor"),
                       hint: const Text('Escolha o vendedor'),
