@@ -18,6 +18,7 @@ class ReceivablesListPage extends StatefulWidget {
   final peopleEC = TextEditingController();
   final peopleFN = FocusNode();
   late PeopleSimplify peopleSelected = PeopleSimplify.empty();
+  final itsPaidEC = TextEditingController(text: '0');
 
   @override
   State<ReceivablesListPage> createState() => _ReceivablesListPageState();
@@ -44,6 +45,7 @@ class _ReceivablesListPageState
       dateStart: widget.dateStartEC.text == '' ? "0" : widget.dateStartEC.text,
       dateEnd: widget.dateEndEC.text == '' ? "0" : widget.dateEndEC.text,
       people: widget.peopleSelected,
+      itsPaid: widget.itsPaidEC.text,
     );
   }
 
@@ -330,6 +332,24 @@ class _ReceivablesListPageState
                     ),
                   ],
                 ),
+              ),
+              Column(
+                children: [
+                  const Text('Pagos'),
+                  Switch(
+                    value: widget.itsPaidEC.text == '1',
+                    onChanged: (bool value) {
+                      setState(() {
+                        if (value) {
+                          widget.itsPaidEC.text = '1';
+                        } else {
+                          widget.itsPaidEC.text = '0';
+                        }
+                      });
+                      _findReceivables();
+                    },
+                  ),
+                ],
               ),
             ],
           ),

@@ -16,10 +16,11 @@ class ApiGetReceivables implements GetReceivable {
     required int dateStart,
     required int dateEnd,
     required int peopleId,
+    required int itsPaid,
   }) async {
     try {
       final response = await dio.get(
-          "/receivables?dateStart=$dateStart&dateEnd=$dateEnd&peopleId=$peopleId");
+          "/receivables?dateStart=$dateStart&dateEnd=$dateEnd&peopleId=$peopleId&itsPaid=$itsPaid");
 
       return ReceivablesModel.fromJson(response.data ?? []);
     } on DioError catch (e, s) {

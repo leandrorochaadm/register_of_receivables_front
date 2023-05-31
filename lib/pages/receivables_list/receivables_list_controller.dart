@@ -19,6 +19,7 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
     required String dateStart,
     required String dateEnd,
     required PeopleSimplify people,
+    required String itsPaid,
   }) async {
     emit(state.copyWith(status: ReceivablesStateStatus.loading));
 
@@ -39,10 +40,10 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
 
     try {
       final receivables = await getReceivable.findAllReceivables(
-        dateStart: dateStartNum,
-        dateEnd: dateEndNum,
-        peopleId: peopleId,
-      );
+          dateStart: dateStartNum,
+          dateEnd: dateEndNum,
+          peopleId: peopleId,
+          itsPaid: int.parse(itsPaid));
       emit(state.copyWith(
         status: ReceivablesStateStatus.loaded,
         receivables: receivables.receivables,
