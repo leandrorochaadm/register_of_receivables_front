@@ -223,7 +223,7 @@ class _ReceivablesListPageState
                     Expanded(
                       child: DateTimePicker(
                         controller: widget.dateStartEC,
-                        dateMask: 'EEE dd/MM/yy',
+                        dateMask: 'dd/MM/yy',
                         firstDate:
                             DateTime.now().subtract(const Duration(days: 365)),
                         lastDate: DateTime.now().add(const Duration(days: 365)),
@@ -281,7 +281,7 @@ class _ReceivablesListPageState
                     Expanded(
                       child: DateTimePicker(
                         controller: widget.dateEndEC,
-                        dateMask: 'EEE dd/MM/yy',
+                        dateMask: 'dd/MM/yy',
                         firstDate:
                             DateTime.now().subtract(const Duration(days: 365)),
                         lastDate: DateTime.now().add(const Duration(days: 365)),

@@ -63,7 +63,7 @@ class _VisitedClientPageState
                   Expanded(
                     child: DateTimePicker(
                       controller: widget.dateEndEC,
-                      dateMask: 'EEE dd/MM/yy',
+                      dateMask: 'dd/MM/yy',
                       firstDate:
                           DateTime.now().subtract(const Duration(days: 365)),
                       lastDate: DateTime.now(),

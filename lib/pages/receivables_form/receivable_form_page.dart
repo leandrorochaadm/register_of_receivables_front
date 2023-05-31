@@ -372,7 +372,7 @@ class _ReceivableFormPageState
                         Expanded(
                           child: DateTimePicker(
                             controller: widget.dateEntryEC,
-                            dateMask: 'EEE dd/MM/yy',
+                            dateMask: 'dd/MM/yy',
                             firstDate: DateTime.now()
                                 .subtract(const Duration(days: 365)),
                             lastDate:
@@ -414,7 +414,7 @@ class _ReceivableFormPageState
                         Expanded(
                           child: DateTimePicker(
                             controller: widget.dateDueEC,
-                            dateMask: 'EEE dd/MM/yy',
+                            dateMask: 'dd/MM/yy',
                             firstDate: DateTime.now()
                                 .subtract(const Duration(days: 365)),
                             lastDate:
@@ -455,7 +455,7 @@ class _ReceivableFormPageState
                         Expanded(
                           child: DateTimePicker(
                             controller: widget.dateReceivingEC,
-                            dateMask: 'EEE dd/MM/yy',
+                            dateMask: 'dd/MM/yy',
                             firstDate: DateTime.now()
                                 .subtract(const Duration(days: 365)),
                             lastDate:
