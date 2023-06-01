@@ -67,7 +67,7 @@ class _ReceivablesListPageState
       ),
       builder: (context, state) {
         return BasePageWidget(
-          title: "Listagem de\ncontas a receber",
+          title: "Listagem\nde contas",
           header: [
             const SizedBox(width: 18),
             _findReceivable(state.clients),
