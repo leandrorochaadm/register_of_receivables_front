@@ -20,7 +20,8 @@ class ApiGetPeoples implements GetPeople {
       final response =
           await dio.get('/users?name_or_nick=$name&is_active=$isActive');
       var list = <PeopleModel>[];
-      for (final people in response.data as List) {
+      final List listData = response.data ?? [];
+      for (final people in listData) {
         list.add(PeopleModel.fromJson(people));
       }
       return list;

@@ -13,6 +13,14 @@ class PeopleTableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (list.isEmpty) {
+      return const Center(
+        child: Text(
+          "Nenhuma pessoa encontrada\nAltere as opções da pesquisa",
+          style: TextStyle(color: Colors.green, fontSize: 24),
+        ),
+      );
+    }
     return ListView.separated(
       separatorBuilder: (context, index) => const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
