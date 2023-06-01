@@ -47,70 +47,14 @@ class _PeopleListPageState
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Cliente'),
+                const Text('Pesquisar pelo nome da pessoa ou empresa'),
                 SizedBox(
                   width: 400,
-                  child: RawAutocomplete<PeopleSimplify>(
-                    textEditingController: widget.peopleEC,
-                    focusNode: widget.peopleFN,
-                    optionsBuilder: (TextEditingValue textEditingValue) {
-                      return state.clients.where((PeopleSimplify option) {
-                        return option
-                            .toString()
-                            .toLowerCase()
-                            .contains(textEditingValue.text.toLowerCase());
-                      });
-                    },
-                    fieldViewBuilder: (
-                      BuildContext context,
-                      TextEditingController textEditingController,
-                      FocusNode focusNode,
-                      VoidCallback onFieldSubmitted,
-                    ) {
-                      return TextFormField(
-                        autofocus: true,
-                        controller: textEditingController,
-                        focusNode: focusNode,
-                        // onFieldSubmitted: (PeopleModel value) {
-                        //   onFieldSubmitted();
-                        // },
-                      );
-                    },
-                    optionsViewBuilder: (
-                      BuildContext context,
-                      AutocompleteOnSelected<PeopleSimplify> onSelected,
-                      Iterable<PeopleSimplify> options,
-                    ) {
-                      return Align(
-                        alignment: Alignment.topLeft,
-                        child: Material(
-                          elevation: 4.0,
-                          child: SizedBox(
-                            height: 500.0,
-                            width: 350,
-                            child: ListView.builder(
-                              padding: const EdgeInsets.all(8.0),
-                              itemCount: options.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final PeopleSimplify option =
-                                    options.elementAt(index);
-                                return GestureDetector(
-                                  onTap: () {
-                                    onSelected(option);
-                                    widget.peopleSelected = option;
-
-                                    controller.loadPeoples(option.name);
-                                  },
-                                  child: ListTile(
-                                    title: Text(option.toString()),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                  child: TextField(
+                    controller: widget.peopleEC,
+                    onChanged: (value) => controller.loadPeoples(value),
+                    decoration: const InputDecoration(
+                        hintText: 'Digite o nome da pessoa ou empresa'),
                   ),
                 ),
               ],
