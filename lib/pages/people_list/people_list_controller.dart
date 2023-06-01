@@ -14,11 +14,15 @@ class PeopleListController extends Cubit<PeopleListState> {
     required this.getPeoplesClients,
   }) : super(const PeopleListState.initial());
 
-  Future<void> loadPeoples(String name) async {
+  Future<void> loadPeoples({
+    required String name,
+    required String isActive,
+  }) async {
     emit(state.copyWith(status: PeopleListStateStatus.loading));
 
     try {
-      final peoples = await getPeople.findAllPeoples(name);
+      final peoples =
+          await getPeople.findAllPeoples(name: name, isActive: isActive);
       final clients = await getPeoplesClients.findAllPeoplesClients();
 
       emit(state.copyWith(

@@ -12,6 +12,7 @@ class PeopleListPage extends StatefulWidget {
   final peopleEC = TextEditingController();
   final peopleFN = FocusNode();
   late PeopleSimplify peopleSelected = PeopleSimplify.empty();
+  final isActiveEC = TextEditingController(text: '1');
 
   @override
   State<PeopleListPage> createState() => _PeopleListPageState();
@@ -21,7 +22,7 @@ class _PeopleListPageState
     extends BaseState<PeopleListPage, PeopleListController> {
   @override
   void onReady() {
-    controller.loadPeoples('');
+    controller.loadPeoples(name: '', isActive: widget.isActiveEC.text);
   }
 
   @override
@@ -52,7 +53,8 @@ class _PeopleListPageState
                   width: 400,
                   child: TextField(
                     controller: widget.peopleEC,
-                    onChanged: (value) => controller.loadPeoples(value),
+                    onChanged: (value) => controller.loadPeoples(
+                        name: value, isActive: widget.isActiveEC.text),
                     decoration: const InputDecoration(
                         hintText: 'Digite o nome da pessoa ou empresa'),
                   ),
@@ -61,13 +63,34 @@ class _PeopleListPageState
             ),
             IconButton(
               onPressed: () {
-                controller.loadPeoples('');
+                controller.loadPeoples(
+                    name: '', isActive: widget.isActiveEC.text);
                 widget.peopleEC.text = '';
               },
               icon: const Icon(Icons.clear),
               tooltip: 'Limpar busca',
             ),
-            const SizedBox(width: 32),
+            Column(
+              children: [
+                const Text('Cliente Ativo'),
+                Switch(
+                  value: widget.isActiveEC.text == '1',
+                  onChanged: (bool value) {
+                    setState(() {
+                      if (value) {
+                        widget.isActiveEC.text = '1';
+                      } else {
+                        widget.isActiveEC.text = '0';
+                      }
+                    });
+                    controller.loadPeoples(
+                        name: widget.peopleEC.text,
+                        isActive: widget.isActiveEC.text);
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(width: 16),
             Tooltip(
               message: 'Voltar para a tela anterior',
               child: ElevatedButton(
