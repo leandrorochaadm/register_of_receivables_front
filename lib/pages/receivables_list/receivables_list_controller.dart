@@ -9,10 +9,12 @@ import 'receivables_list_state.dart';
 class ReceivablesListController extends Cubit<ReceivablesListState> {
   final GetReceivable getReceivable;
   final GetPeoplesClients getPeoplesClients;
+  final GetFormOfPayments getFormOfPayments;
 
   ReceivablesListController({
     required this.getReceivable,
     required this.getPeoplesClients,
+    required this.getFormOfPayments,
   }) : super(const ReceivablesListState.initial());
 
   Future<void> loadReceivables({
@@ -20,6 +22,7 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
     required String dateEnd,
     required PeopleSimplify people,
     required String itsPaid,
+    required FormOfPaymentModel formOfPayment,
   }) async {
     emit(state.copyWith(status: ReceivablesStateStatus.loading));
 
@@ -40,10 +43,13 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
 
     try {
       final receivables = await getReceivable.findAllReceivables(
-          dateStart: dateStartNum,
-          dateEnd: dateEndNum,
-          peopleId: peopleId,
-          itsPaid: int.parse(itsPaid));
+        dateStart: dateStartNum,
+        dateEnd: dateEndNum,
+        peopleId: peopleId,
+        itsPaid: int.parse(itsPaid),
+        formOfPaymentId: formOfPayment.id,
+      );
+
       emit(state.copyWith(
         status: ReceivablesStateStatus.loaded,
         receivables: receivables.receivables,
@@ -62,9 +68,11 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
     emit(state.copyWith(status: ReceivablesStateStatus.loading));
     try {
       final clients = await getPeoplesClients.findAllPeoplesClients();
+      final formOfPayments = await getFormOfPayments.findAll();
       emit(state.copyWith(
         status: ReceivablesStateStatus.loaded,
         clients: clients,
+        formOfPayments: [FormOfPaymentModel.all(), ...formOfPayments],
       ));
     } catch (e, s) {
       log('Erro ao buscar opções de clientes ou vendedores',

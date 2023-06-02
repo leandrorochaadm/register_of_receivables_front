@@ -19,10 +19,14 @@ class ReceivablesListRouter {
           Provider<GetReceivable>(
               create: (context) =>
                   ApiGetReceivables(dio: context.read<CustomDio>())),
+          Provider<GetFormOfPayments>(
+              create: (context) =>
+                  ApiGetFormOfPayments(dio: context.read<CustomDio>())),
           Provider(
               create: (context) => ReceivablesListController(
                     getReceivable: context.read<GetReceivable>(),
                     getPeoplesClients: context.read<GetPeoplesClients>(),
+                    getFormOfPayments: context.read<GetFormOfPayments>(),
                   )),
         ],
         child: ReceivablesListPage(),

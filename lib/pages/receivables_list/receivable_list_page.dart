@@ -19,6 +19,7 @@ class ReceivablesListPage extends StatefulWidget {
   final peopleFN = FocusNode();
   late PeopleSimplify peopleSelected = PeopleSimplify.empty();
   final itsPaidEC = TextEditingController(text: '0');
+  late FormOfPaymentModel formOfPaymentSelected = FormOfPaymentModel.all();
 
   @override
   State<ReceivablesListPage> createState() => _ReceivablesListPageState();
@@ -46,6 +47,7 @@ class _ReceivablesListPageState
       dateEnd: widget.dateEndEC.text == '' ? "0" : widget.dateEndEC.text,
       people: widget.peopleSelected,
       itsPaid: widget.itsPaidEC.text,
+      formOfPayment: widget.formOfPaymentSelected,
     );
   }
 
@@ -70,7 +72,10 @@ class _ReceivablesListPageState
           title: "Listagem\nde contas",
           header: [
             const SizedBox(width: 18),
-            _findReceivable(state.clients),
+            _findReceivable(
+              listClient: state.clients,
+              listFormOfPayment: state.formOfPayments,
+            ),
             const SizedBox(width: 18),
             Tooltip(
               message: 'Voltar para a tela anterior',
@@ -115,7 +120,10 @@ class _ReceivablesListPageState
     );
   }
 
-  Container _findReceivable(List<PeopleSimplify> listClient) {
+  Container _findReceivable({
+    required List<PeopleSimplify> listClient,
+    required List<FormOfPaymentModel> listFormOfPayment,
+  }) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -331,6 +339,27 @@ class _ReceivablesListPageState
                       icon: const Icon(Icons.clear),
                     ),
                   ],
+                ),
+              ),
+              SizedBox(
+                width: 200,
+                child: DropdownButtonFormField<FormOfPaymentModel>(
+                  decoration:
+                      const InputDecoration(labelText: "Forma de pagamento"),
+                  isExpanded: true,
+                  value: widget.formOfPaymentSelected,
+                  onChanged: (value) {
+                    setState(() {
+                      widget.formOfPaymentSelected = value!;
+                    });
+                    _findReceivables();
+                  },
+                  items: listFormOfPayment.map((FormOfPaymentModel val) {
+                    return DropdownMenuItem(
+                      value: val,
+                      child: Text(val.name),
+                    );
+                  }).toList(),
                 ),
               ),
               Column(

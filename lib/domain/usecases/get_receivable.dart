@@ -6,5 +6,6 @@ abstract class GetReceivable {
     required int dateEnd,
     required int peopleId,
     required int itsPaid,
+    required int formOfPaymentId,
   });
 }
