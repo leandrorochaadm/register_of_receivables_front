@@ -204,7 +204,7 @@ class _ReceivableFormPageState
                 runSpacing: 50,
                 children: [
                   SizedBox(
-                    width: 250,
+                    width: 400,
                     child: DropdownButtonFormField<PeopleSimplify>(
                       decoration: const InputDecoration(labelText: "Vendedor"),
                       hint: const Text('Escolha o vendedor'),

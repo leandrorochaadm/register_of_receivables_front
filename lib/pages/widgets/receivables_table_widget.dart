@@ -46,7 +46,7 @@ class ReceivablesTableWidget extends StatelessWidget {
                     label: 'Tipo',
                   ),
                   BodyWidget(
-                    width: 750,
+                    width: 950,
                     data:
                         "${Receivables.client.name} (${Receivables.client.nick})",
                     label: 'Cliente',
