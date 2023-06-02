@@ -92,6 +92,7 @@ class PeopleTableWidget extends StatelessWidget {
               ),
               tooltip: 'Editar cadastro',
             ),
+            const SizedBox(width: 24),
           ],
         );
       },
