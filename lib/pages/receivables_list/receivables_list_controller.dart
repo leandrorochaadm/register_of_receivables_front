@@ -37,10 +37,6 @@ class ReceivablesListController extends Cubit<ReceivablesListState> {
     }
     final peopleId = people.id;
 
-    if (dateEndNum < dateStartNum) {
-      dateEndNum = dateStartNum;
-    }
-
     try {
       final receivables = await getReceivable.findAllReceivables(
         dateStart: dateStartNum,

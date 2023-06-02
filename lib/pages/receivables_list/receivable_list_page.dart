@@ -241,25 +241,7 @@ class _ReceivablesListPageState
                         dateLabelText: 'Vencimento Inicial',
                         errorInvalidText: "Inicial inválida",
                         errorFormatText: 'Inicial inválida',
-                        onChanged: (value) {
-                          if (widget.dateEndEC.text == "") {
-                            widget.dateEndEC.text = widget.dateStartEC.text;
-                          }
-
-                          final dateEndEC = widget.dateEndEC.text;
-                          if (dateEndEC != "") {
-                            final dateInitial =
-                                DateFormat('yyyy-MM-dd').parse(value);
-                            final dateFinal =
-                                DateFormat('yyyy-MM-dd').parse(dateEndEC);
-
-                            final isAfter = dateInitial.isAfter(dateFinal);
-                            if (isAfter) {
-                              widget.dateEndEC.text = widget.dateStartEC.text;
-                            }
-                          }
-                          _findReceivables();
-                        },
+                        onChanged: (value) => _findReceivables(),
                         validator: (val) {
                           if (val != null && val != '' && val!.isNotEmpty) {
                             final date = DateFormat('yyyy-MM-dd').parse(val);
@@ -270,7 +252,6 @@ class _ReceivablesListPageState
                           }
                           return "Inicial obrigatória";
                         },
-                        onSaved: (val) => print(val),
                       ),
                     ),
                     IconButton(
@@ -299,25 +280,7 @@ class _ReceivablesListPageState
                         dateLabelText: 'Vencimento Final',
                         errorInvalidText: "Final inválida",
                         errorFormatText: 'Final inválida',
-                        onChanged: (value) {
-                          if (widget.dateStartEC.text == "") {
-                            widget.dateStartEC.text = widget.dateEndEC.text;
-                          }
-
-                          final dateStartEC = widget.dateStartEC.text;
-                          if (dateStartEC != "") {
-                            final dateInitial =
-                                DateFormat('yyyy-MM-dd').parse(dateStartEC);
-                            final dateFinal =
-                                DateFormat('yyyy-MM-dd').parse(value);
-
-                            final isAfter = dateInitial.isAfter(dateFinal);
-                            if (isAfter) {
-                              widget.dateStartEC.text = widget.dateEndEC.text;
-                            }
-                          }
-                          _findReceivables();
-                        },
+                        onChanged: (value) => _findReceivables(),
                         validator: (val) {
                           if (val != null && val != '' && val!.isNotEmpty) {
                             final date = DateFormat('yyyy-MM-dd').parse(val);
@@ -328,7 +291,6 @@ class _ReceivablesListPageState
                           }
                           return "Final obrigatória";
                         },
-                        onSaved: (val) => print(val),
                       ),
                     ),
                     IconButton(
