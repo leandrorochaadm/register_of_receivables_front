@@ -9,7 +9,7 @@ class FormOfPaymentModel extends Equatable {
   factory FormOfPaymentModel.empty() =>
       const FormOfPaymentModel(id: 0, name: 'Selecione');
   factory FormOfPaymentModel.all() =>
-      const FormOfPaymentModel(id: 0, name: 'Todos');
+      const FormOfPaymentModel(id: 0, name: 'Todas');
 
   Map<String, dynamic> toJson() {
     return {

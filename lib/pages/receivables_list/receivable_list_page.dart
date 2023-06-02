@@ -139,7 +139,7 @@ class _ReceivablesListPageState
           Row(
             children: [
               SizedBox(
-                width: 350,
+                width: 250,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -342,7 +342,7 @@ class _ReceivablesListPageState
                 ),
               ),
               SizedBox(
-                width: 200,
+                width: 150,
                 child: DropdownButtonFormField<FormOfPaymentModel>(
                   decoration:
                       const InputDecoration(labelText: "Forma de pagamento"),
