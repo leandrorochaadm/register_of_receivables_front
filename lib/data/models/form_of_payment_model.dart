@@ -7,7 +7,7 @@ class FormOfPaymentModel extends Equatable {
   const FormOfPaymentModel({required this.id, required this.name});
 
   factory FormOfPaymentModel.empty() =>
-      const FormOfPaymentModel(id: 0, name: 'Selecione a forma de pagamento');
+      const FormOfPaymentModel(id: 0, name: 'Selecione');
 
   Map<String, dynamic> toJson() {
     return {
@@ -17,10 +17,13 @@ class FormOfPaymentModel extends Equatable {
   }
 
   factory FormOfPaymentModel.fromJson(dynamic map) {
-    return FormOfPaymentModel(
-      id: map['id'] as int,
-      name: map['name'] as String,
-    );
+    if (map != null) {
+      return FormOfPaymentModel(
+        id: map['id'] as int,
+        name: map['name'] as String,
+      );
+    }
+    return FormOfPaymentModel.empty();
   }
 
   @override
