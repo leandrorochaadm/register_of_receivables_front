@@ -54,7 +54,7 @@ class ReceivableModel extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'formOfPayment': formOfPayment.name,
+      'formOfPayment': formOfPayment,
       'dateEntry': dateEntry.millisecondsSinceEpoch,
       'dateDue': dateDue.millisecondsSinceEpoch,
       'dateReceiving': dateReceiving?.millisecondsSinceEpoch,

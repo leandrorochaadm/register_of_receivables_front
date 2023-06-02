@@ -85,7 +85,7 @@ class _ReceivableFormPageState
     _selectedSeller = receivable.seller;
     widget.selectedClient = receivable.client;
     widget.clientEC.text = receivable.client.toString();
-    // widget.selectedFormOfPayment = receivable.;
+    widget.selectedFormOfPayment = receivable.formOfPayment;
 
     widget.valueFN.addListener(() {
       if (widget.valueFN.hasFocus) {
