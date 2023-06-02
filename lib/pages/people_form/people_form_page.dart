@@ -362,6 +362,7 @@ class _PeopleFormPageState
                     ),
                   ),
                   SizedBox(
+                    width: 150,
                     child: Row(
                       children: [
                         Switch(
