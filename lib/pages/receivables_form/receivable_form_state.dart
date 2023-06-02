@@ -22,6 +22,7 @@ class ReceivableFormState extends Equatable {
   final String? errorMessage;
   final List<PeopleSimplify> clients;
   final List<PeopleSimplify> sellers;
+  final List<FormOfPaymentModel> formOfPayments;
 
   const ReceivableFormState({
     required this.status,
@@ -29,6 +30,7 @@ class ReceivableFormState extends Equatable {
     this.errorMessage,
     required this.clients,
     required this.sellers,
+    required this.formOfPayments,
   });
 
   ReceivableFormState.initial()
@@ -36,10 +38,11 @@ class ReceivableFormState extends Equatable {
         receivable = ReceivableModel.empty(),
         errorMessage = null,
         clients = [],
-        sellers = [];
+        sellers = [],
+        formOfPayments = [];
 
   @override
-  List<Object?> get props => [status, receivable, errorMessage];
+  List<Object?> get props => [status, receivable, errorMessage, formOfPayments];
 
   ReceivableFormState copyWith({
     ReceivableFormStateStatus? status,
@@ -47,6 +50,7 @@ class ReceivableFormState extends Equatable {
     String? errorMessage,
     List<PeopleSimplify>? clients,
     List<PeopleSimplify>? sellers,
+    List<FormOfPaymentModel>? formOfPayments,
   }) {
     return ReceivableFormState(
       status: status ?? this.status,
@@ -54,6 +58,7 @@ class ReceivableFormState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       clients: clients ?? this.clients,
       sellers: sellers ?? this.sellers,
+      formOfPayments: formOfPayments ?? this.formOfPayments,
     );
   }
 }

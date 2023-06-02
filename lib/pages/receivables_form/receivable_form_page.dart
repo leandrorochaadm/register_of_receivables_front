@@ -31,16 +31,17 @@ class ReceivableFormPage extends StatefulWidget {
   final clientEC = TextEditingController();
   final peopleFN = FocusNode();
   PeopleSimplify selectedClient = PeopleSimplify.empty();
+  FormOfPaymentModel selectedFormOfPayment = FormOfPaymentModel.empty();
 
   final MaskTextInputFormatter dateFormatter =
       MaskTextInputFormatter(mask: '##/##/##');
 
-  List<String> listType = <String>[
-    'Selecione',
-    TypeReceivable.Boleto.name,
-    TypeReceivable.Cheque.name,
-    TypeReceivable.Promissoria.name,
-  ];
+  // List<String> listType = <String>[
+  //   'Selecione',
+  //   TypeReceivable.Boleto.name,
+  //   TypeReceivable.Cheque.name,
+  //   TypeReceivable.Promissoria.name,
+  // ];
 
   @override
   State<ReceivableFormPage> createState() => _ReceivableFormPageState();
@@ -50,7 +51,7 @@ class _ReceivableFormPageState
     extends BaseState<ReceivableFormPage, ReceivableFormController> {
   PeopleSimplify _selectedSeller = PeopleSimplify.empty();
 
-  String _selectedType = 'Selecione';
+  // String _selectedType = 'Selecione';
 
   @override
   void dispose() {
@@ -84,7 +85,7 @@ class _ReceivableFormPageState
     _selectedSeller = receivable.seller;
     widget.selectedClient = receivable.client;
     widget.clientEC.text = receivable.client.toString();
-    _selectedType = receivable.type.name;
+    // widget.selectedFormOfPayment = receivable.;
 
     widget.valueFN.addListener(() {
       if (widget.valueFN.hasFocus) {
@@ -176,7 +177,7 @@ class _ReceivableFormPageState
                     await controller.registerOrUpdate(
                       id: int.parse(widget.idEC.text),
                       value: double.parse(widget.valueEC.text),
-                      type: _selectedType,
+                      formOfPayment: widget.selectedFormOfPayment,
                       client: widget.selectedClient,
                       seller: _selectedSeller,
                       dateDue: DateTime.parse(widget.dateDueEC.text),
@@ -302,28 +303,30 @@ class _ReceivableFormPageState
                   ),
                   SizedBox(
                     width: 200,
-                    child: DropdownButtonFormField<String>(
+                    child: DropdownButtonFormField<FormOfPaymentModel>(
                       decoration: const InputDecoration(
-                        labelText: "Tipo",
+                        labelText: "Forma de pagamento",
                       ),
-                      hint: const Text('Escolha o tipo'),
-                      value: _selectedType,
+                      hint: const Text('Escolha o forma de pagamento'),
+                      value: widget.selectedFormOfPayment,
                       isExpanded: true,
                       onChanged: (value) {
                         setState(() {
-                          _selectedType = value!;
+                          widget.selectedFormOfPayment = value!;
                         });
                       },
-                      validator: (String? value) {
-                        if (value == 'Selecione' || value == null) {
-                          return "Tipo é obrigatório";
+                      validator: (FormOfPaymentModel? value) {
+                        if (value == FormOfPaymentModel.empty() ||
+                            value == null) {
+                          return "Forma de pagamento é obrigatório";
                         }
                         return null;
                       },
-                      items: widget.listType.map((String val) {
+                      items: state.formOfPayments
+                          .map((FormOfPaymentModel formOfPayment) {
                         return DropdownMenuItem(
-                          value: val,
-                          child: Text(val),
+                          value: formOfPayment,
+                          child: Text(formOfPayment.name),
                         );
                       }).toList(),
                     ),

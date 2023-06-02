@@ -1,15 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:register_of_receivables_front/data/models/models.dart';
 
-enum TypeReceivable {
-  Boleto,
-  Cheque,
-  Promissoria,
-}
-
 class ReceivableModel extends Equatable {
   final int id;
-  final TypeReceivable type;
+  final FormOfPaymentModel formOfPayment;
   final DateTime dateEntry;
   final DateTime dateDue;
   final DateTime? dateReceiving;
@@ -21,7 +15,7 @@ class ReceivableModel extends Equatable {
 
   const ReceivableModel({
     required this.id,
-    required this.type,
+    required this.formOfPayment,
     required this.dateEntry,
     required this.dateDue,
     this.dateReceiving,
@@ -42,12 +36,12 @@ class ReceivableModel extends Equatable {
         destiny = '',
         numDoc = '',
         seller = PeopleSimplify.empty(),
-        type = TypeReceivable.Boleto;
+        formOfPayment = FormOfPaymentModel.empty();
 
   @override
   List<Object> get props => [
         id,
-        type,
+        formOfPayment,
         dateEntry,
         dateDue,
         client,
@@ -60,7 +54,7 @@ class ReceivableModel extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'type': type.name,
+      'formOfPayment': formOfPayment.name,
       'dateEntry': dateEntry.millisecondsSinceEpoch,
       'dateDue': dateDue.millisecondsSinceEpoch,
       'dateReceiving': dateReceiving?.millisecondsSinceEpoch,
@@ -75,12 +69,11 @@ class ReceivableModel extends Equatable {
   factory ReceivableModel.fromJson(Map<String, dynamic> map) {
     var client = PeopleSimplify.fromJson(map['client']);
     var seller = PeopleSimplify.fromJson(map['seller']);
+    var formOfPayment = FormOfPaymentModel.fromJson(map['formOfPayment']);
 
     return ReceivableModel(
       id: map['id'] as int,
-      type: map['type'] == TypeReceivable.Boleto.name
-          ? TypeReceivable.Boleto
-          : TypeReceivable.Cheque,
+      formOfPayment: formOfPayment,
       dateEntry: DateTime.fromMillisecondsSinceEpoch(map['dateEntry']),
       dateDue: DateTime.fromMillisecondsSinceEpoch(map['dateDue']),
       dateReceiving: map['dateReceiving'] != 0
@@ -96,7 +89,7 @@ class ReceivableModel extends Equatable {
 
   ReceivableModel copyWith({
     int? id,
-    TypeReceivable? type,
+    FormOfPaymentModel? formOfPayment,
     DateTime? dateEntry,
     DateTime? dateDue,
     DateTime? dateReceiving,
@@ -108,7 +101,7 @@ class ReceivableModel extends Equatable {
   }) {
     return ReceivableModel(
       id: id ?? this.id,
-      type: type ?? this.type,
+      formOfPayment: formOfPayment ?? this.formOfPayment,
       dateEntry: dateEntry ?? this.dateEntry,
       dateDue: dateDue ?? this.dateDue,
       dateReceiving: dateReceiving ?? this.dateReceiving,

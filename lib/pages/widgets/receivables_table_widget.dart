@@ -42,7 +42,7 @@ class ReceivablesTableWidget extends StatelessWidget {
                 children: [
                   BodyWidget(
                     width: 200,
-                    data: Receivables.type.name,
+                    data: Receivables.formOfPayment.name,
                     label: 'Tipo',
                   ),
                   BodyWidget(

@@ -13,6 +13,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
   final DeleteReceivable deleteReceivable;
   final GetPeoplesClients getPeoplesClients;
   final GetPeoplesSellers getPeoplesSellers;
+  final GetFormOfPayments getFormOfPayments;
 
   ReceivableFormController({
     required this.postReceivable,
@@ -20,6 +21,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
     required this.deleteReceivable,
     required this.getPeoplesClients,
     required this.getPeoplesSellers,
+    required this.getFormOfPayments,
   }) : super(ReceivableFormState.initial());
 
   load() async {
@@ -27,17 +29,20 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
     try {
       final clients = await getPeoplesClients.findAllPeoplesClients();
       final sellers = await getPeoplesSellers.findAllPeoplesSellers();
+      final formOfPayments = await getFormOfPayments.findAll();
       emit(state.copyWith(
         status: ReceivableFormStateStatus.loaded,
         clients: [PeopleSimplify.empty(), ...clients],
         sellers: [PeopleSimplify.empty(), ...sellers],
+        formOfPayments: [FormOfPaymentModel.empty(), ...formOfPayments],
       ));
     } catch (e, s) {
-      log('Erro ao buscar opções de clientes ou vendedores',
+      log('Erro ao buscar opções de clientes, vendedores ou formas de pagamento',
           error: e, stackTrace: s);
       emit(state.copyWith(
         status: ReceivableFormStateStatus.error,
-        errorMessage: 'Erro ao buscar opções de clientes ou vendedores',
+        errorMessage:
+            'Erro ao buscar opções de clientes, vendedores ou formas de pagamento',
       ));
     }
   }
@@ -52,7 +57,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
     required String destiny,
     required PeopleSimplify seller,
     required PeopleSimplify client,
-    required String type,
+    required FormOfPaymentModel formOfPayment,
   }) async {
     try {
       emit(state.copyWith(status: ReceivableFormStateStatus.register));
@@ -61,9 +66,7 @@ class ReceivableFormController extends Cubit<ReceivableFormState> {
         dateEntry: dateEntry,
         seller: seller,
         client: client,
-        type: TypeReceivable.Boleto.name == type
-            ? TypeReceivable.Boleto
-            : TypeReceivable.Cheque,
+        formOfPayment: formOfPayment,
         value: value,
         id: id,
         dateDue: dateDue,

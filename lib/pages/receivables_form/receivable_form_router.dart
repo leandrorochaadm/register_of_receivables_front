@@ -30,6 +30,10 @@ class ReceivableFormRouter {
             create: (context) =>
                 ApiGetPeoplesSellers(dio: context.read<CustomDio>()),
           ),
+          Provider<GetFormOfPayments>(
+            create: (context) =>
+                ApiGetFormOfPayments(dio: context.read<CustomDio>()),
+          ),
           Provider(
               create: (context) => ReceivableFormController(
                     getPeoplesClients: context.read<GetPeoplesClients>(),
@@ -37,6 +41,7 @@ class ReceivableFormRouter {
                     postReceivable: context.read<PostReceivable>(),
                     putReceivable: context.read<PutReceivable>(),
                     deleteReceivable: context.read<DeleteReceivable>(),
+                    getFormOfPayments: context.read<GetFormOfPayments>(),
                   )),
         ],
         child: ReceivableFormPage(),
