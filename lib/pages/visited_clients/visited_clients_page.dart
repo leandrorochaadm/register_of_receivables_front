@@ -54,7 +54,8 @@ class _VisitedClientPageState
       ),
       builder: (context, state) {
         return BasePageWidget(
-          title: "Listagem de clientes não visitados",
+          title:
+              "Listagem de clientes não visitados nos últimos ${widget.daysSearch} dias",
           header: [
             SizedBox(
               width: 225,
@@ -115,7 +116,15 @@ class _VisitedClientPageState
                 ),
               ),
               Text(
-                "Tem ${state.visitedClients.length} clientes sem visitar nos últimos ${widget.daysSearch} dias",
+                "${(state.visitedClients.length / state.countUserActive * 100).toStringAsFixed(0)}% estão sem visita",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.blue[900],
+                ),
+              ),
+              Text(
+                "Tem ${state.visitedClients.length} clientes sem visitar ",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
