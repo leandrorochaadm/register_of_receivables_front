@@ -53,6 +53,7 @@ class PeopleFormController extends Cubit<PeopleFormState> {
     String email,
     PeopleSimplify seller,
     String obs,
+    String isActive,
   ) async {
     try {
       emit(state.copyWith(status: PeopleFormStateStatus.register));
@@ -71,6 +72,7 @@ class PeopleFormController extends Cubit<PeopleFormState> {
         email: email,
         seller: seller,
         obs: obs,
+        isActive: int.parse(isActive),
       );
       if (id == '0') {
         await postPeople.createPeople(people);

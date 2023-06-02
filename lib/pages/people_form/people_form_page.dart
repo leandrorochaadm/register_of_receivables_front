@@ -163,6 +163,7 @@ class _PeopleFormPageState
                       widget.emailEC.text,
                       _selectedSeller,
                       widget.obsEC.text,
+                      widget.isActiveEC.text,
                     );
                   }
                 },
