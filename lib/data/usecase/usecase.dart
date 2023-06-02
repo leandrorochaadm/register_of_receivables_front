@@ -1,4 +1,5 @@
 export 'api_delete_receivable.dart';
+export 'api_get_count_people_active.dart';
 export 'api_get_form_of_payments.dart';
 export 'api_get_peoples.dart';
 export 'api_get_peoples_clients.dart';

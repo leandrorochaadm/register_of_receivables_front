@@ -1,5 +1,6 @@
 export 'delete_people.dart';
 export 'delete_receivable.dart';
+export 'get_count_people_active.dart';
 export 'get_form_of_payments.dart';
 export 'get_people.dart';
 export 'get_people_clients.dart';

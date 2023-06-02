@@ -104,8 +104,16 @@ class _VisitedClientPageState
           ],
           body: VisitedClientsTableWidget(list: state.visitedClients),
           footer: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text(
+                "Tem ${state.countUserActive} ${state.countUserActive > 1 ? 'clientes ativos cadastrados' : 'cliente ativo cadastrado'}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.blue[900],
+                ),
+              ),
               Text(
                 "Tem ${state.visitedClients.length} clientes sem visitar nos últimos ${widget.daysSearch} dias",
                 style: TextStyle(
