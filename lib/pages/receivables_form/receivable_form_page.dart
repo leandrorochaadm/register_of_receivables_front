@@ -485,7 +485,7 @@ class _ReceivableFormPageState
                         ),
                         IconButton(
                           onPressed: () => setState(() {
-                            widget.dateDueEC.text = '';
+                            widget.dateReceivingEC.text = '';
                           }),
                           icon: const Icon(Icons.clear),
                         ),
